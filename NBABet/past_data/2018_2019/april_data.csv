@@ -1,0 +1,129 @@
+Date,Start (ET),AwayTeam,AwayPoints,HomeTeam,HomePoints
+"Mon, Apr 1, 2019",7:00p,Detroit Pistons,102,Indiana Pacers,111
+"Mon, Apr 1, 2019",7:30p,Miami Heat,105,Boston Celtics,110
+"Mon, Apr 1, 2019",7:30p,Milwaukee Bucks,131,Brooklyn Nets,121
+"Mon, Apr 1, 2019",7:30p,Chicago Bulls,105,New York Knicks,113
+"Mon, Apr 1, 2019",7:30p,Orlando Magic,109,Toronto Raptors,121
+"Mon, Apr 1, 2019",8:00p,Portland Trail Blazers,132,Minnesota Timberwolves,122
+"Mon, Apr 1, 2019",8:30p,Philadelphia 76ers,102,Dallas Mavericks,122
+"Mon, Apr 1, 2019",9:00p,Charlotte Hornets,102,Utah Jazz,111
+"Mon, Apr 1, 2019",10:00p,Cleveland Cavaliers,113,Phoenix Suns,122
+"Tue, Apr 2, 2019",8:00p,Los Angeles Lakers,103,Oklahoma City Thunder,119
+"Tue, Apr 2, 2019",8:30p,Atlanta Hawks,111,San Antonio Spurs,117
+"Tue, Apr 2, 2019",10:00p,Houston Rockets,130,Sacramento Kings,105
+"Tue, Apr 2, 2019",10:30p,Denver Nuggets,102,Golden State Warriors,116
+"Wed, Apr 3, 2019",7:00p,Indiana Pacers,108,Detroit Pistons,89
+"Wed, Apr 3, 2019",7:00p,New York Knicks,100,Orlando Magic,114
+"Wed, Apr 3, 2019",7:00p,Chicago Bulls,115,Washington Wizards,114
+"Wed, Apr 3, 2019",7:30p,Philadelphia 76ers,122,Atlanta Hawks,130
+"Wed, Apr 3, 2019",7:30p,Toronto Raptors,115,Brooklyn Nets,105
+"Wed, Apr 3, 2019",7:30p,Boston Celtics,112,Miami Heat,102
+"Wed, Apr 3, 2019",8:00p,Charlotte Hornets,115,New Orleans Pelicans,109
+"Wed, Apr 3, 2019",8:30p,Minnesota Timberwolves,110,Dallas Mavericks,108
+"Wed, Apr 3, 2019",9:00p,San Antonio Spurs,85,Denver Nuggets,113
+"Wed, Apr 3, 2019",10:00p,Utah Jazz,118,Phoenix Suns,97
+"Wed, Apr 3, 2019",10:00p,Memphis Grizzlies,89,Portland Trail Blazers,116
+"Wed, Apr 3, 2019",10:30p,Houston Rockets,135,Los Angeles Clippers,103
+"Thu, Apr 4, 2019",8:00p,Milwaukee Bucks,128,Philadelphia 76ers,122
+"Thu, Apr 4, 2019",10:00p,Cleveland Cavaliers,104,Sacramento Kings,117
+"Thu, Apr 4, 2019",10:30p,Golden State Warriors,108,Los Angeles Lakers,90
+"Fri, Apr 5, 2019",7:00p,Toronto Raptors,111,Charlotte Hornets,113
+"Fri, Apr 5, 2019",7:00p,Atlanta Hawks,113,Orlando Magic,149
+"Fri, Apr 5, 2019",7:00p,San Antonio Spurs,129,Washington Wizards,112
+"Fri, Apr 5, 2019",8:00p,New York Knicks,96,Houston Rockets,120
+"Fri, Apr 5, 2019",8:00p,Boston Celtics,117,Indiana Pacers,97
+"Fri, Apr 5, 2019",8:00p,Miami Heat,109,Minnesota Timberwolves,111
+"Fri, Apr 5, 2019",8:00p,Detroit Pistons,110,Oklahoma City Thunder,123
+"Fri, Apr 5, 2019",8:30p,Memphis Grizzlies,122,Dallas Mavericks,112
+"Fri, Apr 5, 2019",9:00p,Sacramento Kings,98,Utah Jazz,119
+"Fri, Apr 5, 2019",10:00p,New Orleans Pelicans,126,Phoenix Suns,133
+"Fri, Apr 5, 2019",10:30p,Portland Trail Blazers,110,Denver Nuggets,119
+"Fri, Apr 5, 2019",10:30p,Cleveland Cavaliers,114,Golden State Warriors,120
+"Fri, Apr 5, 2019",10:30p,Los Angeles Lakers,122,Los Angeles Clippers,117
+"Sat, Apr 6, 2019",5:00p,Brooklyn Nets,133,Milwaukee Bucks,128
+"Sat, Apr 6, 2019",8:00p,Philadelphia 76ers,116,Chicago Bulls,96
+"Sun, Apr 7, 2019",12:00p,Miami Heat,109,Toronto Raptors,117
+"Sun, Apr 7, 2019",3:00p,San Antonio Spurs,112,Cleveland Cavaliers,90
+"Sun, Apr 7, 2019",3:30p,Oklahoma City Thunder,132,Minnesota Timberwolves,126
+"Sun, Apr 7, 2019",4:00p,Charlotte Hornets,104,Detroit Pistons,91
+"Sun, Apr 7, 2019",5:00p,Brooklyn Nets,108,Indiana Pacers,96
+"Sun, Apr 7, 2019",6:00p,Dallas Mavericks,129,Memphis Grizzlies,127
+"Sun, Apr 7, 2019",7:00p,Phoenix Suns,113,Houston Rockets,149
+"Sun, Apr 7, 2019",7:00p,Atlanta Hawks,107,Milwaukee Bucks,115
+"Sun, Apr 7, 2019",7:30p,Orlando Magic,116,Boston Celtics,108
+"Sun, Apr 7, 2019",7:30p,Washington Wizards,110,New York Knicks,113
+"Sun, Apr 7, 2019",8:30p,Los Angeles Clippers,104,Golden State Warriors,131
+"Sun, Apr 7, 2019",9:00p,Denver Nuggets,108,Portland Trail Blazers,115
+"Sun, Apr 7, 2019",9:00p,New Orleans Pelicans,133,Sacramento Kings,129
+"Sun, Apr 7, 2019",9:30p,Utah Jazz,109,Los Angeles Lakers,113
+"Tue, Apr 9, 2019",7:00p,Charlotte Hornets,124,Cleveland Cavaliers,97
+"Tue, Apr 9, 2019",7:00p,Memphis Grizzlies,93,Detroit Pistons,100
+"Tue, Apr 9, 2019",7:00p,Boston Celtics,116,Washington Wizards,110
+"Tue, Apr 9, 2019",7:30p,Philadelphia 76ers,99,Miami Heat,122
+"Tue, Apr 9, 2019",8:00p,New York Knicks,96,Chicago Bulls,86
+"Tue, Apr 9, 2019",8:00p,Toronto Raptors,120,Minnesota Timberwolves,100
+"Tue, Apr 9, 2019",8:00p,Golden State Warriors,112,New Orleans Pelicans,103
+"Tue, Apr 9, 2019",8:30p,Phoenix Suns,109,Dallas Mavericks,120
+"Tue, Apr 9, 2019",9:00p,Denver Nuggets,108,Utah Jazz,118
+"Tue, Apr 9, 2019",9:30p,Houston Rockets,111,Oklahoma City Thunder,112
+"Tue, Apr 9, 2019",10:30p,Portland Trail Blazers,104,Los Angeles Lakers,101
+"Wed, Apr 10, 2019",8:00p,Indiana Pacers,135,Atlanta Hawks,134
+"Wed, Apr 10, 2019",8:00p,Miami Heat,94,Brooklyn Nets,113
+"Wed, Apr 10, 2019",8:00p,Orlando Magic,122,Charlotte Hornets,114
+"Wed, Apr 10, 2019",8:00p,Golden State Warriors,117,Memphis Grizzlies,132
+"Wed, Apr 10, 2019",8:00p,Oklahoma City Thunder,127,Milwaukee Bucks,116
+"Wed, Apr 10, 2019",8:00p,Detroit Pistons,115,New York Knicks,89
+"Wed, Apr 10, 2019",8:00p,Chicago Bulls,109,Philadelphia 76ers,125
+"Wed, Apr 10, 2019",8:00p,Dallas Mavericks,94,San Antonio Spurs,105
+"Wed, Apr 10, 2019",10:30p,Minnesota Timberwolves,95,Denver Nuggets,99
+"Wed, Apr 10, 2019",10:30p,Utah Jazz,137,Los Angeles Clippers,143
+"Wed, Apr 10, 2019",10:30p,Sacramento Kings,131,Portland Trail Blazers,136
+Playoffs,Playoffs,Playoffs,Playoffs,Playoffs,Playoffs
+"Sat, Apr 13, 2019",2:30p,Brooklyn Nets,111,Philadelphia 76ers,102
+"Sat, Apr 13, 2019",5:00p,Orlando Magic,104,Toronto Raptors,101
+"Sat, Apr 13, 2019",8:00p,Los Angeles Clippers,104,Golden State Warriors,121
+"Sat, Apr 13, 2019",10:30p,San Antonio Spurs,101,Denver Nuggets,96
+"Sun, Apr 14, 2019",1:00p,Indiana Pacers,74,Boston Celtics,84
+"Sun, Apr 14, 2019",3:30p,Oklahoma City Thunder,99,Portland Trail Blazers,104
+"Sun, Apr 14, 2019",7:00p,Detroit Pistons,86,Milwaukee Bucks,121
+"Sun, Apr 14, 2019",9:30p,Utah Jazz,90,Houston Rockets,122
+"Mon, Apr 15, 2019",8:00p,Brooklyn Nets,123,Philadelphia 76ers,145
+"Mon, Apr 15, 2019",10:30p,Los Angeles Clippers,135,Golden State Warriors,131
+"Tue, Apr 16, 2019",8:00p,Orlando Magic,82,Toronto Raptors,111
+"Tue, Apr 16, 2019",9:00p,San Antonio Spurs,105,Denver Nuggets,114
+"Tue, Apr 16, 2019",10:30p,Oklahoma City Thunder,94,Portland Trail Blazers,114
+"Wed, Apr 17, 2019",7:00p,Indiana Pacers,91,Boston Celtics,99
+"Wed, Apr 17, 2019",8:00p,Detroit Pistons,99,Milwaukee Bucks,120
+"Wed, Apr 17, 2019",9:30p,Utah Jazz,98,Houston Rockets,118
+"Thu, Apr 18, 2019",8:00p,Philadelphia 76ers,131,Brooklyn Nets,115
+"Thu, Apr 18, 2019",9:00p,Denver Nuggets,108,San Antonio Spurs,118
+"Thu, Apr 18, 2019",10:30p,Golden State Warriors,132,Los Angeles Clippers,105
+"Fri, Apr 19, 2019",7:00p,Toronto Raptors,98,Orlando Magic,93
+"Fri, Apr 19, 2019",8:30p,Boston Celtics,104,Indiana Pacers,96
+"Fri, Apr 19, 2019",9:30p,Portland Trail Blazers,108,Oklahoma City Thunder,120
+"Sat, Apr 20, 2019",3:00p,Philadelphia 76ers,112,Brooklyn Nets,108
+"Sat, Apr 20, 2019",5:30p,Denver Nuggets,117,San Antonio Spurs,103
+"Sat, Apr 20, 2019",8:00p,Milwaukee Bucks,119,Detroit Pistons,103
+"Sat, Apr 20, 2019",10:30p,Houston Rockets,104,Utah Jazz,101
+"Sun, Apr 21, 2019",1:00p,Boston Celtics,110,Indiana Pacers,106
+"Sun, Apr 21, 2019",3:30p,Golden State Warriors,113,Los Angeles Clippers,105
+"Sun, Apr 21, 2019",7:00p,Toronto Raptors,107,Orlando Magic,85
+"Sun, Apr 21, 2019",9:30p,Portland Trail Blazers,111,Oklahoma City Thunder,98
+"Mon, Apr 22, 2019",8:00p,Milwaukee Bucks,127,Detroit Pistons,104
+"Mon, Apr 22, 2019",10:30p,Houston Rockets,91,Utah Jazz,107
+"Tue, Apr 23, 2019",7:00p,Orlando Magic,96,Toronto Raptors,115
+"Tue, Apr 23, 2019",8:00p,Brooklyn Nets,100,Philadelphia 76ers,122
+"Tue, Apr 23, 2019",9:30p,San Antonio Spurs,90,Denver Nuggets,108
+"Tue, Apr 23, 2019",10:30p,Oklahoma City Thunder,115,Portland Trail Blazers,118
+"Wed, Apr 24, 2019",8:00p,Utah Jazz,93,Houston Rockets,100
+"Wed, Apr 24, 2019",10:30p,Los Angeles Clippers,129,Golden State Warriors,121
+"Thu, Apr 25, 2019",8:00p,Denver Nuggets,103,San Antonio Spurs,120
+"Fri, Apr 26, 2019",10:00p,Golden State Warriors,129,Los Angeles Clippers,110
+"Sat, Apr 27, 2019",7:30p,Philadelphia 76ers,95,Toronto Raptors,108
+"Sat, Apr 27, 2019",10:00p,San Antonio Spurs,86,Denver Nuggets,90
+"Sun, Apr 28, 2019",1:00p,Boston Celtics,112,Milwaukee Bucks,90
+"Sun, Apr 28, 2019",3:30p,Houston Rockets,100,Golden State Warriors,104
+"Mon, Apr 29, 2019",8:00p,Philadelphia 76ers,94,Toronto Raptors,89
+"Mon, Apr 29, 2019",10:30p,Portland Trail Blazers,113,Denver Nuggets,121
+"Tue, Apr 30, 2019",8:00p,Boston Celtics,102,Milwaukee Bucks,123
+"Tue, Apr 30, 2019",10:30p,Houston Rockets,109,Golden State Warriors,115
