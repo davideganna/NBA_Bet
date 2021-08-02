@@ -10,8 +10,9 @@ from sklearn.pipeline import make_pipeline
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 
+
 # Create the df containing stats per single game on every row
-df = pd.read_csv('past_data/merged_seasons/2018_to_2021_Stats.csv')
+df = pd.read_csv('past_data/merged_seasons/2018_to_2020_Stats.csv')
 ord_encoder = OrdinalEncoder()
 df[['Team_home', 'Team_away']] = ord_encoder.fit_transform(df[['Team_home', 'Team_away']])
 

@@ -119,3 +119,4 @@ df_old = pd.read_csv('past_data/merged_seasons/2019_to_2021_Stats.csv')
 
 df = pd.concat([df_new, df_old], axis=0)
 df.to_csv('past_data/merged_seasons/2018_to_2021_Stats.csv', index=False)
+

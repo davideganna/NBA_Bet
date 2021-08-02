@@ -14,6 +14,17 @@ logger = logging.getLogger('Helper.py')
 coloredlogs.install(level='DEBUG')
 
 # Functions
+def add_odds_to_split_df():
+    df = pd.read_csv('past_data/2020_2021/historical_odds_2020_2021.csv', sep=';', index_col=False)
+    df.drop(['Rot', '1st', '2nd', '3rd', '4th', 'Open', 'Close', '2H'], axis=1, inplace=True)
+    spg_away =  df.iloc[::2]
+    spg_home =  df.iloc[1::2]
+    # Compute European Odds
+    df = df.assign(Odds = df['ML']/100) # Set the winner as the Home Team
+    df['Odds'].loc[df['ML'] < 0] = 1+100/(-df['ML'])
+    print(df.head(10))
+
+
 def append_stats_per_game(df, team):
     dal.data_dict['Team'].append(team)
     dal.data_dict['MP'].append(int(df.loc[df.index[-1], ('Basic Box Score Stats', 'MP')]))
