@@ -5,6 +5,8 @@ import backtesting
 import dicts_and_lists as dal
 import logging, coloredlogs
 
+pd.set_option('display.max_rows', 500)
+
 # ------ Logger ------- #
 logger = logging.getLogger('test_models.py')
 coloredlogs.install(level='DEBUG')
@@ -42,6 +44,7 @@ df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 # To evaluate accuracy
 predictions = []
 true_values = []
+odds_winner = []
 
 # Maximum allowed average_N: 35
 average_N = 10
@@ -73,6 +76,7 @@ for skip_n_games in range(36-average_N):
         true_value = next_game['Winner'].values[0]
         predictions.append(pred)
         true_values.append(true_value)
+        odds_winner.append(next_game['OddsWinner'].values[0])
 
         # Find next games where "team" plays home
         next_games_indexes = df.loc[df['Team_home'] == team].index
@@ -96,6 +100,33 @@ for skip_n_games in range(36-average_N):
         true_value = next_game['Winner'].values[0]
         predictions.append(pred)
         true_values.append(true_value)
+        odds_winner.append(next_game['OddsWinner'].values[0])
 
     difference = np.array(predictions) - np.array(true_values)
-    print(f'Accuracy after {len(difference)} samples: {np.count_nonzero(difference==0)/len(difference):.3f}')
+    accuracy = np.count_nonzero(difference==0)/len(difference)
+    print(f'Accuracy after {len(difference)} samples: {accuracy:.3f}')
+
+# Evaluate the predictions
+data = {
+    'Predictions' : predictions,
+    'TrueValues'  : true_values,
+    'OddsWinner'  : odds_winner
+}
+ev_df = pd.DataFrame(data)
+
+# Drop the rows under given accuracy
+ev_df = ev_df[ev_df['OddsWinner'] > (1/accuracy)]
+
+# Compare Predictions and TrueValues
+comparison_column = np.where(ev_df['Predictions'] == ev_df['TrueValues'], True, False)
+
+# Bet a different amount depending on odds
+ev_df = ev_df.assign(BetAmount = (-2.5*ev_df['OddsWinner'] + 15))
+ev_df['BetAmount'].loc[(ev_df['BetAmount'] < 2)] = 2
+
+net_worth = comparison_column * ev_df['OddsWinner'] * ev_df['BetAmount'] - ev_df['BetAmount']
+
+# Assign new Net Worth row
+ev_df['NetWorth'] = net_worth
+print(ev_df.head())
+print(f'Net worth: {net_worth.sum()} €')
