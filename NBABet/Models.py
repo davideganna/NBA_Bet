@@ -3,7 +3,6 @@ import Helper
 import pandas as pd
 pd.options.mode.chained_assignment = None
 from sklearn.preprocessing import OrdinalEncoder
-from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
