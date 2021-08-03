@@ -1,6 +1,8 @@
 # External Libraries
 from datetime import date
 import pandas as pd
+pd.options.mode.chained_assignment = None
+import numpy as np
 import os
 from pathlib import Path
 from pandas.core.frame import DataFrame
@@ -15,14 +17,51 @@ coloredlogs.install(level='DEBUG')
 
 # Functions
 def add_odds_to_split_df():
-    df = pd.read_csv('past_data/2020_2021/historical_odds_2020_2021.csv', sep=';', index_col=False)
-    df.drop(['Rot', '1st', '2nd', '3rd', '4th', 'Open', 'Close', '2H'], axis=1, inplace=True)
-    spg_away =  df.iloc[::2]
-    spg_home =  df.iloc[1::2]
+    odds_df = pd.read_csv('past_data/2020_2021/historical_odds_2020_2021.csv', sep=';', index_col=False)
     # Compute European Odds
-    df = df.assign(Odds = df['ML']/100) # Set the winner as the Home Team
-    df['Odds'].loc[df['ML'] < 0] = 1+100/(-df['ML'])
-    print(df.head(10))
+    odds_df = odds_df.assign(Odds = odds_df['ML']/100) # Set the winner as the Home Team
+    odds_df['Odds'].loc[odds_df['ML'] < 0] = (1 + 100/(-odds_df['ML']))
+
+    odds_df.drop(['Date', 'Rot', '1st', '2nd', '3rd', '4th', 'Open', 'Close', 'ML', '2H'], axis=1, inplace=True)
+    
+    odds_away =  odds_df.loc[odds_df['VH'] == 'V']
+    odds_home =  odds_df.loc[odds_df['VH'] == 'H']
+    
+    odds_away.drop('VH', axis=1, inplace=True)
+    odds_home.drop('VH', axis=1, inplace=True)
+
+    odds_away.rename(dal.historical_away, axis=1, inplace=True)
+    odds_home.rename(dal.historical_home, axis=1, inplace=True)
+
+    odds_away.reset_index(drop=True, inplace=True)
+    odds_home.reset_index(drop=True, inplace=True)
+    
+    odds_df = pd.concat([odds_away, odds_home], axis=1)
+
+    # Read stats_per_game.csv
+    split_stats_df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+    # Add column with odds
+    split_stats_df = split_stats_df.assign(OddsWinner = np.nan)
+    split_copy = split_stats_df.copy()
+    for n, row in split_copy.iterrows():
+        if row['Winner'] == 0:
+            row['OddsWinner'] = odds_df['Odds_home'].loc[
+                (odds_df['Team_away'] == row['Team_away']) &
+                (odds_df['Team_home'] == row['Team_home']) & 
+                (odds_df['Final_home'] == row['PTS_home']) &
+                (odds_df['Final_away'] == row['PTS_away']) 
+            ]
+        else:
+            row['OddsWinner'] = odds_df['Odds_away'].loc[
+                (odds_df['Team_away'] == row['Team_away']) &
+                (odds_df['Team_home'] == row['Team_home']) & 
+                (odds_df['Final_home'] == row['PTS_home']) &
+                (odds_df['Final_away'] == row['PTS_away']) 
+            ]
+        split_stats_df['OddsWinner'].iloc[n] = round(row['OddsWinner'].values[0], 2)
+
+    split_stats_df.to_csv('past_data/2020_2021/split_stats_per_game.csv', index=False)
+
 
 
 def append_stats_per_game(df, team):

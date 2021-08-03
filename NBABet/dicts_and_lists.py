@@ -240,3 +240,16 @@ features_home = [
     'TOV_home',
     'PF_home'
     ]
+
+# Historical Odds
+historical_away = {
+    'Team'  : 'Team_away',
+    'Final' : 'Final_away',
+    'Odds'  : 'Odds_away'
+}
+
+historical_home = {
+    'Team'  : 'Team_home',
+    'Final' : 'Final_home',
+    'Odds'  : 'Odds_home'
+}
