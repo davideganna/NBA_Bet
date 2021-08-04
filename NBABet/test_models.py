@@ -50,7 +50,7 @@ odds_winner = []
 average_N = 10
 print(f'Stats averaged from {average_N} games.')
 
-for skip_n_games in range(36-average_N):
+for skip_n_games in range(20, 36-average_N):
     last_N_games_home, last_N_games_away = backtesting.get_first_N_games(df, average_N, skip_n_games)
     # Get next game based on next_game_index
     for team in dal.teams:
@@ -128,5 +128,5 @@ net_worth = comparison_column * ev_df['OddsWinner'] * ev_df['BetAmount'] - ev_df
 
 # Assign new Net Worth row
 ev_df['NetWorth'] = net_worth
-print(ev_df.head())
-print(f'Net worth: {net_worth.sum()} €')
+print(ev_df)
+print(f'Net worth: {net_worth.sum():.2f} €')

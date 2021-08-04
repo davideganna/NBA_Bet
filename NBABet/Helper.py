@@ -42,23 +42,39 @@ def add_odds_to_split_df():
     split_stats_df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
     # Add column with odds
     split_stats_df = split_stats_df.assign(OddsWinner = np.nan)
+    split_stats_df = split_stats_df.assign(OddsLoser = np.nan)
     split_copy = split_stats_df.copy()
     for n, row in split_copy.iterrows():
-        if row['Winner'] == 0:
+        # Home team won, Away team lost
+        if row['Winner'] == 0: 
             row['OddsWinner'] = odds_df['Odds_home'].loc[
                 (odds_df['Team_away'] == row['Team_away']) &
                 (odds_df['Team_home'] == row['Team_home']) & 
                 (odds_df['Final_home'] == row['PTS_home']) &
                 (odds_df['Final_away'] == row['PTS_away']) 
             ]
-        else:
+            row['OddsLoser'] = odds_df['Odds_away'].loc[
+                (odds_df['Team_away'] == row['Team_away']) &
+                (odds_df['Team_home'] == row['Team_home']) & 
+                (odds_df['Final_home'] == row['PTS_home']) &
+                (odds_df['Final_away'] == row['PTS_away']) 
+            ]
+        # Away team won, Home team lost
+        else: 
             row['OddsWinner'] = odds_df['Odds_away'].loc[
                 (odds_df['Team_away'] == row['Team_away']) &
                 (odds_df['Team_home'] == row['Team_home']) & 
                 (odds_df['Final_home'] == row['PTS_home']) &
                 (odds_df['Final_away'] == row['PTS_away']) 
             ]
+            row['OddsLoser'] = odds_df['Odds_home'].loc[
+                (odds_df['Team_away'] == row['Team_away']) &
+                (odds_df['Team_home'] == row['Team_home']) & 
+                (odds_df['Final_home'] == row['PTS_home']) &
+                (odds_df['Final_away'] == row['PTS_away']) 
+            ]
         split_stats_df['OddsWinner'].iloc[n] = round(row['OddsWinner'].values[0], 2)
+        split_stats_df['OddsLoser'].iloc[n] = round(row['OddsLoser'].values[0], 2)
 
     split_stats_df.to_csv('past_data/2020_2021/split_stats_per_game.csv', index=False)
 
