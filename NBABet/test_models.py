@@ -45,12 +45,14 @@ df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 predictions = []
 true_values = []
 odds_winner = []
+odds_loser  = []
 
 # Maximum allowed average_N: 35
-average_N = 10
-print(f'Stats averaged from {average_N} games.')
+average_N = 5
+skip_n = 20
+print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
-for skip_n_games in range(20, 36-average_N):
+for skip_n_games in range(skip_n, 36-average_N):
     last_N_games_home, last_N_games_away = backtesting.get_first_N_games(df, average_N, skip_n_games)
     # Get next game based on next_game_index
     for team in dal.teams:
@@ -77,6 +79,7 @@ for skip_n_games in range(20, 36-average_N):
         predictions.append(pred)
         true_values.append(true_value)
         odds_winner.append(next_game['OddsWinner'].values[0])
+        odds_loser.append(next_game['OddsLoser'].values[0])
 
         # Find next games where "team" plays home
         next_games_indexes = df.loc[df['Team_home'] == team].index
@@ -101,6 +104,7 @@ for skip_n_games in range(20, 36-average_N):
         predictions.append(pred)
         true_values.append(true_value)
         odds_winner.append(next_game['OddsWinner'].values[0])
+        odds_loser.append(next_game['OddsLoser'].values[0])
 
     difference = np.array(predictions) - np.array(true_values)
     accuracy = np.count_nonzero(difference==0)/len(difference)
@@ -110,12 +114,28 @@ for skip_n_games in range(20, 36-average_N):
 data = {
     'Predictions' : predictions,
     'TrueValues'  : true_values,
-    'OddsWinner'  : odds_winner
+    'OddsWinner'  : odds_winner,
+    'OddsLoser'   : odds_loser
 }
 ev_df = pd.DataFrame(data)
 
-# Drop the rows under given accuracy
-ev_df = ev_df[ev_df['OddsWinner'] > (1/accuracy)]
+# Calculate accuracy of predicted teams, when they were the favorite by a margin
+margin = 0.1
+
+correctly_predicted = ev_df.loc[
+    (ev_df['Predictions'] == ev_df['TrueValues']) &
+    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
+    ].count()
+
+total = ev_df.loc[
+    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
+    ].count()
+
+accuracy_favorite = correctly_predicted[0]/total[0]
+print(f'Accuracy of predicted teams when they were the favorite: {accuracy_favorite:.2f}')
+
+# Drop the rows under the given accuracy
+ev_df = ev_df[ev_df['OddsWinner'] > (1/accuracy_favorite)]
 
 # Compare Predictions and TrueValues
 comparison_column = np.where(ev_df['Predictions'] == ev_df['TrueValues'], True, False)
@@ -125,6 +145,12 @@ ev_df = ev_df.assign(BetAmount = (-2.5*ev_df['OddsWinner'] + 15))
 ev_df['BetAmount'].loc[(ev_df['BetAmount'] < 2)] = 2
 
 net_worth = comparison_column * ev_df['OddsWinner'] * ev_df['BetAmount'] - ev_df['BetAmount']
+
+# Extract the rows where the model predicted the lowest odds between the two teams,
+# i.e., where the team is the favorite to win
+ev_df = ev_df.loc[
+    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
+    ]
 
 # Assign new Net Worth row
 ev_df['NetWorth'] = net_worth
