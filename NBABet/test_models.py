@@ -48,8 +48,8 @@ odds_winner = []
 odds_loser  = []
 
 # Maximum allowed average_N: 35
-average_N = 5
-skip_n = 20
+average_N = 10
+skip_n = 10
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 36-average_N):
@@ -121,38 +121,45 @@ ev_df = pd.DataFrame(data)
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.1
-
 correctly_predicted = ev_df.loc[
     (ev_df['Predictions'] == ev_df['TrueValues']) &
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
     ].count()
 
-total = ev_df.loc[
+total_predicted = ev_df.loc[
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
     ].count()
 
-accuracy_favorite = correctly_predicted[0]/total[0]
-print(f'Accuracy of predicted teams when they were the favorite: {accuracy_favorite:.2f}')
+accuracy_favorite = correctly_predicted[0]/total_predicted[0]
+print(f'Accuracy of predicted teams when they were the favorite: {accuracy_favorite:.3f}')
 
 # Drop the rows under the given accuracy
 ev_df = ev_df[ev_df['OddsWinner'] > (1/accuracy_favorite)]
 
+# Extract the rows where the model predicted the lowest odds between the two teams,
+# i.e., where the team is the favorite to win. (Plus some margin)
+ev_df = ev_df.loc[
+    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
+    ].reset_index()
+
 # Compare Predictions and TrueValues
 comparison_column = np.where(ev_df['Predictions'] == ev_df['TrueValues'], True, False)
 
-# Bet a different amount depending on odds
-ev_df = ev_df.assign(BetAmount = (-2.5*ev_df['OddsWinner'] + 15))
-ev_df['BetAmount'].loc[(ev_df['BetAmount'] < 2)] = 2
+# Kelly's criterion: bet a different fraction of the bankroll depending on odds
+bankroll = 100 # €
+bet_amount = []
+net_won = []
+for n, row in ev_df.iterrows():
+    frac_amount = (accuracy_favorite*row['OddsWinner']-1)/(row['OddsWinner']-1)
+    bet_amount.append(bankroll * frac_amount)
+    net_won.append(bet_amount[n] * row['OddsWinner'] * (row['Predictions'] == row['TrueValues']) - bet_amount[n])
+    bankroll = bankroll + net_won[n]
 
-net_worth = comparison_column * ev_df['OddsWinner'] * ev_df['BetAmount'] - ev_df['BetAmount']
+ev_df['BetAmount'] = bet_amount
+ev_df['NetWon'] = net_won
 
-# Extract the rows where the model predicted the lowest odds between the two teams,
-# i.e., where the team is the favorite to win
-ev_df = ev_df.loc[
-    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
-    ]
+# Evaluate the bankroll and the ROI
+print(ev_df.head())
+print(f'Net worth: {bankroll:.2f} €')
+print(f'ROI: {bankroll/100:.2f}')
 
-# Assign new Net Worth row
-ev_df['NetWorth'] = net_worth
-print(ev_df)
-print(f'Net worth: {net_worth.sum():.2f} €')
