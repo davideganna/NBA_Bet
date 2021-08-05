@@ -49,7 +49,7 @@ odds_loser  = []
 
 # Maximum allowed average_N: 35
 average_N = 10
-skip_n = 10
+skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 36-average_N):
@@ -146,20 +146,24 @@ ev_df = ev_df.loc[
 comparison_column = np.where(ev_df['Predictions'] == ev_df['TrueValues'], True, False)
 
 # Kelly's criterion: bet a different fraction of the bankroll depending on odds
-bankroll = 100 # €
+starting_bankroll = 100 # €
+current_bankroll = starting_bankroll
 bet_amount = []
 net_won = []
+bankroll = []
 for n, row in ev_df.iterrows():
     frac_amount = (accuracy_favorite*row['OddsWinner']-1)/(row['OddsWinner']-1)
-    bet_amount.append(bankroll * frac_amount)
+    print(frac_amount)
+    bet_amount.append(current_bankroll * frac_amount)
     net_won.append(bet_amount[n] * row['OddsWinner'] * (row['Predictions'] == row['TrueValues']) - bet_amount[n])
-    bankroll = bankroll + net_won[n]
+    current_bankroll = current_bankroll + net_won[n]
+    bankroll.append(current_bankroll)
 
 ev_df['BetAmount'] = bet_amount
 ev_df['NetWon'] = net_won
+ev_df['Bankroll'] = bankroll
 
 # Evaluate the bankroll and the ROI
-print(ev_df.head())
-print(f'Net worth: {bankroll:.2f} €')
-print(f'ROI: {bankroll/100:.2f}')
+print(f'Net worth: {current_bankroll:.2f} €')
+print(f'ROI: {100*current_bankroll/starting_bankroll:.2f}%')
 
