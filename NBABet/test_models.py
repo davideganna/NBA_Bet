@@ -75,7 +75,7 @@ odds_loser  = []
 
 # Maximum allowed average_N: 35
 average_N = 5
-skip_n = 20
+skip_n = 10
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 36-average_N):
@@ -144,11 +144,16 @@ bet_amount = []
 net_won = []
 bankroll = []
 for n, row in ev_df.iterrows():
-    frac_amount = (row['ModelOdds']*row['OddsWinner']-1)/(row['OddsWinner']-1)
+    frac_amount = (row['ModelProbability']*row['OddsWinner']-1)/(row['OddsWinner']-1)
     if frac_amount > 0:
-        if frac_amount > 0.5:
-            frac_amount = 0.35
-        bet_amount.append(current_bankroll * frac_amount)
+        # Limit the portion of bankroll to bet
+        if frac_amount > 0.9:
+            frac_amount = 0.9
+        # Max win is capped at 10000
+        if (current_bankroll * frac_amount * row['OddsWinner']) > 10000:
+            bet_amount.append(10000)
+        else:
+            bet_amount.append(current_bankroll * frac_amount)
         net_won.append(bet_amount[n] * row['OddsWinner'] * (row['Predictions'] == row['TrueValues']) - bet_amount[n])
         current_bankroll = current_bankroll + net_won[n]
         bankroll.append(current_bankroll)
