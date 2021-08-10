@@ -111,8 +111,9 @@ def build_season_df(folder):
     april_df = pd.read_csv(folder + 'april_data.csv')
     may_df = pd.read_csv(folder + 'may_data.csv')
     june_df = pd.read_csv(folder + 'june_data.csv')
+    july_df = pd.read_csv(folder + 'july_data.csv')
 
-    season_df = pd.concat([december_df, january_df, february_df, march_df, april_df, may_df, june_df])
+    season_df = pd.concat([december_df, january_df, february_df, march_df, april_df, may_df, june_df, july_df])
     season_df.to_csv(folder + '2020_2021_season.csv', index=False)
 
     return season_df
@@ -189,7 +190,6 @@ def check_df(folder:str):
     If not, new rows are added to the file.
     """
     current_month = date.today().strftime("%B").lower()
-    current_month = 'july'
     # Retrieve url based on current month
     url = 'https://www.basketball-reference.com/leagues/NBA_2021_games-'+ current_month + '.html'
     df_url = pd.read_html(url)[0]
@@ -285,6 +285,10 @@ def split_stats_per_game(folder:str):
     # Assign a column containing the winner: 0 = Home, 1 = Away
     df = df.assign(Winner = 0) # Set the winner as the Home Team
     df['Winner'].loc[df['PTS_away'] > df['PTS_home']] = 1 # Change to Away if PTS_away > PTS_home
+
+    # Assign the date per single game based on past season DataFrame
+    season_df = pd.read_csv(folder + '2020_2021_season.csv', index_col=False)
+    df.insert(loc=0, column='Date', value=season_df['Date'])
     
     df.to_csv(folder + 'split_stats_per_game.csv', index=False)
 

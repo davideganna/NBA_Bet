@@ -34,6 +34,8 @@ def extract_and_predict(next_game):
     model_odds.append(1/max(prob[0]))
     odds_winner.append(next_game['OddsWinner'].values[0])
     odds_loser.append(next_game['OddsLoser'].values[0])
+    home_teams_list.append(home_team)
+    away_teams_list.append(away_team)
 
 # Only the most significant features will be considered
 away_features = Models.away_features
@@ -72,14 +74,16 @@ model_prob  = []
 model_odds  = []
 odds_winner = []
 odds_loser  = []
+home_teams_list   = []
+away_teams_list   = []
 
 # Maximum allowed average_N: 35
 average_N = 5
-skip_n = 10
+skip_n = 1
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 36-average_N):
-    last_N_games_home, last_N_games_away = backtesting.get_first_N_games(df, average_N, skip_n_games)
+    last_N_games_away, last_N_games_home = backtesting.get_first_N_games(df, average_N, skip_n_games)
     # Get next game based on next_game_index
     for team in dal.teams:
         # Find next game where "team" plays away
@@ -102,6 +106,8 @@ for skip_n_games in range(skip_n, 36-average_N):
 
 # Evaluate the predictions
 data = {
+    'AwayTeam'          : away_teams_list,
+    'HomeTeam'          : home_teams_list,
     'Predictions'       : predictions,
     'TrueValues'        : true_values,
     'ModelProbability'  : model_prob,
@@ -110,6 +116,7 @@ data = {
     'OddsLoser'         : odds_loser
 }
 ev_df = pd.DataFrame(data)
+print(ev_df.drop_duplicates(['AwayTeam', 'HomeTeam', 'OddsWinner', 'OddsLoser']).reset_index(drop=True))
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
@@ -145,12 +152,10 @@ net_won = []
 bankroll = []
 for n, row in ev_df.iterrows():
     frac_amount = (row['ModelProbability']*row['OddsWinner']-1)/(row['OddsWinner']-1)
-    if frac_amount > 1:
-        print(frac_amount)
     if frac_amount > 0:
         # Limit the portion of bankroll to bet
-        if frac_amount > 0.3:
-            frac_amount = 0.3
+        if frac_amount > 0.2:
+            frac_amount = 0.2
         # Max win is capped at 10000
         if (current_bankroll * frac_amount * row['OddsWinner']) > 10000:
             bet_amount.append(10000/row['OddsWinner'])
@@ -170,7 +175,7 @@ ev_df['NetWon'] = net_won
 ev_df['Bankroll'] = bankroll
 
 # Evaluate the bankroll and the ROI
-print(ev_df)
+print(ev_df.tail(10))
 print(f'Net worth: {current_bankroll-starting_bankroll:.2f} €')
 print(f'ROI: {100*current_bankroll/starting_bankroll:.2f}%')
 

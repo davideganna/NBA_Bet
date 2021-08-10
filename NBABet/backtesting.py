@@ -15,8 +15,8 @@ def get_first_N_games(df:pd.DataFrame, n:int, skip:int):
     home_list = []
     away_list = []
     for team in dal.teams:
-        home_list.append(df.loc[df['Team_home'] == team][skip:n+skip])
         away_list.append(df.loc[df['Team_away'] == team][skip:n+skip])
+        home_list.append(df.loc[df['Team_home'] == team][skip:n+skip])
     
-    return home_list, away_list
+    return away_list, home_list
 
