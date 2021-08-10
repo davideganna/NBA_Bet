@@ -151,7 +151,7 @@ for n, row in ev_df.iterrows():
             frac_amount = 0.9
         # Max win is capped at 10000
         if (current_bankroll * frac_amount * row['OddsWinner']) > 10000:
-            bet_amount.append(10000)
+            bet_amount.append(10000/row['OddsWinner'])
         else:
             bet_amount.append(current_bankroll * frac_amount)
         net_won.append(bet_amount[n] * row['OddsWinner'] * (row['Predictions'] == row['TrueValues']) - bet_amount[n])

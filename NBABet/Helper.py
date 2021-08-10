@@ -19,7 +19,7 @@ coloredlogs.install(level='DEBUG')
 def add_odds_to_split_df():
     odds_df = pd.read_csv('past_data/2020_2021/historical_odds_2020_2021.csv', sep=';', index_col=False)
     # Compute European Odds
-    odds_df = odds_df.assign(Odds = odds_df['ML']/100) # Set the winner as the Home Team
+    odds_df = odds_df.assign(Odds = 1 + odds_df['ML']/100) # Set the winner as the Home Team
     odds_df['Odds'].loc[odds_df['ML'] < 0] = (1 + 100/(-odds_df['ML']))
 
     odds_df.drop(['Date', 'Rot', '1st', '2nd', '3rd', '4th', 'Open', 'Close', 'ML', '2H'], axis=1, inplace=True)
