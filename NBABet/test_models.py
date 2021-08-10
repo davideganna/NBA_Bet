@@ -6,7 +6,7 @@ import backtesting
 import dicts_and_lists as dal
 import logging, coloredlogs
 
-pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_rows', 1000)
 
 # ------ Logger ------- #
 logger = logging.getLogger('test_models.py')
@@ -40,7 +40,7 @@ away_features = Models.away_features
 home_features = Models.home_features
 features = Models.features
 
-### Test the Bagging Classification model based on the mean of the last average_N games ###
+### Test the Classification model based on the mean of the last average_N games ###
 logger.info('\nSelect the type of model you want to backtest:\n\
     [1]: AdaBoost\n\
     [2]: Decision Tree\n\
@@ -145,10 +145,12 @@ net_won = []
 bankroll = []
 for n, row in ev_df.iterrows():
     frac_amount = (row['ModelProbability']*row['OddsWinner']-1)/(row['OddsWinner']-1)
+    if frac_amount > 1:
+        print(frac_amount)
     if frac_amount > 0:
         # Limit the portion of bankroll to bet
-        if frac_amount > 0.9:
-            frac_amount = 0.9
+        if frac_amount > 0.3:
+            frac_amount = 0.3
         # Max win is capped at 10000
         if (current_bankroll * frac_amount * row['OddsWinner']) > 10000:
             bet_amount.append(10000/row['OddsWinner'])
@@ -169,6 +171,6 @@ ev_df['Bankroll'] = bankroll
 
 # Evaluate the bankroll and the ROI
 print(ev_df)
-print(f'Net worth: {current_bankroll:.2f} €')
+print(f'Net worth: {current_bankroll-starting_bankroll:.2f} €')
 print(f'ROI: {100*current_bankroll/starting_bankroll:.2f}%')
 
