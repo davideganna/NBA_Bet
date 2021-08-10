@@ -1,3 +1,4 @@
+from operator import index
 import numpy as np
 import pandas as pd
 import Models
@@ -10,6 +11,29 @@ pd.set_option('display.max_rows', 500)
 # ------ Logger ------- #
 logger = logging.getLogger('test_models.py')
 coloredlogs.install(level='DEBUG')
+
+def extract_and_predict(next_game):
+    # Extract away_team Name and home_team Name from last_N_games_away and last_N_games_home
+    away_team = next_game['Team_away'].values[0]
+    home_team = next_game['Team_home'].values[0]
+
+    # Concatenate the two teams with their average stats
+    to_predict = pd.concat(
+        [
+            last_N_games_away[dal.teams_to_int[away_team]][away_features].mean(), 
+            last_N_games_home[dal.teams_to_int[home_team]][home_features].mean()
+        ],
+        axis=0)[features]
+        
+    pred = int(clf.predict(to_predict.values.reshape(1,-1)))
+    true_value = next_game['Winner'].values[0]
+    predictions.append(pred)
+    true_values.append(true_value)
+    prob = clf.predict_proba(to_predict.values.reshape(1,-1))
+    model_prob.append(max(prob[0]))
+    model_odds.append(1/max(prob[0]))
+    odds_winner.append(next_game['OddsWinner'].values[0])
+    odds_loser.append(next_game['OddsLoser'].values[0])
 
 # Only the most significant features will be considered
 away_features = Models.away_features
@@ -44,102 +68,70 @@ df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 # To evaluate accuracy
 predictions = []
 true_values = []
+model_prob  = []
+model_odds  = []
 odds_winner = []
 odds_loser  = []
 
 # Maximum allowed average_N: 35
-average_N = 10
-skip_n = 0
+average_N = 5
+skip_n = 20
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 36-average_N):
     last_N_games_home, last_N_games_away = backtesting.get_first_N_games(df, average_N, skip_n_games)
     # Get next game based on next_game_index
     for team in dal.teams:
-        # Find next games where "team" plays away
+        # Find next game where "team" plays away
         next_games_indexes = df.loc[df['Team_away'] == team].index
         last_away_game = last_N_games_away[dal.teams_to_int[team]][-1:]
         next_game_index = min(i for i in next_games_indexes if i > last_away_game.index)
         next_game = df.loc[df.index == next_game_index]
 
-        # Extract away_team Name and home_team Name from last_N_games_away and last_N_games_home
-        away_team = next_game['Team_away'].values[0]
-        home_team = next_game['Team_home'].values[0]
+        extract_and_predict(next_game)
 
-        # Concatenate the two teams with their average stats
-        to_predict = pd.concat(
-            [
-                last_N_games_away[dal.teams_to_int[away_team]][away_features].mean(), 
-                last_N_games_home[dal.teams_to_int[home_team]][home_features].mean()
-            ],
-            axis=0)[features]
-
-        pred = int(clf.predict(to_predict.values.reshape(1,-1)))
-        true_value = next_game['Winner'].values[0]
-        predictions.append(pred)
-        true_values.append(true_value)
-        odds_winner.append(next_game['OddsWinner'].values[0])
-        odds_loser.append(next_game['OddsLoser'].values[0])
-
-        # Find next games where "team" plays home
+        # Find next game where "team" plays home
         next_games_indexes = df.loc[df['Team_home'] == team].index
         last_home_game = last_N_games_home[dal.teams_to_int[team]][-1:]
         next_game_index = min(i for i in next_games_indexes if i > last_home_game.index)
         next_game = df.loc[df.index == next_game_index]
 
-        # Extract away_team Name and home_team Name from last_N_games_away and last_N_games_home
-        away_team = next_game['Team_away'].values[0]
-        home_team = next_game['Team_home'].values[0]
+        extract_and_predict(next_game)
 
-        # Concatenate the two teams with their average stats
-        to_predict = pd.concat(
-            [
-                last_N_games_away[dal.teams_to_int[away_team]][away_features].mean(), 
-                last_N_games_home[dal.teams_to_int[home_team]][home_features].mean()
-            ],
-            axis=0)[features]
-
-        pred = int(clf.predict(to_predict.values.reshape(1,-1)))
-        true_value = next_game['Winner'].values[0]
-        predictions.append(pred)
-        true_values.append(true_value)
-        odds_winner.append(next_game['OddsWinner'].values[0])
-        odds_loser.append(next_game['OddsLoser'].values[0])
-
-    difference = np.array(predictions) - np.array(true_values)
-    accuracy = np.count_nonzero(difference==0)/len(difference)
-    print(f'Accuracy after {len(difference)} samples: {accuracy:.3f}')
+    print(f'Evaluated samples: {len(predictions)}')
 
 # Evaluate the predictions
 data = {
-    'Predictions' : predictions,
-    'TrueValues'  : true_values,
-    'OddsWinner'  : odds_winner,
-    'OddsLoser'   : odds_loser
+    'Predictions'       : predictions,
+    'TrueValues'        : true_values,
+    'ModelProbability'  : model_prob,
+    'ModelOdds'         : model_odds,
+    'OddsWinner'        : odds_winner,
+    'OddsLoser'         : odds_loser
 }
 ev_df = pd.DataFrame(data)
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
-margin = 0.1
+margin = 0.2
 correctly_predicted = ev_df.loc[
-    (ev_df['Predictions'] == ev_df['TrueValues']) &
-    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
+    (ev_df['Predictions'] == ev_df['TrueValues']) &         # We made the correct prediction 
+    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &  # The team is the favorite to win 
+    (ev_df['OddsWinner'] >= ev_df['ModelOdds'])             # The bookmaker offers better odds than the ones predicted by the model
     ].count()
 
 total_predicted = ev_df.loc[
-    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
+    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &
+    (ev_df['OddsWinner'] >= ev_df['ModelOdds'])
     ].count()
 
-accuracy_favorite = correctly_predicted[0]/total_predicted[0]
-print(f'Accuracy of predicted teams when they were the favorite: {accuracy_favorite:.3f}')
-
-# Drop the rows under the given accuracy
-ev_df = ev_df[ev_df['OddsWinner'] > (1/accuracy_favorite)]
+accuracy = correctly_predicted[0]/total_predicted[0]
+print(f'Accuracy of predicted teams when they were the favorite and odds are greater than the ones predicted: {accuracy:.3f}')
 
 # Extract the rows where the model predicted the lowest odds between the two teams,
 # i.e., where the team is the favorite to win. (Plus some margin)
 ev_df = ev_df.loc[
-    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin)
+    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &
+    (ev_df['OddsWinner'] >= ev_df['ModelOdds'])
     ].reset_index()
 
 # Compare Predictions and TrueValues
@@ -152,18 +144,26 @@ bet_amount = []
 net_won = []
 bankroll = []
 for n, row in ev_df.iterrows():
-    frac_amount = (accuracy_favorite*row['OddsWinner']-1)/(row['OddsWinner']-1)
-    print(frac_amount)
-    bet_amount.append(current_bankroll * frac_amount)
-    net_won.append(bet_amount[n] * row['OddsWinner'] * (row['Predictions'] == row['TrueValues']) - bet_amount[n])
-    current_bankroll = current_bankroll + net_won[n]
-    bankroll.append(current_bankroll)
+    frac_amount = (row['ModelOdds']*row['OddsWinner']-1)/(row['OddsWinner']-1)
+    if frac_amount > 0:
+        if frac_amount > 0.5:
+            frac_amount = 0.35
+        bet_amount.append(current_bankroll * frac_amount)
+        net_won.append(bet_amount[n] * row['OddsWinner'] * (row['Predictions'] == row['TrueValues']) - bet_amount[n])
+        current_bankroll = current_bankroll + net_won[n]
+        bankroll.append(current_bankroll)
+    else:
+        bet_amount.append(0)
+        net_won.append(0)
+        bankroll.append(current_bankroll)
+
 
 ev_df['BetAmount'] = bet_amount
 ev_df['NetWon'] = net_won
 ev_df['Bankroll'] = bankroll
 
 # Evaluate the bankroll and the ROI
+print(ev_df)
 print(f'Net worth: {current_bankroll:.2f} €')
 print(f'ROI: {100*current_bankroll/starting_bankroll:.2f}%')
 
