@@ -64,7 +64,7 @@ def build_DT_classifier():
     """
     Builds a Decision Tree Classifier.
     """
-    tree_clf = DecisionTreeClassifier(max_depth=10, random_state=42)
+    tree_clf = DecisionTreeClassifier(max_depth=5, random_state=42)
     tree_clf.fit(X_train, y_train)
     return tree_clf 
 
@@ -74,7 +74,7 @@ def build_RF_classifier():
     """
     # Define a Decision Tree Classifier
     rf_clf = RandomForestClassifier(
-        n_estimators=1000, max_leaf_nodes=16, n_jobs=-1
+        n_estimators=200, max_leaf_nodes=16, n_jobs=-1, random_state=42
     )
     rf_clf.fit(X_train, y_train.values.ravel())
     return rf_clf
