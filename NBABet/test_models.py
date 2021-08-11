@@ -43,10 +43,6 @@ def extract_and_predict(next_game):
             ],
             axis=0)[features]
         
-        if next_game.index[0] == 240:
-            print(last_N_games_away)
-            print(last_N_games_home)
-        
         pred = int(clf.predict(to_predict.values.reshape(1,-1)))
         true_value = next_game['Winner'].values[0]
         predictions.append(pred)
