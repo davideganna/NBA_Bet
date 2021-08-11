@@ -22,13 +22,16 @@ def add_odds_to_split_df():
     odds_df = odds_df.assign(Odds = 1 + odds_df['ML']/100) # Set the winner as the Home Team
     odds_df['Odds'].loc[odds_df['ML'] < 0] = (1 + 100/(-odds_df['ML']))
 
-    odds_df.drop(['Date', 'Rot', '1st', '2nd', '3rd', '4th', 'Open', 'Close', 'ML', '2H'], axis=1, inplace=True)
-    
+    odds_df.drop(['Rot', '1st', '2nd', '3rd', '4th', 'Open', 'Close', 'ML', '2H'], axis=1, inplace=True)
+
     odds_away =  odds_df.loc[odds_df['VH'] == 'V']
     odds_home =  odds_df.loc[odds_df['VH'] == 'H']
     
-    odds_away.drop('VH', axis=1, inplace=True)
-    odds_home.drop('VH', axis=1, inplace=True)
+    dates_list = odds_away['Date']
+    dates_list = dates_list.values
+
+    odds_away.drop(['Date', 'VH'], axis=1, inplace=True)
+    odds_home.drop(['Date', 'VH'], axis=1, inplace=True)
 
     odds_away.rename(dal.historical_away, axis=1, inplace=True)
     odds_home.rename(dal.historical_home, axis=1, inplace=True)
@@ -37,7 +40,8 @@ def add_odds_to_split_df():
     odds_home.reset_index(drop=True, inplace=True)
     
     odds_df = pd.concat([odds_away, odds_home], axis=1)
-
+    odds_df.insert(loc=0, column='Date', value=dates_list)
+    
     # Read stats_per_game.csv
     split_stats_df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
     # Add column with odds
@@ -45,19 +49,29 @@ def add_odds_to_split_df():
     split_stats_df = split_stats_df.assign(OddsLoser = np.nan)
     split_copy = split_stats_df.copy()
     for n, row in split_copy.iterrows():
+        # Extract day and month to compare both DataFrames
+        date = row['Date'].partition(', ')[2]
+        month = dal.months_dict[date[:3]]
+        if month not in ['10', '11', '12']:
+            month = month[1]
+        day = date.partition(',')[0][4:]
+        if len(day) == 1:
+            day = '0' + day
         # Home team won, Away team lost
         if row['Winner'] == 0: 
             row['OddsWinner'] = odds_df['Odds_home'].loc[
                 (odds_df['Team_away'] == row['Team_away']) &
                 (odds_df['Team_home'] == row['Team_home']) & 
                 (odds_df['Final_home'] == row['PTS_home']) &
-                (odds_df['Final_away'] == row['PTS_away']) 
+                (odds_df['Final_away'] == row['PTS_away']) &
+                (odds_df['Date'] == int(month+day))
             ]
             row['OddsLoser'] = odds_df['Odds_away'].loc[
                 (odds_df['Team_away'] == row['Team_away']) &
                 (odds_df['Team_home'] == row['Team_home']) & 
                 (odds_df['Final_home'] == row['PTS_home']) &
-                (odds_df['Final_away'] == row['PTS_away']) 
+                (odds_df['Final_away'] == row['PTS_away']) &
+                (odds_df['Date'] == int(month+day))
             ]
         # Away team won, Home team lost
         else: 
@@ -65,13 +79,15 @@ def add_odds_to_split_df():
                 (odds_df['Team_away'] == row['Team_away']) &
                 (odds_df['Team_home'] == row['Team_home']) & 
                 (odds_df['Final_home'] == row['PTS_home']) &
-                (odds_df['Final_away'] == row['PTS_away']) 
+                (odds_df['Final_away'] == row['PTS_away']) &
+                (odds_df['Date'] == int(month+day))
             ]
             row['OddsLoser'] = odds_df['Odds_home'].loc[
                 (odds_df['Team_away'] == row['Team_away']) &
                 (odds_df['Team_home'] == row['Team_home']) & 
                 (odds_df['Final_home'] == row['PTS_home']) &
-                (odds_df['Final_away'] == row['PTS_away']) 
+                (odds_df['Final_away'] == row['PTS_away']) &
+                (odds_df['Date'] == int(month+day))
             ]
         split_stats_df['OddsWinner'].iloc[n] = round(row['OddsWinner'].values[0], 2)
         split_stats_df['OddsLoser'].iloc[n] = round(row['OddsLoser'].values[0], 2)
