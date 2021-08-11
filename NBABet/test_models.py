@@ -24,13 +24,28 @@ def extract_and_predict(next_game):
     if next_game.index[0] not in evaluated_indexes:
         # Track the inserted game based on its index
         evaluated_indexes.append(next_game.index[0])
+
+        # Extract indexes for last N games
+        next_games_away_indexes = df.loc[df['Team_away'] == away_team].index
+        next_games_home_indexes = df.loc[df['Team_home'] == home_team].index
+        next_away_indexes_reduced = [x for x in next_games_away_indexes if x < next_game.index[0]][-average_N:]
+        next_home_indexes_reduced = [x for x in next_games_home_indexes if x < next_game.index[0]][-average_N:]
+
+        # Extract last N games based on indexes
+        last_N_games_away = df.iloc[next_away_indexes_reduced]
+        last_N_games_home = df.iloc[next_home_indexes_reduced]
+
         # Concatenate the two teams with their average stats
         to_predict = pd.concat(
             [
-                last_N_games_away[dal.teams_to_int[away_team]][away_features].mean(), 
-                last_N_games_home[dal.teams_to_int[home_team]][home_features].mean()
+                last_N_games_away[away_features].mean(), 
+                last_N_games_home[home_features].mean()
             ],
             axis=0)[features]
+        
+        if next_game.index[0] == 240:
+            print(last_N_games_away)
+            print(last_N_games_home)
         
         pred = int(clf.predict(to_predict.values.reshape(1,-1)))
         true_value = next_game['Winner'].values[0]
@@ -96,29 +111,29 @@ for skip_n_games in range(skip_n, 50-average_N):
     last_N_games_away, last_N_games_home = backtesting.get_first_N_games(df, average_N, skip_n_games)
     # Get next game based on next_game_index
     for team in dal.teams:
-        # Find next game where "team" plays away
-        next_games_indexes = df.loc[df['Team_away'] == team].index
+        # Find all games where "team" plays away
+        next_games_away_indexes = df.loc[df['Team_away'] == team].index
         last_away_game = last_N_games_away[dal.teams_to_int[team]][-1:]
         # Check if there are more games past the current index 
         try:
             dal.last_home_away_index_dict[team][0] = last_away_game.index[0]
         except: 
             pass
-        if max(next_games_indexes) != dal.last_home_away_index_dict[team][0]:
-            next_game_index = min(i for i in next_games_indexes if i > last_away_game.index)
+        if max(next_games_away_indexes) != dal.last_home_away_index_dict[team][0]:
+            next_game_index = min(i for i in next_games_away_indexes if i > last_away_game.index)
             next_game = df.loc[df.index == next_game_index]
             extract_and_predict(next_game)
 
-        # Find next game where "team" plays home
-        next_games_indexes = df.loc[df['Team_home'] == team].index
+        # Find all games where "team" plays home
+        next_games_home_indexes = df.loc[df['Team_home'] == team].index
         last_home_game = last_N_games_home[dal.teams_to_int[team]][-1:]
         # Check if there are more games past the current index 
         try:
             dal.last_home_away_index_dict[team][1] = last_home_game.index[0]
         except: 
             pass
-        if max(next_games_indexes) != dal.last_home_away_index_dict[team][1]:
-            next_game_index = min(i for i in next_games_indexes if i > last_home_game.index)
+        if max(next_games_home_indexes) != dal.last_home_away_index_dict[team][1]:
+            next_game_index = min(i for i in next_games_home_indexes if i > last_home_game.index)
             next_game = df.loc[df.index == next_game_index]
             extract_and_predict(next_game)
 
