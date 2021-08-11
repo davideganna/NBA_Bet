@@ -87,8 +87,8 @@ away_teams_list   = []
 evaluated_indexes = []
 
 # Maximum allowed average_N: 35
-average_N = 1
-skip_n = 34
+average_N = 5
+skip_n = 10
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 50-average_N):
@@ -103,7 +103,6 @@ for skip_n_games in range(skip_n, 50-average_N):
             dal.last_home_away_index_dict[team][0] = last_away_game.index[0]
         except: 
             pass
-
         if max(next_games_indexes) != dal.last_home_away_index_dict[team][0]:
             next_game_index = min(i for i in next_games_indexes if i > last_away_game.index)
             next_game = df.loc[df.index == next_game_index]
@@ -113,12 +112,10 @@ for skip_n_games in range(skip_n, 50-average_N):
         next_games_indexes = df.loc[df['Team_home'] == team].index
         last_home_game = last_N_games_home[dal.teams_to_int[team]][-1:]
         # Check if there are more games past the current index 
-
         try:
             dal.last_home_away_index_dict[team][1] = last_home_game.index[0]
         except: 
             pass
-
         if max(next_games_indexes) != dal.last_home_away_index_dict[team][1]:
             next_game_index = min(i for i in next_games_indexes if i > last_home_game.index)
             next_game = df.loc[df.index == next_game_index]
@@ -139,8 +136,7 @@ data = {
     'OddsWinner'        : odds_winner,
     'OddsLoser'         : odds_loser
 }
-ev_df = pd.DataFrame(data)
-print(ev_df)
+ev_df = pd.DataFrame(data).sort_values('index')
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
