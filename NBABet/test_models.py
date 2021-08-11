@@ -34,6 +34,7 @@ def extract_and_predict(next_game):
     model_odds.append(1/max(prob[0]))
     odds_winner.append(next_game['OddsWinner'].values[0])
     odds_loser.append(next_game['OddsLoser'].values[0])
+    dates_list.append(next_game['Date'])
     home_teams_list.append(home_team)
     away_teams_list.append(away_team)
 
@@ -68,6 +69,7 @@ elif inp == '4':
 df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # To evaluate accuracy
+dates_list  = []
 predictions = []
 true_values = []
 model_prob  = []
@@ -76,6 +78,11 @@ odds_winner = []
 odds_loser  = []
 home_teams_list   = []
 away_teams_list   = []
+
+# Before predicting a game, check that it has not yet been predicted.
+# This is the case where e.g., TeamHome's next game at home against TeamAway has been evaluated ...
+# by both next home game and next away game. They are the same game, which are therefore predicted twice. 
+evaluated_indexes = []
 
 # Maximum allowed average_N: 35
 average_N = 5
@@ -103,9 +110,11 @@ for skip_n_games in range(skip_n, 36-average_N):
         extract_and_predict(next_game)
 
     print(f'Evaluated samples: {len(predictions)}')
+    break
 
 # Evaluate the predictions
 data = {
+    'Date'              : dates_list,
     'AwayTeam'          : away_teams_list,
     'HomeTeam'          : home_teams_list,
     'Predictions'       : predictions,
@@ -116,7 +125,8 @@ data = {
     'OddsLoser'         : odds_loser
 }
 ev_df = pd.DataFrame(data)
-print(ev_df.drop_duplicates(['AwayTeam', 'HomeTeam', 'OddsWinner', 'OddsLoser']).reset_index(drop=True))
+ev_df = ev_df.drop_duplicates()
+print(ev_df)
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
