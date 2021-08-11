@@ -119,6 +119,41 @@ teams_to_int = {
     'Washington Wizards' : 29
 }
 
+# Last away and home game indexes.
+# [0] is home index, [1] is away index 
+last_home_away_index_dict = {
+    'Atlanta Hawks' : [None, None],
+    'Boston Celtics' : [None, None],
+    'Brooklyn Nets' : [None, None], 
+    'Charlotte Hornets' : [None, None],
+    'Chicago Bulls' : [None, None], 
+    'Cleveland Cavaliers' : [None, None],
+    'Dallas Mavericks' : [None, None], 
+    'Denver Nuggets' : [None, None], 
+    'Detroit Pistons' : [None, None], 
+    'Golden State Warriors' : [None, None], 
+    'Houston Rockets' : [None, None],
+    'Indiana Pacers' : [None, None], 
+    'Los Angeles Clippers' : [None, None],
+    'Los Angeles Lakers' : [None, None],
+    'Memphis Grizzlies' : [None, None],
+    'Miami Heat' : [None, None],
+    'Milwaukee Bucks' : [None, None],
+    'Minnesota Timberwolves' : [None, None], 
+    'New Orleans Pelicans' : [None, None],
+    'New York Knicks' : [None, None],
+    'Oklahoma City Thunder' : [None, None],
+    'Orlando Magic' : [None, None], 
+    'Philadelphia 76ers' : [None, None], 
+    'Phoenix Suns' : [None, None],
+    'Portland Trail Blazers' : [None, None],
+    'Sacramento Kings' : [None, None], 
+    'San Antonio Spurs' : [None, None], 
+    'Toronto Raptors' : [None, None], 
+    'Utah Jazz' : [None, None], 
+    'Washington Wizards' : [None, None]
+}
+
 #### Data per games Dictionary ####
 data_dict = {
     'Team' : [],

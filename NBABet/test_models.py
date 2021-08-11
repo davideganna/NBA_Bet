@@ -17,26 +17,32 @@ def extract_and_predict(next_game):
     away_team = next_game['Team_away'].values[0]
     home_team = next_game['Team_home'].values[0]
 
-    # Concatenate the two teams with their average stats
-    to_predict = pd.concat(
-        [
-            last_N_games_away[dal.teams_to_int[away_team]][away_features].mean(), 
-            last_N_games_home[dal.teams_to_int[home_team]][home_features].mean()
-        ],
-        axis=0)[features]
+    # Before predicting a game, check that it has not yet been predicted.
+    # This is the case where e.g., TeamHome's next game at home against TeamAway has been evaluated ...
+    # by both next home game and next away game. They are the same game, which are therefore predicted twice. 
+    if next_game.index[0] not in evaluated_indexes:
+        # Track the inserted game based on its index
+        evaluated_indexes.append(next_game.index[0])
+        # Concatenate the two teams with their average stats
+        to_predict = pd.concat(
+            [
+                last_N_games_away[dal.teams_to_int[away_team]][away_features].mean(), 
+                last_N_games_home[dal.teams_to_int[home_team]][home_features].mean()
+            ],
+            axis=0)[features]
         
-    pred = int(clf.predict(to_predict.values.reshape(1,-1)))
-    true_value = next_game['Winner'].values[0]
-    predictions.append(pred)
-    true_values.append(true_value)
-    prob = clf.predict_proba(to_predict.values.reshape(1,-1))
-    model_prob.append(max(prob[0]))
-    model_odds.append(1/max(prob[0]))
-    odds_winner.append(next_game['OddsWinner'].values[0])
-    odds_loser.append(next_game['OddsLoser'].values[0])
-    dates_list.append(next_game['Date'])
-    home_teams_list.append(home_team)
-    away_teams_list.append(away_team)
+        pred = int(clf.predict(to_predict.values.reshape(1,-1)))
+        true_value = next_game['Winner'].values[0]
+        predictions.append(pred)
+        true_values.append(true_value)
+        prob = clf.predict_proba(to_predict.values.reshape(1,-1))
+        model_prob.append(max(prob[0]))
+        model_odds.append(1/max(prob[0]))
+        odds_winner.append(next_game['OddsWinner'].values[0])
+        odds_loser.append(next_game['OddsLoser'].values[0])
+        dates_list.append(next_game['Date'].values[0])
+        home_teams_list.append(home_team)
+        away_teams_list.append(away_team)
 
 # Only the most significant features will be considered
 away_features = Models.away_features
@@ -78,42 +84,48 @@ odds_winner = []
 odds_loser  = []
 home_teams_list   = []
 away_teams_list   = []
-
-# Before predicting a game, check that it has not yet been predicted.
-# This is the case where e.g., TeamHome's next game at home against TeamAway has been evaluated ...
-# by both next home game and next away game. They are the same game, which are therefore predicted twice. 
 evaluated_indexes = []
 
 # Maximum allowed average_N: 35
 average_N = 5
-skip_n = 1
+skip_n = 10
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
-for skip_n_games in range(skip_n, 36-average_N):
+for skip_n_games in range(skip_n, 50-average_N):
     last_N_games_away, last_N_games_home = backtesting.get_first_N_games(df, average_N, skip_n_games)
     # Get next game based on next_game_index
     for team in dal.teams:
         # Find next game where "team" plays away
         next_games_indexes = df.loc[df['Team_away'] == team].index
         last_away_game = last_N_games_away[dal.teams_to_int[team]][-1:]
-        next_game_index = min(i for i in next_games_indexes if i > last_away_game.index)
-        next_game = df.loc[df.index == next_game_index]
-
-        extract_and_predict(next_game)
+        # Check if there are more games past the current index 
+        try:
+            dal.last_home_away_index_dict[team][0] = last_away_game.index[0]
+        except: 
+            pass
+        if max(next_games_indexes) != dal.last_home_away_index_dict[team][0]:
+            next_game_index = min(i for i in next_games_indexes if i > last_away_game.index)
+            next_game = df.loc[df.index == next_game_index]
+            extract_and_predict(next_game)
 
         # Find next game where "team" plays home
         next_games_indexes = df.loc[df['Team_home'] == team].index
         last_home_game = last_N_games_home[dal.teams_to_int[team]][-1:]
-        next_game_index = min(i for i in next_games_indexes if i > last_home_game.index)
-        next_game = df.loc[df.index == next_game_index]
-
-        extract_and_predict(next_game)
+        # Check if there are more games past the current index 
+        try:
+            dal.last_home_away_index_dict[team][1] = last_home_game.index[0]
+        except: 
+            pass
+        if max(next_games_indexes) != dal.last_home_away_index_dict[team][1]:
+            next_game_index = min(i for i in next_games_indexes if i > last_home_game.index)
+            next_game = df.loc[df.index == next_game_index]
+            extract_and_predict(next_game)
 
     print(f'Evaluated samples: {len(predictions)}')
-    break
 
 # Evaluate the predictions
 data = {
+    'index'             : evaluated_indexes,
     'Date'              : dates_list,
     'AwayTeam'          : away_teams_list,
     'HomeTeam'          : home_teams_list,
@@ -124,9 +136,7 @@ data = {
     'OddsWinner'        : odds_winner,
     'OddsLoser'         : odds_loser
 }
-ev_df = pd.DataFrame(data)
-ev_df = ev_df.drop_duplicates()
-print(ev_df)
+ev_df = pd.DataFrame(data).sort_values('index')
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
@@ -149,7 +159,7 @@ print(f'Accuracy of predicted teams when they were the favorite and odds are gre
 ev_df = ev_df.loc[
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &
     (ev_df['OddsWinner'] >= ev_df['ModelOdds'])
-    ].reset_index()
+    ].reset_index(drop=True)
 
 # Compare Predictions and TrueValues
 comparison_column = np.where(ev_df['Predictions'] == ev_df['TrueValues'], True, False)
@@ -185,7 +195,7 @@ ev_df['NetWon'] = net_won
 ev_df['Bankroll'] = bankroll
 
 # Evaluate the bankroll and the ROI
-print(ev_df.tail(10))
+print(ev_df)
 print(f'Net worth: {current_bankroll-starting_bankroll:.2f} €')
 print(f'ROI: {100*current_bankroll/starting_bankroll:.2f}%')
 
