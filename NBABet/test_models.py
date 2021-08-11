@@ -40,6 +40,7 @@ def extract_and_predict(next_game):
         model_odds.append(1/max(prob[0]))
         odds_winner.append(next_game['OddsWinner'].values[0])
         odds_loser.append(next_game['OddsLoser'].values[0])
+        dates_list.append(next_game['Date'].values[0])
         home_teams_list.append(home_team)
         away_teams_list.append(away_team)
 
@@ -74,6 +75,7 @@ elif inp == '4':
 df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # To evaluate accuracy
+dates_list  = []
 predictions = []
 true_values = []
 model_prob  = []
@@ -85,34 +87,49 @@ away_teams_list   = []
 evaluated_indexes = []
 
 # Maximum allowed average_N: 35
-average_N = 5
-skip_n = 10
+average_N = 1
+skip_n = 34
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
-for skip_n_games in range(skip_n, 36-average_N):
+for skip_n_games in range(skip_n, 50-average_N):
     last_N_games_away, last_N_games_home = backtesting.get_first_N_games(df, average_N, skip_n_games)
     # Get next game based on next_game_index
     for team in dal.teams:
         # Find next game where "team" plays away
         next_games_indexes = df.loc[df['Team_away'] == team].index
         last_away_game = last_N_games_away[dal.teams_to_int[team]][-1:]
-        next_game_index = min(i for i in next_games_indexes if i > last_away_game.index)
-        next_game = df.loc[df.index == next_game_index]
+        # Check if there are more games past the current index 
+        try:
+            dal.last_home_away_index_dict[team][0] = last_away_game.index[0]
+        except: 
+            pass
 
-        extract_and_predict(next_game)
+        if max(next_games_indexes) != dal.last_home_away_index_dict[team][0]:
+            next_game_index = min(i for i in next_games_indexes if i > last_away_game.index)
+            next_game = df.loc[df.index == next_game_index]
+            extract_and_predict(next_game)
 
         # Find next game where "team" plays home
         next_games_indexes = df.loc[df['Team_home'] == team].index
         last_home_game = last_N_games_home[dal.teams_to_int[team]][-1:]
-        next_game_index = min(i for i in next_games_indexes if i > last_home_game.index)
-        next_game = df.loc[df.index == next_game_index]
+        # Check if there are more games past the current index 
 
-        extract_and_predict(next_game)
+        try:
+            dal.last_home_away_index_dict[team][1] = last_home_game.index[0]
+        except: 
+            pass
+
+        if max(next_games_indexes) != dal.last_home_away_index_dict[team][1]:
+            next_game_index = min(i for i in next_games_indexes if i > last_home_game.index)
+            next_game = df.loc[df.index == next_game_index]
+            extract_and_predict(next_game)
 
     print(f'Evaluated samples: {len(predictions)}')
 
 # Evaluate the predictions
 data = {
+    'index'             : evaluated_indexes,
+    'Date'              : dates_list,
     'AwayTeam'          : away_teams_list,
     'HomeTeam'          : home_teams_list,
     'Predictions'       : predictions,
@@ -123,6 +140,7 @@ data = {
     'OddsLoser'         : odds_loser
 }
 ev_df = pd.DataFrame(data)
+print(ev_df)
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
@@ -145,7 +163,7 @@ print(f'Accuracy of predicted teams when they were the favorite and odds are gre
 ev_df = ev_df.loc[
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &
     (ev_df['OddsWinner'] >= ev_df['ModelOdds'])
-    ].reset_index()
+    ].reset_index(drop=True)
 
 # Compare Predictions and TrueValues
 comparison_column = np.where(ev_df['Predictions'] == ev_df['TrueValues'], True, False)
