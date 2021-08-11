@@ -88,7 +88,7 @@ evaluated_indexes = []
 
 # Maximum allowed average_N: 35
 average_N = 5
-skip_n = 10
+skip_n = 5
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 50-average_N):
@@ -140,25 +140,29 @@ ev_df = pd.DataFrame(data).sort_values('index')
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
+prob_limit = 0.8
 correctly_predicted = ev_df.loc[
     (ev_df['Predictions'] == ev_df['TrueValues']) &         # We made the correct prediction 
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &  # The team is the favorite to win 
-    (ev_df['OddsWinner'] >= ev_df['ModelOdds'])             # The bookmaker offers better odds than the ones predicted by the model
+    (ev_df['OddsWinner'] >= ev_df['ModelOdds']) &           # The bookmaker offers better odds than the ones predicted by the model
+    (ev_df['ModelProbability'] >= prob_limit)               # Bet only if Probability > 80%
     ].count()
 
 total_predicted = ev_df.loc[
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &
-    (ev_df['OddsWinner'] >= ev_df['ModelOdds'])
+    (ev_df['OddsWinner'] >= ev_df['ModelOdds']) &
+    (ev_df['ModelProbability'] >= prob_limit)
     ].count()
 
 accuracy = correctly_predicted[0]/total_predicted[0]
-print(f'Accuracy of predicted teams when they were the favorite and odds are greater than the ones predicted: {accuracy:.3f}')
+print(f'Accuracy when team is favorite, odds are greater than the ones predicted + margin ({margin}) and model probability is > {prob_limit}: {accuracy:.3f}')
 
 # Extract the rows where the model predicted the lowest odds between the two teams,
 # i.e., where the team is the favorite to win. (Plus some margin)
 ev_df = ev_df.loc[
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &
-    (ev_df['OddsWinner'] >= ev_df['ModelOdds'])
+    (ev_df['OddsWinner'] >= ev_df['ModelOdds']) &
+    (ev_df['ModelProbability'] >= prob_limit) 
     ].reset_index(drop=True)
 
 # Compare Predictions and TrueValues
@@ -174,13 +178,13 @@ for n, row in ev_df.iterrows():
     frac_amount = (row['ModelProbability']*row['OddsWinner']-1)/(row['OddsWinner']-1)
     if frac_amount > 0:
         # Limit the portion of bankroll to bet
-        if frac_amount > 0.2:
-            frac_amount = 0.2
+        if frac_amount > 0.25:
+            frac_amount = 0.25
         # Max win is capped at 10000
         if (current_bankroll * frac_amount * row['OddsWinner']) > 10000:
-            bet_amount.append(10000/row['OddsWinner'])
+            bet_amount.append(int(10000/row['OddsWinner']))
         else:
-            bet_amount.append(current_bankroll * frac_amount)
+            bet_amount.append(int(current_bankroll * frac_amount))
         net_won.append(bet_amount[n] * row['OddsWinner'] * (row['Predictions'] == row['TrueValues']) - bet_amount[n])
         current_bankroll = current_bankroll + net_won[n]
         bankroll.append(current_bankroll)
@@ -196,6 +200,6 @@ ev_df['Bankroll'] = bankroll
 
 # Evaluate the bankroll and the ROI
 print(ev_df)
-print(f'Net worth: {current_bankroll-starting_bankroll:.2f} €')
-print(f'ROI: {100*current_bankroll/starting_bankroll:.2f}%')
+print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
+print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
 
