@@ -1,6 +1,7 @@
 from operator import index
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import Models
 import backtesting
 import dicts_and_lists as dal
@@ -10,7 +11,7 @@ pd.set_option('display.max_rows', 1000)
 
 # ------ Logger ------- #
 logger = logging.getLogger('test_models.py')
-coloredlogs.install(level='DEBUG')
+coloredlogs.install(level='INFO', logger=logger)
 
 def extract_and_predict(next_game):
     # Extract away_team Name and home_team Name from last_N_games_away and last_N_games_home
@@ -203,3 +204,9 @@ print(ev_df)
 print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
 print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
 
+# Plot the results
+ax = ev_df['Bankroll'].plot(grid=True)
+ax.set_title('Bankroll versus number of games played')
+ax.set_xlabel('Games played')
+ax.set_ylabel('Bankroll (€)')
+plt.show()
