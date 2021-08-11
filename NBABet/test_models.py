@@ -17,26 +17,31 @@ def extract_and_predict(next_game):
     away_team = next_game['Team_away'].values[0]
     home_team = next_game['Team_home'].values[0]
 
-    # Concatenate the two teams with their average stats
-    to_predict = pd.concat(
-        [
-            last_N_games_away[dal.teams_to_int[away_team]][away_features].mean(), 
-            last_N_games_home[dal.teams_to_int[home_team]][home_features].mean()
-        ],
-        axis=0)[features]
+    # Before predicting a game, check that it has not yet been predicted.
+    # This is the case where e.g., TeamHome's next game at home against TeamAway has been evaluated ...
+    # by both next home game and next away game. They are the same game, which are therefore predicted twice. 
+    if next_game.index[0] not in evaluated_indexes:
+        # Track the inserted game based on its index
+        evaluated_indexes.append(next_game.index[0])
+        # Concatenate the two teams with their average stats
+        to_predict = pd.concat(
+            [
+                last_N_games_away[dal.teams_to_int[away_team]][away_features].mean(), 
+                last_N_games_home[dal.teams_to_int[home_team]][home_features].mean()
+            ],
+            axis=0)[features]
         
-    pred = int(clf.predict(to_predict.values.reshape(1,-1)))
-    true_value = next_game['Winner'].values[0]
-    predictions.append(pred)
-    true_values.append(true_value)
-    prob = clf.predict_proba(to_predict.values.reshape(1,-1))
-    model_prob.append(max(prob[0]))
-    model_odds.append(1/max(prob[0]))
-    odds_winner.append(next_game['OddsWinner'].values[0])
-    odds_loser.append(next_game['OddsLoser'].values[0])
-    dates_list.append(next_game['Date'])
-    home_teams_list.append(home_team)
-    away_teams_list.append(away_team)
+        pred = int(clf.predict(to_predict.values.reshape(1,-1)))
+        true_value = next_game['Winner'].values[0]
+        predictions.append(pred)
+        true_values.append(true_value)
+        prob = clf.predict_proba(to_predict.values.reshape(1,-1))
+        model_prob.append(max(prob[0]))
+        model_odds.append(1/max(prob[0]))
+        odds_winner.append(next_game['OddsWinner'].values[0])
+        odds_loser.append(next_game['OddsLoser'].values[0])
+        home_teams_list.append(home_team)
+        away_teams_list.append(away_team)
 
 # Only the most significant features will be considered
 away_features = Models.away_features
@@ -69,7 +74,6 @@ elif inp == '4':
 df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # To evaluate accuracy
-dates_list  = []
 predictions = []
 true_values = []
 model_prob  = []
@@ -78,15 +82,11 @@ odds_winner = []
 odds_loser  = []
 home_teams_list   = []
 away_teams_list   = []
-
-# Before predicting a game, check that it has not yet been predicted.
-# This is the case where e.g., TeamHome's next game at home against TeamAway has been evaluated ...
-# by both next home game and next away game. They are the same game, which are therefore predicted twice. 
 evaluated_indexes = []
 
 # Maximum allowed average_N: 35
 average_N = 5
-skip_n = 1
+skip_n = 10
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 36-average_N):
@@ -110,11 +110,9 @@ for skip_n_games in range(skip_n, 36-average_N):
         extract_and_predict(next_game)
 
     print(f'Evaluated samples: {len(predictions)}')
-    break
 
 # Evaluate the predictions
 data = {
-    'Date'              : dates_list,
     'AwayTeam'          : away_teams_list,
     'HomeTeam'          : home_teams_list,
     'Predictions'       : predictions,
@@ -125,8 +123,6 @@ data = {
     'OddsLoser'         : odds_loser
 }
 ev_df = pd.DataFrame(data)
-ev_df = ev_df.drop_duplicates()
-print(ev_df)
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
@@ -185,7 +181,7 @@ ev_df['NetWon'] = net_won
 ev_df['Bankroll'] = bankroll
 
 # Evaluate the bankroll and the ROI
-print(ev_df.tail(10))
+print(ev_df)
 print(f'Net worth: {current_bankroll-starting_bankroll:.2f} €')
 print(f'ROI: {100*current_bankroll/starting_bankroll:.2f}%')
 
