@@ -283,7 +283,7 @@ def elo_setup():
     return df
 
 def split_stats_per_game(folder:str):
-    df = pd.read_csv(folder + 'stats_per_game.csv', index_col=False)
+    df = pd.read_csv(folder + 'stats_per_game_2017.csv', index_col=False)
     spg_away =  df.iloc[::2]
     spg_home =  df.iloc[1::2]
 
@@ -303,10 +303,10 @@ def split_stats_per_game(folder:str):
     df['Winner'].loc[df['PTS_away'] > df['PTS_home']] = 1 # Change to Away if PTS_away > PTS_home
 
     # Assign the date per single game based on past season DataFrame
-    season_df = pd.read_csv(folder + '2020_2021_season.csv', index_col=False)
+    season_df = pd.read_csv(folder + '2017_2018_season.csv', index_col=False)
     df.insert(loc=0, column='Date', value=season_df['Date'])
     
-    df.to_csv(folder + 'split_stats_per_game.csv', index=False)
+    df.to_csv(folder + 'split_stats_per_game_2017.csv', index=False)
 
     return df
 

@@ -13,12 +13,12 @@ import Helper
 logger = logging.getLogger('get_past_datasets.py')
 coloredlogs.install(level='DEBUG')
 
-folder = 'past_data/2018_2019/'
+folder = 'past_data/2017_2018/'
 
 months = ['october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june']
 
 for month in months:
-    url = 'https://www.basketball-reference.com/leagues/NBA_2019_games-'+ month + '.html'
+    url = 'https://www.basketball-reference.com/leagues/NBA_2018_games-'+ month + '.html'
     df_url = pd.read_html(url)[0]
     df_url = df_url.rename(columns=
         {
@@ -46,13 +46,12 @@ december_df = pd.read_csv(folder + 'december_data.csv')
 january_df = pd.read_csv(folder + 'january_data.csv')
 february_df = pd.read_csv(folder + 'february_data.csv')
 march_df = pd.read_csv(folder + 'march_data.csv')
-march_df = pd.read_csv(folder + 'march_data.csv')
 april_df = pd.read_csv(folder + 'april_data.csv')
 may_df = pd.read_csv(folder + 'may_data.csv')
 june_df = pd.read_csv(folder + 'june_data.csv')
 
 season_df = pd.concat([october_df, november_df, december_df, january_df, february_df, march_df, april_df, may_df, june_df])
-season_df.to_csv(folder + '2018_2019_season.csv', index=False)
+season_df.to_csv(folder + '2017_2018_season.csv', index=False)
 
 df = pd.DataFrame(columns = dal.columns_data_dict)
 
@@ -110,13 +109,13 @@ df['PF']   = dal.data_dict['PF']
 df['PTS']  = dal.data_dict['PTS']
 df['+/-']  = dal.data_dict['+/-']
 
-df.to_csv(folder + 'stats_per_game_2018.csv', index=False)
+df.to_csv(folder + 'stats_per_game_2017.csv', index=False)
 
-Helper.split_concat_df(folder)
+Helper.split_stats_per_game(folder)
 
-df_new = pd.read_csv(folder + 'split_stats_per_game_2018.csv')
-df_old = pd.read_csv('past_data/merged_seasons/2019_to_2021_Stats.csv')
+df_new = pd.read_csv(folder + 'split_stats_per_game_2017.csv')
+df_old = pd.read_csv('past_data/merged_seasons/2018_to_2021_Stats.csv')
 
 df = pd.concat([df_new, df_old], axis=0)
-df.to_csv('past_data/merged_seasons/2018_to_2021_Stats.csv', index=False)
+df.to_csv('past_data/merged_seasons/2017_to_2021_Stats.csv', index=False)
 
