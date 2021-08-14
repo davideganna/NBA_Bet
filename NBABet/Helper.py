@@ -166,7 +166,7 @@ def build_stats_per_game_csv(folder:str):
             for table in tables:
                 try:
                     if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'MP')])) >= 240: # Get only the full game tables
-                        if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'PTS')])) == row['HomePoints']:
+                        if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'PTS')])) == int(row['HomePoints']):
                             append_stats_per_game(df=table, team=row['HomeTeam'])
                         else:
                             append_stats_per_game(df=table, team=row['AwayTeam'])
@@ -283,7 +283,7 @@ def elo_setup():
     return df
 
 def split_stats_per_game(folder:str):
-    df = pd.read_csv(folder + 'stats_per_game_2017.csv', index_col=False)
+    df = pd.read_csv(folder + 'half_stats_per_game_2017.csv', index_col=False)
     spg_away =  df.iloc[::2]
     spg_home =  df.iloc[1::2]
 
@@ -306,7 +306,7 @@ def split_stats_per_game(folder:str):
     season_df = pd.read_csv(folder + '2017_2018_season.csv', index_col=False)
     df.insert(loc=0, column='Date', value=season_df['Date'])
     
-    df.to_csv(folder + 'split_stats_per_game_2017.csv', index=False)
+    df.to_csv(folder + 'half_split_stats_per_game_2017.csv', index=False)
 
     return df
 

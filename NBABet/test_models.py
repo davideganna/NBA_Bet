@@ -53,8 +53,8 @@ def extract_and_predict(next_game):
         odds_winner.append(next_game['OddsWinner'].values[0])
         odds_loser.append(next_game['OddsLoser'].values[0])
         dates_list.append(next_game['Date'].values[0])
-        home_teams_list.append(home_team)
-        away_teams_list.append(away_team)
+        home_teams_list.append(dal.teams_dict[home_team])
+        away_teams_list.append(dal.teams_dict[away_team])
 
 # Only the most significant features will be considered
 away_features = Models.away_features
@@ -152,12 +152,12 @@ ev_df = pd.DataFrame(data).sort_values('index')
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
-prob_limit = 0.8
+prob_limit = 0.9
 correctly_predicted = ev_df.loc[
     (ev_df['Predictions'] == ev_df['TrueValues']) &         # We made the correct prediction 
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &  # The team is the favorite to win 
     (ev_df['OddsWinner'] >= ev_df['ModelOdds']) &           # The bookmaker offers better odds than the ones predicted by the model
-    (ev_df['ModelProbability'] >= prob_limit)               # Bet only if Probability > 80%
+    (ev_df['ModelProbability'] >= prob_limit)               # Bet only if Probability > prob_limit
     ].count()
 
 total_predicted = ev_df.loc[
@@ -183,15 +183,24 @@ comparison_column = np.where(ev_df['Predictions'] == ev_df['TrueValues'], True, 
 # Kelly's criterion: bet a different fraction of the bankroll depending on odds
 starting_bankroll = 100 # €
 current_bankroll = starting_bankroll
-bet_amount = []
-net_won = []
-bankroll = []
+bet_amount  = []
+frac_bet    = [] # Percentage of bankroll bet
+net_won     = []
+bankroll    = []
 for n, row in ev_df.iterrows():
     frac_amount = (row['ModelProbability']*row['OddsWinner']-1)/(row['OddsWinner']-1)
     if frac_amount > 0:
         # Limit the portion of bankroll to bet
-        if frac_amount > 0.25:
-            frac_amount = 0.25
+        if frac_amount > 0.2 and current_bankroll < 3*starting_bankroll:
+            # Start to build a roll with safe bets
+            frac_amount = 0.2
+        # More aggressive strategy once the roll is built    
+        elif frac_amount > 0.3:
+            frac_amount = 0.3
+        elif frac_amount > 0.4:
+            frac_amount = 0.4
+        frac_bet.append(round(frac_amount, 2))
+        
         # Max win is capped at 10000
         if (current_bankroll * frac_amount * row['OddsWinner']) > 10000:
             bet_amount.append(int(10000/row['OddsWinner']))
@@ -206,9 +215,10 @@ for n, row in ev_df.iterrows():
         bankroll.append(current_bankroll)
 
 
-ev_df['BetAmount'] = bet_amount
-ev_df['NetWon'] = net_won
-ev_df['Bankroll'] = bankroll
+ev_df['FractionBet'] = frac_bet
+ev_df['BetAmount']   = bet_amount
+ev_df['NetWon']      = net_won
+ev_df['Bankroll']    = bankroll
 
 # Evaluate the bankroll and the ROI
 print(ev_df)

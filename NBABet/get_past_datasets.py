@@ -50,12 +50,15 @@ april_df = pd.read_csv(folder + 'april_data.csv')
 may_df = pd.read_csv(folder + 'may_data.csv')
 june_df = pd.read_csv(folder + 'june_data.csv')
 
-season_df = pd.concat([october_df, november_df, december_df, january_df, february_df, march_df, april_df, may_df, june_df])
-season_df.to_csv(folder + '2017_2018_season.csv', index=False)
+#season_df = pd.concat([october_df, november_df, december_df, january_df, february_df, march_df, april_df, may_df, june_df])
+season_df = pd.concat([april_df, may_df, june_df])
+season_df.to_csv(folder + 'half_season.csv', index=False)
 
 df = pd.DataFrame(columns = dal.columns_data_dict)
 
 for _, row in season_df.iterrows():
+    print(row['HomeTeam'])
+    print(row['AwayTeam'])
     try:
         date = row['Date'].partition(', ')[2]
         month = dal.months_dict[date[:3]]
@@ -78,7 +81,7 @@ for _, row in season_df.iterrows():
         for table in tables:
             try:
                 if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'MP')])) >= 240: # Get only the full game tables
-                    if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'PTS')])) == row['HomePoints']:
+                    if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'PTS')])) == int(row['HomePoints']):
                         Helper.append_stats_per_game(df=table, team=row['HomeTeam'])
                     else:
                         Helper.append_stats_per_game(df=table, team=row['AwayTeam'])
@@ -109,12 +112,14 @@ df['PF']   = dal.data_dict['PF']
 df['PTS']  = dal.data_dict['PTS']
 df['+/-']  = dal.data_dict['+/-']
 
-df.to_csv(folder + 'stats_per_game_2017.csv', index=False)
+df.to_csv(folder + 'half_stats_per_game_2017.csv', index=False)
 
 Helper.split_stats_per_game(folder)
 
-df_new = pd.read_csv(folder + 'split_stats_per_game_2017.csv', index_col=False)
+df_new = pd.read_csv(folder + 'half_split_stats_per_game_2017.csv', index_col=False)
 df_old = pd.read_csv('past_data/merged_seasons/2018_to_2020_Stats.csv', index_col=False)
+
+df_new.drop('Date', axis=1, inplace=True)
 
 df = pd.concat([df_new, df_old], axis=0)
 df.to_csv('past_data/merged_seasons/2017_to_2020_Stats.csv', index=False)
