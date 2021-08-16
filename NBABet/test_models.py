@@ -34,16 +34,6 @@ def extract_and_predict(next_game):
         # Extract last N games based on indexes
         last_N_games_away = df.iloc[next_away_indexes_reduced]
         last_N_games_home = df.iloc[next_home_indexes_reduced]
-        
-        #if home_team == 'Orlando Magic':
-            #print(next_games_home_indexes)
-            #print(next_home_indexes_reduced)
-            #print('Next Game:')
-            #print(next_game)
-            #print('Last N games away:')
-            #print(last_N_games_away)
-            #print('Last N games home:')
-            #print(last_N_games_home)
 
         # Concatenate the two teams with their average stats
         to_predict = pd.concat(
@@ -109,8 +99,8 @@ away_teams_list   = []
 evaluated_indexes = []
 
 # Maximum allowed average_N: 35
-average_N = 6
-skip_n = 6
+average_N = 5
+skip_n = 5
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 50-average_N):
@@ -126,9 +116,13 @@ for skip_n_games in range(skip_n, 50-average_N):
         except: 
             pass
         if max(next_games_away_indexes) != dal.last_home_away_index_dict[team][0]:
-            next_game_index = min(i for i in next_games_away_indexes if i > last_away_game.index)
+            next_game_index = min(i for i in next_games_away_indexes[skip_n+average_N:] if i > last_away_game.index)
             next_game = df.loc[df.index == next_game_index]
-            extract_and_predict(next_game)
+
+            next_games_home_indexes = df.loc[df['Team_home'] == next_game['Team_home'].values[0]].index
+
+            if next_game_index in next_games_home_indexes[skip_n+average_N:]:
+                extract_and_predict(next_game)
 
         # Find all games where "team" plays home
         next_games_home_indexes = df.loc[df['Team_home'] == team].index
@@ -139,9 +133,13 @@ for skip_n_games in range(skip_n, 50-average_N):
         except: 
             pass
         if max(next_games_home_indexes) != dal.last_home_away_index_dict[team][1]:
-            next_game_index = min(i for i in next_games_home_indexes if i > last_home_game.index)
+            next_game_index = min(i for i in next_games_home_indexes[skip_n+average_N:] if i > last_home_game.index)
             next_game = df.loc[df.index == next_game_index]
-            extract_and_predict(next_game)
+            
+            next_games_away_indexes = df.loc[df['Team_away'] == next_game['Team_away'].values[0]].index
+            
+            if next_game_index in next_games_away_indexes[skip_n+average_N:]:
+                extract_and_predict(next_game)
 
     print(f'Evaluated samples: {len(predictions)}')
 
