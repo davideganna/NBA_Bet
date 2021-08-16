@@ -34,6 +34,16 @@ def extract_and_predict(next_game):
         # Extract last N games based on indexes
         last_N_games_away = df.iloc[next_away_indexes_reduced]
         last_N_games_home = df.iloc[next_home_indexes_reduced]
+        
+        #if home_team == 'Orlando Magic':
+            #print(next_games_home_indexes)
+            #print(next_home_indexes_reduced)
+            #print('Next Game:')
+            #print(next_game)
+            #print('Last N games away:')
+            #print(last_N_games_away)
+            #print('Last N games home:')
+            #print(last_N_games_home)
 
         # Concatenate the two teams with their average stats
         to_predict = pd.concat(
@@ -99,8 +109,8 @@ away_teams_list   = []
 evaluated_indexes = []
 
 # Maximum allowed average_N: 35
-average_N = 5
-skip_n = 5
+average_N = 6
+skip_n = 6
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 50-average_N):
@@ -152,7 +162,7 @@ ev_df = pd.DataFrame(data).sort_values('index')
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
-prob_limit = 0.9
+prob_limit = 0.85
 correctly_predicted = ev_df.loc[
     (ev_df['Predictions'] == ev_df['TrueValues']) &         # We made the correct prediction 
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &  # The team is the favorite to win 
@@ -197,8 +207,8 @@ for n, row in ev_df.iterrows():
         # More aggressive strategy once the roll is built    
         elif frac_amount > 0.3:
             frac_amount = 0.3
-        elif frac_amount > 0.4:
-            frac_amount = 0.4
+        elif frac_amount > 0.35:
+            frac_amount = 0.35
         frac_bet.append(round(frac_amount, 2))
         
         # Max win is capped at 10000
