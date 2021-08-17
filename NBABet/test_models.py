@@ -1,4 +1,3 @@
-from operator import index
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -82,9 +81,6 @@ elif inp == '4':
     logger.info('Building a Support Vector Machine Classifier...')
     clf = Models.build_SVM_classifier()
 
-##### Try some backtesting
-
-df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # To evaluate accuracy
 dates_list  = []
@@ -98,8 +94,11 @@ home_teams_list   = []
 away_teams_list   = []
 evaluated_indexes = []
 
+# Backtest on the 2020/2021 Season
+df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+
 # Maximum allowed average_N: 35
-average_N = 5
+average_N = 10
 skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
@@ -157,10 +156,11 @@ data = {
     'OddsLoser'         : odds_loser
 }
 ev_df = pd.DataFrame(data).sort_values('index')
+print(ev_df)
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
-prob_limit = 0.85
+prob_limit = 0.7
 correctly_predicted = ev_df.loc[
     (ev_df['Predictions'] == ev_df['TrueValues']) &         # We made the correct prediction 
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &  # The team is the favorite to win 
@@ -174,8 +174,11 @@ total_predicted = ev_df.loc[
     (ev_df['ModelProbability'] >= prob_limit)
     ].count()
 
-accuracy = correctly_predicted[0]/total_predicted[0]
-print(f'Accuracy when team is favorite, odds are greater than the ones predicted + margin ({margin}) and model probability is > {prob_limit}: {accuracy:.3f}')
+if correctly_predicted[0] != 0 and total_predicted[0] != 0:
+    accuracy = correctly_predicted[0]/total_predicted[0]
+    logger.info(f'Accuracy when team is favorite, odds are greater than the ones predicted + margin ({margin}) and model probability is > {prob_limit}: {accuracy:.3f}')
+else:
+    logger.info('Accuracy could not be computed. You may try to relax the conditions (margin and/or prob_limit).')
 
 # Extract the rows where the model predicted the lowest odds between the two teams,
 # i.e., where the team is the favorite to win. (Plus some margin)
