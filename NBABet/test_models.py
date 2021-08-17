@@ -100,7 +100,7 @@ evaluated_indexes = []
 
 # Maximum allowed average_N: 35
 average_N = 5
-skip_n = 5
+skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
 for skip_n_games in range(skip_n, 50-average_N):

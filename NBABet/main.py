@@ -16,11 +16,11 @@ import telegram_integration
 # ----- Scheduler ----- #
 sched = BackgroundScheduler(daemon=True)
 sched.add_job(lambda: Helper.check_df(),'interval', hours=24)
-sched.add_job(lambda: telegram_integration.ping_bot(),'interval', minutes=10)
+sched.add_job(lambda: telegram_integration.send_predictions(),'interval', minutes=10)
 
 # ------ Logger ------- #
 logger = logging.getLogger(__name__)
-coloredlogs.install(level='DEBUG')
+coloredlogs.install(level='WARNING')
 
 #-------- Main -------- #
 folder = 'past_data/2020_2021/' # Specify the current NBA season to save the .csv datasets.
@@ -31,17 +31,18 @@ except:
     logger.error('Program could not access the .csv datasets. Be sure to run "Setup.py" before "main.py".\n'\
     'Alternatively, check that the path to the folder where the .csv files are located is correct.')
 else:
-    Helper.check_df(folder)
+    # Uncomment when the 2022 season will start
+    #Helper.check_df(folder)
     
     # 1. Get next matches --> API.get_next_games()
     # 2. Iteratively extract Home_Team and Away_Team
     # 3. Get Average stats for Home_Team and Away_Team
     # 4. Predict the results for the retrieved matches
     # 5. Send the predictions to the Telegram Bot
-    
-    # ----- If you want the Telegram Integration ----- #
-    telegram_integration.ping_bot()
 
+    # ----- If you want the Telegram Integration ----- #
+    bankroll = telegram_integration.test_br()
+    
     # ----- If you don't want to run the program at fixed times, uncomment the lines below. ----- #
     sched.start()
     logger.warning('Type "exit" to stop the program.\n')

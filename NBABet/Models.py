@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 
 
 # Create the df containing stats per single game on every row
-df = pd.read_csv('past_data/merged_seasons/2017_to_2021_Stats.csv')
+df = pd.read_csv('past_data/merged_seasons/2017_to_2020_Stats.csv')
 ord_encoder = OrdinalEncoder()
 df[['Team_home', 'Team_away']] = ord_encoder.fit_transform(df[['Team_home', 'Team_away']])
 
@@ -42,7 +42,6 @@ home_features = [
 
 features = away_features + home_features
 
-
 # Split into train and test
 X_train, y_train = df[features], df[[target]]
 
@@ -72,7 +71,7 @@ def build_RF_classifier():
     """
     Builds a Random Forest Classifier.
     """
-    # Define a Decision Tree Classifier
+    # Define a Random Forest Classifier
     rf_clf = RandomForestClassifier(
         n_estimators=200, max_leaf_nodes=16, n_jobs=-1, random_state=42
     )

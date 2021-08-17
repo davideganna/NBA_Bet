@@ -15,7 +15,15 @@ with open('secrets/os_paths', 'r') as f:
 
 sys.path.insert(0, os_path)
 
-import telegram_bot
+import telegram_bot # type: ignore "Do not remove this comment"
 
-def ping_bot():
+# Functions
+
+def set_bankroll():
+    telegram_bot.set_bankroll()
+
+def send_predictions():
     telegram_bot.send_predictions()
+
+def test_br():
+    telegram_bot.test_br()
