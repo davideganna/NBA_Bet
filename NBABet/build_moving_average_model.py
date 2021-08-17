@@ -78,7 +78,7 @@ df_2018 = pd.read_csv('past_data/2018_2019/split_stats_per_game_2018.csv')
 df_2019 = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
 
 # Maximum allowed average_N: 35
-average_N = 2
+average_N = 10
 skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
@@ -124,18 +124,21 @@ for _df in [df_2017, df_2018, df_2019]:
                 
                 if next_game_index in next_games_away_indexes[skip_n+average_N:]:
                     extract_and_insert(next_game)
-        
-        print(f'Evaluated samples: {len(winners_list)}')
 
     avg_df = pd.concat(to_insert_list, axis=1).transpose()
     avg_df['Winner'] = winners_list
     
     if _df is df_2017:
+        _df.name = '2017/2018 Season DataFrame' 
         avg_df.to_csv('past_data/average_seasons/average2017.csv', index=False)
     elif _df is df_2018:
+        _df.name = '2018/2019 Season DataFrame' 
         avg_df.to_csv('past_data/average_seasons/average2018.csv', index=False)
     elif _df is df_2019:
+        _df.name = '2019/2020 Season DataFrame' 
         avg_df.to_csv('past_data/average_seasons/average2019.csv', index=False)
+
+    logger.info(f'Retrieved stats for {_df.name}')
 
 # Concatenate the 3 average season datasets
 avg_2017_df = pd.read_csv('past_data/average_seasons/average2017.csv')

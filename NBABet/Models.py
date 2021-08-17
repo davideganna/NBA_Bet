@@ -11,9 +11,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 
 
 # Create the df containing stats per single game on every row
-df = pd.read_csv('past_data/merged_seasons/2017_to_2020_Stats.csv')
-ord_encoder = OrdinalEncoder()
-df[['Team_home', 'Team_away']] = ord_encoder.fit_transform(df[['Team_home', 'Team_away']])
+df = pd.read_csv('past_data/average_seasons/average_3seasons.csv')
 
 # Define the target
 target = 'Winner'
