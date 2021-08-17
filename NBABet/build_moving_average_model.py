@@ -48,12 +48,12 @@ def extract_and_insert(next_game):
             axis=0)[features]
 
         # Print here for debugging purposes
-        #print(f'Next game index: {next_game.index[0]}')
-        #print(f'Away team: {away_team}')
-        #print(last_N_games_away[away_features])
-        #print(f'Home team: {home_team}')
-        #print(last_N_games_home[home_features])
-        #print(f'Mean to insert: {to_insert}')
+        print(f'Next game index: {next_game.index[0]}')
+        print(f'Away team: {away_team}')
+        print(last_N_games_away[away_features])
+        print(f'Home team: {home_team}')
+        print(last_N_games_home[home_features])
+        print(f'Mean to insert: {to_insert}')
         to_insert_list.append(to_insert)
         winners_list.append(_df['Winner'].loc[_df.index == next_game.index[0]].values[0])
 

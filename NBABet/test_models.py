@@ -98,7 +98,7 @@ evaluated_indexes = []
 df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # Maximum allowed average_N: 35
-average_N = 10
+average_N = 15
 skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
@@ -156,37 +156,48 @@ data = {
     'OddsLoser'         : odds_loser
 }
 ev_df = pd.DataFrame(data).sort_values('index')
-print(ev_df)
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
-prob_limit = 0.85
-correctly_predicted = ev_df.loc[
-    (ev_df['Predictions'] == ev_df['TrueValues']) &         # We made the correct prediction 
-    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &  # The team is the favorite to win 
-    (ev_df['OddsWinner'] >= ev_df['ModelOdds']) &           # The bookmaker offers better odds than the ones predicted by the model
-    (ev_df['ModelProbability'] >= prob_limit)               # Bet only if Probability > prob_limit
-    ].count()
-
-total_predicted = ev_df.loc[
-    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &
+prob_limit = 0.7
+correctly_predicted_amount = ev_df.loc[
+    (ev_df['Predictions'] == ev_df['TrueValues']) &
+    ((ev_df['OddsLoser'] > ev_df['OddsWinner'] + margin)) &
     (ev_df['OddsWinner'] >= ev_df['ModelOdds']) &
     (ev_df['ModelProbability'] >= prob_limit)
     ].count()
 
-if correctly_predicted[0] != 0 and total_predicted[0] != 0:
-    accuracy = correctly_predicted[0]/total_predicted[0]
-    logger.info(f'Accuracy when team is favorite, odds are greater than the ones predicted + margin ({margin}) and model probability is > {prob_limit}: {accuracy:.3f}')
+wrongly_predicted_amount = ev_df.loc[
+    (ev_df['Predictions'] != ev_df['TrueValues']) &
+    ((ev_df['OddsWinner'] > ev_df['OddsLoser'] + margin)) &
+    (ev_df['OddsLoser'] >= ev_df['ModelOdds']) &
+    (ev_df['ModelProbability'] >= prob_limit)
+    ].count()
+
+total_predicted = correctly_predicted_amount[0] + wrongly_predicted_amount[0]
+
+if correctly_predicted_amount[0] != 0 and total_predicted != 0:
+    accuracy = correctly_predicted_amount[0]/total_predicted
+    logger.info(f'Accuracy when team is favorite, loser odds are greater than winner ones + margin ({margin}) and model probability is > {prob_limit}: {accuracy:.3f}')
 else:
     logger.info('Accuracy could not be computed. You may try to relax the conditions (margin and/or prob_limit).')
 
 # Extract the rows where the model predicted the lowest odds between the two teams,
 # i.e., where the team is the favorite to win. (Plus some margin)
-ev_df = ev_df.loc[
-    (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &
+correctly_pred_df = ev_df.loc[
+    (ev_df['Predictions'] == ev_df['TrueValues']) &
+    ((ev_df['OddsLoser'] > ev_df['OddsWinner'] + margin)) &
     (ev_df['OddsWinner'] >= ev_df['ModelOdds']) &
     (ev_df['ModelProbability'] >= prob_limit) 
-    ].reset_index(drop=True)
+]
+wrongly_pred_df = ev_df.loc[
+    (ev_df['Predictions'] != ev_df['TrueValues']) &
+    ((ev_df['OddsWinner'] > ev_df['OddsLoser'] + margin)) &
+    (ev_df['OddsLoser'] >= ev_df['ModelOdds']) &
+    (ev_df['ModelProbability'] >= prob_limit)
+]
+
+ev_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_values('index').reset_index(drop=True)
 
 # Compare Predictions and TrueValues
 comparison_column = np.where(ev_df['Predictions'] == ev_df['TrueValues'], True, False)
@@ -200,9 +211,10 @@ net_won     = []
 bankroll    = []
 for n, row in ev_df.iterrows():
     frac_amount = (row['ModelProbability']*row['OddsWinner']-1)/(row['OddsWinner']-1)
+    
     if frac_amount > 0:
         # Limit the portion of bankroll to bet
-        if frac_amount > 0.2 and current_bankroll < 3*starting_bankroll:
+        if frac_amount > 0.2 and current_bankroll < 2*starting_bankroll:
             # Start to build a roll with safe bets
             frac_amount = 0.2
         # More aggressive strategy once the roll is built  
@@ -217,10 +229,12 @@ for n, row in ev_df.iterrows():
             bet_amount.append(int(10000/row['OddsWinner']))
         else:
             bet_amount.append(int(current_bankroll * frac_amount))
+
         net_won.append(bet_amount[n] * row['OddsWinner'] * (row['Predictions'] == row['TrueValues']) - bet_amount[n])
         current_bankroll = current_bankroll + net_won[n]
         bankroll.append(current_bankroll)
     else:
+        frac_bet.append(0)
         bet_amount.append(0)
         net_won.append(0)
         bankroll.append(current_bankroll)
