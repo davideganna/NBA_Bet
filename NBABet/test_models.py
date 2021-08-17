@@ -160,7 +160,7 @@ print(ev_df)
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 margin = 0.2
-prob_limit = 0.7
+prob_limit = 0.85
 correctly_predicted = ev_df.loc[
     (ev_df['Predictions'] == ev_df['TrueValues']) &         # We made the correct prediction 
     (ev_df['OddsLoser'] >= ev_df['OddsWinner'] + margin) &  # The team is the favorite to win 
@@ -205,11 +205,11 @@ for n, row in ev_df.iterrows():
         if frac_amount > 0.2 and current_bankroll < 3*starting_bankroll:
             # Start to build a roll with safe bets
             frac_amount = 0.2
-        # More aggressive strategy once the roll is built    
+        # More aggressive strategy once the roll is built  
+        elif frac_amount > 0.35:
+            frac_amount = 0.35  
         elif frac_amount > 0.3:
             frac_amount = 0.3
-        elif frac_amount > 0.35:
-            frac_amount = 0.35
         frac_bet.append(round(frac_amount, 2))
         
         # Max win is capped at 10000

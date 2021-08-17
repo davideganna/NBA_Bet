@@ -17,7 +17,7 @@ coloredlogs.install(level='DEBUG')
 
 # Functions
 def add_odds_to_split_df():
-    odds_df = pd.read_csv('past_data/2020_2021/historical_odds_2020_2021.csv', sep=';', index_col=False)
+    odds_df = pd.read_csv('past_data/2019_2020/historical_odds_2019_2020.csv', sep=';', index_col=False)
     # Compute European Odds
     odds_df = odds_df.assign(Odds = 1 + odds_df['ML']/100) # Set the winner as the Home Team
     odds_df['Odds'].loc[odds_df['ML'] < 0] = (1 + 100/(-odds_df['ML']))
@@ -43,7 +43,7 @@ def add_odds_to_split_df():
     odds_df.insert(loc=0, column='Date', value=dates_list)
     
     # Read stats_per_game.csv
-    split_stats_df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+    split_stats_df = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
     # Add column with odds
     split_stats_df = split_stats_df.assign(OddsWinner = np.nan)
     split_stats_df = split_stats_df.assign(OddsLoser = np.nan)
@@ -57,6 +57,7 @@ def add_odds_to_split_df():
         day = date.partition(',')[0][4:]
         if len(day) == 1:
             day = '0' + day
+        
         # Home team won, Away team lost
         if row['Winner'] == 0: 
             row['OddsWinner'] = odds_df['Odds_home'].loc[
@@ -89,10 +90,12 @@ def add_odds_to_split_df():
                 (odds_df['Final_away'] == row['PTS_away']) &
                 (odds_df['Date'] == int(month+day))
             ]
+        print(row['Date'])
+        print(row['Team_away'], row['Team_home'])
         split_stats_df['OddsWinner'].iloc[n] = round(row['OddsWinner'].values[0], 2)
         split_stats_df['OddsLoser'].iloc[n] = round(row['OddsLoser'].values[0], 2)
 
-    split_stats_df.to_csv('past_data/2020_2021/split_stats_per_game.csv', index=False)
+    split_stats_df.to_csv('past_data/2019_2020/split_stats_per_game_2019.csv', index=False)
 
 
 
@@ -283,7 +286,7 @@ def elo_setup():
     return df
 
 def split_stats_per_game(folder:str):
-    df = pd.read_csv(folder + 'half_stats_per_game_2017.csv', index_col=False)
+    df = pd.read_csv(folder + 'stats_per_game_2019.csv', index_col=False)
     spg_away =  df.iloc[::2]
     spg_home =  df.iloc[1::2]
 
@@ -303,10 +306,10 @@ def split_stats_per_game(folder:str):
     df['Winner'].loc[df['PTS_away'] > df['PTS_home']] = 1 # Change to Away if PTS_away > PTS_home
 
     # Assign the date per single game based on past season DataFrame
-    season_df = pd.read_csv(folder + '2017_2018_season.csv', index_col=False)
+    season_df = pd.read_csv(folder + '2019_2020_season.csv', index_col=False)
     df.insert(loc=0, column='Date', value=season_df['Date'])
     
-    df.to_csv(folder + 'half_split_stats_per_game_2017.csv', index=False)
+    df.to_csv(folder + 'split_stats_per_game_2019.csv', index=False)
 
     return df
 
