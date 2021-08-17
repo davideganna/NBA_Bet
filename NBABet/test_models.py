@@ -1,4 +1,3 @@
-from operator import index
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -82,9 +81,6 @@ elif inp == '4':
     logger.info('Building a Support Vector Machine Classifier...')
     clf = Models.build_SVM_classifier()
 
-##### Try some backtesting
-
-df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # To evaluate accuracy
 dates_list  = []
@@ -98,8 +94,11 @@ home_teams_list   = []
 away_teams_list   = []
 evaluated_indexes = []
 
+# Backtest on the 2020/2021 Season
+df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+
 # Maximum allowed average_N: 35
-average_N = 5
+average_N = 10
 skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
