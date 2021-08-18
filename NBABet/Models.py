@@ -18,21 +18,27 @@ target = 'Winner'
 
 # Only consider the features with abs(CorrelationValue) > 0.3
 away_features = [
+    'RB_aggr_away',
     'PTS_away',
     'FG%_away',    
     'FG_away',     
     'DRB_away',    
     '3P%_away',    
     'TRB_away',    
-    'LogRatio_away'
+    'LogRatio_away',
+    'eFG%_away',
+    'TS%_away'
 ]
 home_features = [ 
+    'RB_aggr_home',
     '3P%_home',   
     'DRB_home',   
     'FG_home',    
     'FG%_home',   
     'PTS_home',
-    'LogRatio_home'
+    'LogRatio_home',
+    'eFG%_home',
+    'TS%_home'
 ]
 
 features = away_features + home_features

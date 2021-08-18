@@ -17,9 +17,18 @@ coloredlogs.install(level='DEBUG')
 
 # Functions
 def add_features_to_df(df):
-    # Add Log Ratio
+    # Log Ratio
     df['LogRatio_home'] = np.log2(df['PTS_home']/df['PTS_away'])
     df['LogRatio_away'] = np.log2(df['PTS_away']/df['PTS_home'])
+    # Rebounds Ratio
+    df['RB_aggr_home'] = df['ORB_home']/df['DRB_away']
+    df['RB_aggr_away'] = df['ORB_away']/df['DRB_home']
+    # eFG% - Effective Field Goal %
+    df['eFG%_home'] = (df['FG_home']+(0.5*df['3P_home']))/df['FGA_home']
+    df['eFG%_away'] = (df['FG_away']+(0.5*df['3P_away']))/df['FGA_away']
+    # TS% - True Shooting %
+    df['TS%_home'] = df['PTS_home']/(2*df['FGA_home'] + (0.44*df['FTA_home']))
+    df['TS%_away'] = df['PTS_away']/(2*df['FGA_away'] + (0.44*df['FTA_away']))
     return df
 
 def add_odds_to_split_df():
