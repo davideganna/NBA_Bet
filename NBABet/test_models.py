@@ -158,8 +158,8 @@ data = {
 ev_df = pd.DataFrame(data).sort_values('index')
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
-margin = 1
-prob_limit = 0
+margin = 0
+prob_limit = 0.7
 correctly_predicted_amount = ev_df.loc[
     (ev_df['Predictions'] == ev_df['TrueValues']) &
     ((ev_df['OddsLoser'] > ev_df['OddsWinner'] + margin)) &

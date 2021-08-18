@@ -40,8 +40,8 @@ def extract_and_insert(next_game):
         # Concatenate the two teams with their average stats
         to_insert = pd.concat(
             [
-                last_N_games_away[away_features].mean(), 
-                last_N_games_home[home_features].mean()
+                round(last_N_games_away[away_features].mean(),5), 
+                round(last_N_games_home[home_features].mean(),5)
             ],
             axis=0)[features]
 

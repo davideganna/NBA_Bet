@@ -18,7 +18,8 @@ coloredlogs.install(level='DEBUG')
 # Functions
 def add_features_to_df(df):
     # Add Log Ratio
-    df['LogRatio'] = np.log2(df['PTS_home']/df['PTS_away'])
+    df['LogRatio_home'] = np.log2(df['PTS_home']/df['PTS_away'])
+    df['LogRatio_away'] = np.log2(df['PTS_away']/df['PTS_home'])
     return df
 
 def add_odds_to_split_df():

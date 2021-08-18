@@ -16,7 +16,7 @@ df = pd.read_csv('past_data/average_seasons/average_N_3Seasons.csv')
 # Define the target
 target = 'Winner'
 
-# Define the features
+# Only consider the features with abs(CorrelationValue) > 0.3
 away_features = [
     'PTS_away',
     'FG%_away',    
@@ -24,19 +24,15 @@ away_features = [
     'DRB_away',    
     '3P%_away',    
     'TRB_away',    
-    #'AST_away',
-    #'3P_away'
+    'LogRatio_away'
 ]
-home_features = [
-    #'AST_home',
-    #'3P_home',
-    #'TRB_home',   
+home_features = [ 
     '3P%_home',   
     'DRB_home',   
     'FG_home',    
     'FG%_home',   
     'PTS_home',
-    'LogRatio'
+    'LogRatio_home'
 ]
 
 features = away_features + home_features
