@@ -16,6 +16,11 @@ logger = logging.getLogger('Helper.py')
 coloredlogs.install(level='DEBUG')
 
 # Functions
+def add_features_to_df(df):
+    # Add Log Ratio
+    df['LogRatio'] = np.log2(df['PTS_home']/df['PTS_away'])
+    return df
+
 def add_odds_to_split_df():
     odds_df = pd.read_csv('past_data/2019_2020/historical_odds_2019_2020.csv', sep=';', index_col=False)
     # Compute European Odds

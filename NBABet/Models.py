@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 
 
 # Create the df containing stats per single game on every row
-df = pd.read_csv('past_data/merged_seasons/2017_to_2020_Stats.csv')
+df = pd.read_csv('past_data/average_seasons/average_N_3Seasons.csv')
 
 # Define the target
 target = 'Winner'
@@ -24,24 +24,22 @@ away_features = [
     'DRB_away',    
     '3P%_away',    
     'TRB_away',    
-    'AST_away',
-    '3P_away'
+    #'AST_away',
+    #'3P_away'
 ]
 home_features = [
-    'AST_home',
-    '3P_home',
-    'TRB_home',   
+    #'AST_home',
+    #'3P_home',
+    #'TRB_home',   
     '3P%_home',   
     'DRB_home',   
     'FG_home',    
     'FG%_home',   
-    'PTS_home'
+    'PTS_home',
+    'LogRatio'
 ]
 
 features = away_features + home_features
-
-# Split into train and test
-X_train, y_train = df[features], df[[target]]
 
 
 ############### Different functions for building different models. ###############
@@ -50,6 +48,7 @@ def build_AdaBoost_classifier():
     """
     Builds an AdaBoost Classifier.
     """
+    X_train, y_train = df[features], df[[target]]
     ada_clf = AdaBoostClassifier(
         DecisionTreeClassifier(max_depth=1), n_estimators=125,
         algorithm='SAMME.R', learning_rate=0.5
@@ -61,6 +60,8 @@ def build_DT_classifier():
     """
     Builds a Decision Tree Classifier.
     """
+    # Split into train and test
+    X_train, y_train = df[features], df[[target]]
     tree_clf = DecisionTreeClassifier(max_depth=5, random_state=42)
     tree_clf.fit(X_train, y_train)
     return tree_clf 
@@ -69,6 +70,8 @@ def build_RF_classifier():
     """
     Builds a Random Forest Classifier.
     """
+    # Split into train and test
+    X_train, y_train = df[features], df[[target]]
     # Define a Random Forest Classifier
     rf_clf = RandomForestClassifier(
         n_estimators=200, max_leaf_nodes=16, n_jobs=-1, random_state=42
@@ -80,6 +83,7 @@ def build_SVM_classifier():
     """
     Builds a Support Vector Machine Classifier.
     """
+    X_train, y_train = df[features], df[[target]]
     # Normalize the data
     svm_clf = make_pipeline(StandardScaler(), SVC())
 

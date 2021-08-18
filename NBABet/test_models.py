@@ -98,7 +98,7 @@ evaluated_indexes = []
 df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # Maximum allowed average_N: 35
-average_N = 15
+average_N = 5
 skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
@@ -158,8 +158,8 @@ data = {
 ev_df = pd.DataFrame(data).sort_values('index')
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
-margin = 0.2
-prob_limit = 0.7
+margin = 1
+prob_limit = 0
 correctly_predicted_amount = ev_df.loc[
     (ev_df['Predictions'] == ev_df['TrueValues']) &
     ((ev_df['OddsLoser'] > ev_df['OddsWinner'] + margin)) &
@@ -215,13 +215,8 @@ for n, row in ev_df.iterrows():
     if frac_amount > 0:
         # Limit the portion of bankroll to bet
         if frac_amount > 0.2 and current_bankroll < 2*starting_bankroll:
-            # Start to build a roll with safe bets
             frac_amount = 0.2
-        # More aggressive strategy once the roll is built  
-        elif frac_amount > 0.35:
-            frac_amount = 0.35  
-        elif frac_amount > 0.3:
-            frac_amount = 0.3
+
         frac_bet.append(round(frac_amount, 2))
         
         # Max win is capped at 10000

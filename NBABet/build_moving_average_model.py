@@ -1,6 +1,4 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import Models
 import backtesting
 import dicts_and_lists as dal
@@ -48,12 +46,12 @@ def extract_and_insert(next_game):
             axis=0)[features]
 
         # Print here for debugging purposes
-        print(f'Next game index: {next_game.index[0]}')
-        print(f'Away team: {away_team}')
-        print(last_N_games_away[away_features])
-        print(f'Home team: {home_team}')
-        print(last_N_games_home[home_features])
-        print(f'Mean to insert: {to_insert}')
+        #print(f'Next game index: {next_game.index[0]}')
+        #print(f'Away team: {away_team}')
+        #print(last_N_games_away[away_features])
+        #print(f'Home team: {home_team}')
+        #print(last_N_games_home[home_features])
+        #print(f'Mean to insert: {to_insert}')
         to_insert_list.append(to_insert)
         winners_list.append(_df['Winner'].loc[_df.index == next_game.index[0]].values[0])
 
@@ -78,7 +76,7 @@ df_2018 = pd.read_csv('past_data/2018_2019/split_stats_per_game_2018.csv')
 df_2019 = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
 
 # Maximum allowed average_N: 35
-average_N = 10
+average_N = 5
 skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
@@ -146,6 +144,6 @@ avg_2018_df = pd.read_csv('past_data/average_seasons/average2018.csv')
 avg_2019_df = pd.read_csv('past_data/average_seasons/average2019.csv')
 
 avg_total_df = pd.concat([avg_2017_df, avg_2018_df, avg_2019_df], axis=0)
-avg_total_df.to_csv('past_data/average_seasons/average_3seasons.csv', index=False)
+avg_total_df.to_csv('past_data/average_seasons/average_N_3Seasons.csv', index=False)
 
 
