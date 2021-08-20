@@ -12,30 +12,56 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 
 # Create the df containing stats per single game on every row
 df = pd.read_csv('past_data/average_seasons/average_N_3Seasons.csv')
+#df = pd.read_csv('past_data/merged_seasons/2017_to_2020_Stats.csv')
 
 # Define the target
 target = 'Winner'
 
 # Only consider the features with abs(CorrelationValue) > 0.3
 away_features = [
-    'RB_aggr_away',
-    'PTS_away',
-    'FG%_away',    
-    'FG_away',     
-    'DRB_away',    
-    '3P%_away',    
-    'TRB_away',    
+    'MP_home',
+    'FG_home',
+    'FGA_home',
+    'FG%_home',
+    '3P_home',
+    '3PA_home',
+    '3P%_home',
+    'FT_home',
+    'FTA_home',
+    'FT%_home',
+    'ORB_home',
+    'DRB_home',
+    'TRB_home',
+    'AST_home',
+    'STL_home',
+    'BLK_home',
+    'TOV_home',
+    'PF_home',
     'LogRatio_away',
+    'RB_aggr_away',
     'eFG%_away',
     'TS%_away'
 ]
 home_features = [ 
+    'MP_away',
+    'FG_away',
+    'FGA_away',
+    'FG%_away',
+    '3P_away',
+    '3PA_away',
+    '3P%_away',
+    'FT_away',
+    'FTA_away',
+    'FT%_away',
+    'ORB_away',
+    'DRB_away',
+    'TRB_away',
+    'AST_away',
+    'STL_away',
+    'BLK_away',
+    'TOV_away',
+    'PF_away',
     'RB_aggr_home',
-    '3P%_home',   
-    'DRB_home',   
-    'FG_home',    
-    'FG%_home',   
-    'PTS_home',
     'LogRatio_home',
     'eFG%_home',
     'TS%_home'
@@ -94,16 +120,3 @@ def build_SVM_classifier():
 
     return svm_clf
 
-def get_odds_Elo(away_team, home_team):
-    """
-    Get probabilities based on the Team's Elo value.
-    """
-    elo_df = pd.read_csv('elo.csv')
-    elo_away_team = float(elo_df.loc[elo_df['Team'] == away_team, 'Elo'].values[0])
-    elo_home_team = float(elo_df.loc[elo_df['Team'] == home_team, 'Elo'].values[0])
-
-    # Expected Win probability for away_team and home_team
-    odds_away_team = 1+10**((elo_home_team - elo_away_team)/400)
-    odds_home_team = 1+10**((elo_away_team - elo_home_team)/400)
-
-    return odds_away_team, odds_home_team

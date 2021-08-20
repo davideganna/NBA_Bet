@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import Models
 import backtesting
@@ -45,12 +46,12 @@ def extract_and_predict(next_game):
         pred = int(clf.predict(to_predict.values.reshape(1,-1)))
         true_value = next_game['Winner'].values[0]
         predictions.append(pred)
-        true_values.append(true_value)
+        winners.append(true_value)
         prob = clf.predict_proba(to_predict.values.reshape(1,-1))
         model_prob.append(max(prob[0]))
         model_odds.append(1/max(prob[0]))
-        odds_winner.append(next_game['OddsWinner'].values[0])
-        odds_loser.append(next_game['OddsLoser'].values[0])
+        odds_away.append(next_game['OddsAway'].values[0])
+        odds_home.append(next_game['OddsHome'].values[0])
         dates_list.append(next_game['Date'].values[0])
         home_teams_list.append(dal.teams_dict[home_team])
         away_teams_list.append(dal.teams_dict[away_team])
@@ -85,11 +86,11 @@ elif inp == '4':
 # To evaluate accuracy
 dates_list  = []
 predictions = []
-true_values = []
+winners = []
 model_prob  = []
 model_odds  = []
-odds_winner = []
-odds_loser  = []
+odds_away = []
+odds_home  = []
 home_teams_list   = []
 away_teams_list   = []
 evaluated_indexes = []
@@ -149,28 +150,43 @@ data = {
     'AwayTeam'          : away_teams_list,
     'HomeTeam'          : home_teams_list,
     'Predictions'       : predictions,
-    'TrueValues'        : true_values,
+    'Winner'            : winners,
     'ModelProbability'  : model_prob,
     'ModelOdds'         : model_odds,
-    'OddsWinner'        : odds_winner,
-    'OddsLoser'         : odds_loser
+    'OddsHome'          : odds_home,
+    'OddsAway'          : odds_away
 }
 ev_df = pd.DataFrame(data).sort_values('index')
 
-# Calculate accuracy of predicted teams, when they were the favorite by a margin
-margin = 0
+# Hyperparameters
+margin = 0.2
 prob_limit = 0.7
+betting_limiter = True
+
+# Calculate accuracy of predicted teams, when they were the favorite by a margin
 correctly_predicted_amount = ev_df.loc[
-    (ev_df['Predictions'] == ev_df['TrueValues']) &
-    ((ev_df['OddsLoser'] > ev_df['OddsWinner'] + margin)) &
-    (ev_df['OddsWinner'] >= ev_df['ModelOdds']) &
+    (ev_df['Predictions'] == ev_df['Winner']) &
+    (
+        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
+    ) &
+    (
+        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) |
+        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1))
+    ) &
     (ev_df['ModelProbability'] >= prob_limit)
     ].count()
 
 wrongly_predicted_amount = ev_df.loc[
-    (ev_df['Predictions'] != ev_df['TrueValues']) &
-    ((ev_df['OddsWinner'] > ev_df['OddsLoser'] + margin)) &
-    (ev_df['OddsLoser'] >= ev_df['ModelOdds']) &
+    (ev_df['Predictions'] != ev_df['Winner']) &
+    (
+        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
+    ) &
+    (
+        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) |
+        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1))
+    ) &
     (ev_df['ModelProbability'] >= prob_limit)
     ].count()
 
@@ -185,22 +201,34 @@ else:
 # Extract the rows where the model predicted the lowest odds between the two teams,
 # i.e., where the team is the favorite to win. (Plus some margin)
 correctly_pred_df = ev_df.loc[
-    (ev_df['Predictions'] == ev_df['TrueValues']) &
-    ((ev_df['OddsLoser'] > ev_df['OddsWinner'] + margin)) &
-    (ev_df['OddsWinner'] >= ev_df['ModelOdds']) &
-    (ev_df['ModelProbability'] >= prob_limit) 
+    (ev_df['Predictions'] == ev_df['Winner']) &
+    (
+        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
+    ) &
+    (
+        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) |
+        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1))
+    ) &
+    (ev_df['ModelProbability'] >= prob_limit)
 ]
 wrongly_pred_df = ev_df.loc[
-    (ev_df['Predictions'] != ev_df['TrueValues']) &
-    ((ev_df['OddsWinner'] > ev_df['OddsLoser'] + margin)) &
-    (ev_df['OddsLoser'] >= ev_df['ModelOdds']) &
+    (ev_df['Predictions'] != ev_df['Winner']) &
+    (
+        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
+    ) &
+    (
+        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) |
+        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1))
+    ) &
     (ev_df['ModelProbability'] >= prob_limit)
 ]
 
 ev_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_values('index').reset_index(drop=True)
 
 # Compare Predictions and TrueValues
-comparison_column = np.where(ev_df['Predictions'] == ev_df['TrueValues'], True, False)
+comparison_column = np.where(ev_df['Predictions'] == ev_df['Winner'], True, False)
 
 # Kelly's criterion: bet a different fraction of the bankroll depending on odds
 starting_bankroll = 100 # €
@@ -210,22 +238,31 @@ frac_bet    = [] # Percentage of bankroll bet
 net_won     = []
 bankroll    = []
 for n, row in ev_df.iterrows():
-    frac_amount = (row['ModelProbability']*row['OddsWinner']-1)/(row['OddsWinner']-1)
+    if row['Winner'] == 0:
+        frac_amount = (row['ModelProbability']*row['OddsHome']-1)/(row['OddsHome']-1)
+    else:
+        frac_amount = (row['ModelProbability']*row['OddsAway']-1)/(row['OddsAway']-1)
     
     if frac_amount > 0:
         # Limit the portion of bankroll to bet
-        if frac_amount > 0.2 and current_bankroll < 2*starting_bankroll:
+        if frac_amount > 0.2 and current_bankroll < 2*starting_bankroll and betting_limiter == True:
             frac_amount = 0.2
 
         frac_bet.append(round(frac_amount, 2))
         
-        # Max win is capped at 10000
+        """ # Max win is capped at 10000
         if (current_bankroll * frac_amount * row['OddsWinner']) > 10000:
             bet_amount.append(int(10000/row['OddsWinner']))
         else:
-            bet_amount.append(int(current_bankroll * frac_amount))
+            bet_amount.append(int(current_bankroll * frac_amount)) """
+        
+        bet_amount.append(int(current_bankroll * frac_amount))
 
-        net_won.append(bet_amount[n] * row['OddsWinner'] * (row['Predictions'] == row['TrueValues']) - bet_amount[n])
+        if row['Winner'] == 0:
+            net_won.append(bet_amount[n] * row['OddsHome'] * (row['Predictions'] == row['Winner']) - bet_amount[n])
+        else:
+            net_won.append(bet_amount[n] * row['OddsAway'] * (row['Predictions'] == row['Winner']) - bet_amount[n])
+
         current_bankroll = current_bankroll + net_won[n]
         bankroll.append(current_bankroll)
     else:
@@ -251,3 +288,7 @@ ax.set_title('Bankroll versus number of games played')
 ax.set_xlabel('Games played')
 ax.set_ylabel('Bankroll (€)')
 plt.show()
+
+# Confusion Matrix
+conf_matrix = confusion_matrix(ev_df['Predictions'], ev_df['Winner'])
+print(conf_matrix)

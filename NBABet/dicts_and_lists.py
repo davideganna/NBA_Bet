@@ -1,6 +1,7 @@
 # ------------------------------- dicts_and_lists.py ------------------------------- #
 # Contains a collection of Lists and Dictionaries used throughout the program.
 # ---------------------------------------------------------------------------------- #
+import numpy as np
 
 ##### Teams list #####
 teams = [
@@ -117,6 +118,39 @@ teams_to_int = {
     'Toronto Raptors' : 27, 
     'Utah Jazz' : 28, 
     'Washington Wizards' : 29
+}
+
+current_team_Elo = {
+    'Atlanta Hawks' : np.nan, 
+    'Boston Celtics' : np.nan, 
+    'Brooklyn Nets' : np.nan, 
+    'Charlotte Hornets' : np.nan, 
+    'Chicago Bulls' : np.nan, 
+    'Cleveland Cavaliers' : np.nan, 
+    'Dallas Mavericks' : np.nan, 
+    'Denver Nuggets' : np.nan, 
+    'Detroit Pistons' : np.nan, 
+    'Golden State Warriors' : np.nan, 
+    'Houston Rockets' : np.nan, 
+    'Indiana Pacers' : np.nan, 
+    'Los Angeles Clippers' : np.nan, 
+    'Los Angeles Lakers' : np.nan, 
+    'Memphis Grizzlies' : np.nan, 
+    'Miami Heat' : np.nan, 
+    'Milwaukee Bucks' : np.nan, 
+    'Minnesota Timberwolves' : np.nan, 
+    'New Orleans Pelicans' : np.nan, 
+    'New York Knicks' : np.nan, 
+    'Oklahoma City Thunder' : np.nan, 
+    'Orlando Magic' : np.nan, 
+    'Philadelphia 76ers' : np.nan, 
+    'Phoenix Suns' : np.nan, 
+    'Portland Trail Blazers' : np.nan, 
+    'Sacramento Kings' : np.nan, 
+    'San Antonio Spurs' : np.nan, 
+    'Toronto Raptors' : np.nan, 
+    'Utah Jazz' : np.nan, 
+    'Washington Wizards' : np.nan
 }
 
 # Last away and home game indexes.
