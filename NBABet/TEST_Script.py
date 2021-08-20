@@ -86,8 +86,6 @@ for _n, _row in df.iterrows():
 
 df['Predictions'] = predictions
 
-print(df.head(30))
-
 ev_df = df.copy()
 
 # Hyperparameters
@@ -153,7 +151,7 @@ wrongly_pred_df = ev_df.loc[
     ) 
     ]
 
-ev_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).reset_index(drop=True)
+ev_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_index().reset_index(drop=True)
 
 # Compare Predictions and TrueValues
 comparison_column = np.where(ev_df['Predictions'] == ev_df['Winner'], True, False)
@@ -167,9 +165,9 @@ net_won     = []
 bankroll    = []
 
 for n, row in ev_df.iterrows():
-    if row['Winner'] == 0:
+    if row['Predictions'] == 0:
         frac_amount = (row['ModelProb_Home']*row['OddsHome']-1)/(row['OddsHome']-1)
-    else:
+    elif row['Predictions'] == 1:
         frac_amount = (row['ModelProb_Away']*row['OddsAway']-1)/(row['OddsAway']-1)
     
     if frac_amount > 0:
@@ -184,8 +182,11 @@ for n, row in ev_df.iterrows():
             bet_amount.append(int(10000/row['OddsHome']))
         elif ((current_bankroll * frac_amount * row['OddsAway']) and (row['Winner'] == 1)) > 10000:
             bet_amount.append(int(10000/row['OddsAway']))
-        else:
+        # Min bet is 2€
+        elif int(current_bankroll * frac_amount) >= 2:
             bet_amount.append(int(current_bankroll * frac_amount))
+        elif int(current_bankroll * frac_amount) < 2:
+            bet_amount.append(0)
 
         if row['Winner'] == 0:
             net_won.append(bet_amount[n] * row['OddsHome'] * (row['Predictions'] == row['Winner']) - bet_amount[n])
@@ -207,7 +208,26 @@ ev_df['NetWon']      = net_won
 ev_df['Bankroll']    = bankroll
 
 # Evaluate the bankroll and the ROI
-print(ev_df)
+print(
+    ev_df[
+        [
+            'Date', 
+            'Team_away', 
+            'Team_home', 
+            'Predictions', 
+            'Winner', 
+            'OddsAway_Elo', 
+            'OddsHome_Elo', 
+            'ModelProb_Away',
+            'ModelProb_Home',
+            'OddsAway', 
+            'OddsHome', 
+            'FractionBet', 
+            'BetAmount', 
+            'NetWon', 
+            'Bankroll'
+        ]
+    ])
 print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
 print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
 
