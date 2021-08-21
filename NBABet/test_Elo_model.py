@@ -31,7 +31,7 @@ df_list = [
     merged_21
 ]
 
-""" for df in df_list:
+for df in df_list:
     df = Helper.add_features_to_df(df)
     if df is df_2017:
         df.to_csv('past_data/2017_2018/split_stats_per_game_2017.csv', index=False)
@@ -46,37 +46,14 @@ df_list = [
     elif df is merged_20:
         df.to_csv('past_data/merged_seasons/2017_to_2020_Stats.csv', index=False)
     elif df is merged_21:
-        df.to_csv('past_data/merged_seasons/2017_to_2021_Stats.csv', index=False) """
+        df.to_csv('past_data/merged_seasons/2017_to_2021_Stats.csv', index=False)
 
 
 #
 
 df = df_2020
-df[['Elo_home', 'Elo_away']] = np.nan
 
-for team in dal.teams:
-    dal.current_team_Elo[team] = 1500
-
-rows = []
-prob_away = []
-prob_home = []
 predictions = []
-
-for _n, _row in df.iterrows():
-    probas = Elo.get_probas(_row['Team_away'], _row['Team_home'])
-    prob_away.append(probas[0])
-    prob_home.append(probas[1])
-    rows.append(Elo.update(_row))
-
-# Create the DataFrame
-df = pd.DataFrame(rows)
-
-df['ModelProb_Away'] = prob_away
-df['ModelProb_Home'] = prob_home 
-
-df['OddsAway_Elo'] = 1/df['ModelProb_Away']
-df['OddsHome_Elo'] = 1/df['ModelProb_Home']
-
 for _n, _row in df.iterrows():
     # Predict new results based on Elo rating
     if (_row['ModelProb_Away'] > _row['ModelProb_Home']):
@@ -90,23 +67,23 @@ ev_df = df.copy()
 
 # Hyperparameters
 margin = 0
-prob_limit = 0.6
+prob_limit = 0.5
 betting_limiter = True
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 correctly_predicted_amount = ev_df.loc[
     (ev_df['Predictions'] == ev_df['Winner']) &
     (
-        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
         
-        #((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) 
     ) &
     (
-        #((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
         ((ev_df['ModelProb_Home'] >= prob_limit) & (ev_df['Predictions'] == 0))
     )
     ].count()
@@ -114,15 +91,15 @@ correctly_predicted_amount = ev_df.loc[
 wrongly_predicted_amount = ev_df.loc[
     (ev_df['Predictions'] != ev_df['Winner']) &
     (
-        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        #((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) 
     ) &
     (
-        #((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
         ((ev_df['ModelProb_Home'] >= prob_limit) & (ev_df['Predictions'] == 0))
     )
     ].count()
@@ -139,16 +116,16 @@ else:
 correctly_pred_df = ev_df.loc[
     (ev_df['Predictions'] == ev_df['Winner']) &
     (
-        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
         
-        #((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) 
     ) &
     (
-        #((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
         ((ev_df['ModelProb_Home'] >= prob_limit) & (ev_df['Predictions'] == 0))
     )
     ]
@@ -156,15 +133,15 @@ correctly_pred_df = ev_df.loc[
 wrongly_pred_df = ev_df.loc[
     (ev_df['Predictions'] != ev_df['Winner']) &
     (
-        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        #((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) 
     ) &
     (
-        #((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
         ((ev_df['ModelProb_Home'] >= prob_limit) & (ev_df['Predictions'] == 0))
     )
     ]

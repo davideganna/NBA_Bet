@@ -3,16 +3,6 @@ import pandas as pd
 import dicts_and_lists as dal
 
 # Functions
-def setup(df):
-    """ 
-    Elo.setup() must be called once, when no teams have their Elo set. 
-    An Elo rating of 1500 is assigned for each team. 
-    Updating the Elo rating is done through Elo.update(). 
-    Returns the updated DataFrame.
-    """
-    df["Elo"] = 1500
-    return df
-
 def update(row):
     """
     Updates the Elo rating for team_A and team_B.
@@ -30,7 +20,14 @@ def update(row):
     exp_win_home_team = 1/(1+10**((elo_away_team - elo_home_team)/400))
     
     # Define the K-Factor as K: the maximum possible adjustment per game.
-    K = 20
+    if (abs(row['PTS_home'] - row['PTS_away']) > 15):
+        K = 30
+    elif (abs(row['PTS_home'] - row['PTS_away']) > 9):
+        K = 15
+    elif (abs(row['PTS_home'] - row['PTS_away']) > 5):
+        K = 7
+    else:
+        K = 0
     elo_away_team_updated = elo_away_team + K*(winner - exp_win_away_team)
     elo_home_team_updated = elo_home_team + K*((1-winner) - exp_win_home_team)
     

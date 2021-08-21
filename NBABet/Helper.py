@@ -16,7 +16,7 @@ logger = logging.getLogger('Helper.py')
 coloredlogs.install(level='DEBUG')
 
 # Functions
-def add_features_to_df(df):
+def add_features_to_df(df): 
     # Log Ratio
     df['LogRatio_home'] = np.log2(df['PTS_home']/df['PTS_away'])
     df['LogRatio_away'] = np.log2(df['PTS_away']/df['PTS_home'])
@@ -29,6 +29,30 @@ def add_features_to_df(df):
     # TS% - True Shooting %
     df['TS%_home'] = df['PTS_home']/(2*df['FGA_home'] + (0.44*df['FTA_home']))
     df['TS%_away'] = df['PTS_away']/(2*df['FGA_away'] + (0.44*df['FTA_away']))
+    
+    # Elo
+    df[['Elo_home', 'Elo_away']] = np.nan
+    for team in dal.teams:
+        dal.current_team_Elo[team] = 1500
+    
+    rows = []
+    prob_away = []
+    prob_home = []
+
+    for _n, _row in df.iterrows():
+        probas = Elo.get_probas(_row['Team_away'], _row['Team_home'])
+        prob_away.append(probas[0])
+        prob_home.append(probas[1])
+        rows.append(Elo.update(_row))
+    
+    df = pd.DataFrame(rows)
+
+    df['ModelProb_Away'] = prob_away
+    df['ModelProb_Home'] = prob_home 
+
+    df['OddsAway_Elo'] = 1/df['ModelProb_Away']
+    df['OddsHome_Elo'] = 1/df['ModelProb_Home']
+
     return df
 
 def add_odds_to_split_df():

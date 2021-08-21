@@ -37,10 +37,7 @@ away_features = [
 home_features = [
     'FG_away',
     'FG%_away',
-    '3PA_away',
     '3P%_away',
-    'FT_away',
-    'FTA_away',
     'FT%_away',
     'ORB_away',
     'DRB_away',
