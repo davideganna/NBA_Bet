@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import Models
+import moving_average_dataset
 import test_Elo_model
 import backtesting
 import dicts_and_lists as dal
@@ -15,7 +16,7 @@ margin = 0
 prob_limit = 0.5
 betting_limiter = True
 betting_limit = 0.1
-average_N = 4
+average_N = 5
 skip_n = 0
 
 # ------ Logger ------- #
@@ -74,7 +75,7 @@ features = Models.features
 logger.info('\nSelect the type of model you want to backtest:\n\
     [1]: Decision Tree\n\
     [2]: Random Forest\n\
-    [3]: Support Vector Machine'
+    [3]: Random Forest + Build Moving Average Dataset'
     )
 inp = input()
 if inp == '1':
@@ -84,8 +85,9 @@ elif inp == '2':
     logger.info('Building a Random Forest Classifier...')
     clf = Models.build_RF_classifier()
 elif inp == '3':
-    logger.info('Building a Support Vector Machine Classifier...')
-    clf = Models.build_SVM_classifier()
+    moving_average_dataset.build_moving_average_dataset(average_N, skip_n)
+    logger.info('Building a Random Forest Classifier...')
+    clf = Models.build_RF_classifier()
 
 
 # To evaluate accuracy
@@ -241,8 +243,8 @@ for n, row in merged_df.iterrows():
     if frac_amount > 0:
         # Limit the portion of bankroll to bet
         if (
-            (row['ModelProbability'] < 0.6 and row['ModelProb_Away'] < 0.6 and row['Predictions'] == 1) or
-            (row['ModelProbability'] < 0.6 and row['ModelProb_Home'] < 0.6 and row['Predictions'] == 0)
+            (row['ModelProbability'] < 0.62 and row['ModelProb_Away'] < 0.62 and row['Predictions'] == 1) or
+            (row['ModelProbability'] < 0.62 and row['ModelProb_Home'] < 0.62 and row['Predictions'] == 0)
             ):
             if frac_amount > betting_limit and betting_limiter == True:
                 frac_amount = betting_limit
@@ -296,5 +298,3 @@ plt.show()
 # Confusion Matrix
 conf_matrix = confusion_matrix(merged_df['Predictions'], merged_df['Winner'])
 print(conf_matrix)
-
-

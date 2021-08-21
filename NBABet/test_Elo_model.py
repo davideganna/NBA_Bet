@@ -72,7 +72,7 @@ def build_model(df):
 
     if correctly_predicted_amount[0] != 0 and total_predicted != 0:
         accuracy = correctly_predicted_amount[0]/total_predicted
-        logger.info(f'Accuracy when team is favorite, loser odds are greater than winner ones + margin ({margin}) and model probability is > {prob_limit}: {accuracy:.3f}')
+        #logger.info(f'Accuracy when team is favorite, loser odds are greater than winner ones + margin ({margin}) and model probability is > {prob_limit}: {accuracy:.3f}')
     else:
         logger.info('Accuracy could not be computed. You may try to relax the conditions (margin and/or prob_limit).')
 
@@ -187,12 +187,12 @@ def build_model(df):
                 ]
             ]
 
-    print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
-    print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
+    #print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
+    #print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
 
     # Confusion Matrix
     conf_matrix = confusion_matrix(ev_df['Predictions'], ev_df['Winner'])
-    print(f'Confusion Matrix:\n {conf_matrix}')
+    #print(f'Confusion Matrix:\n {conf_matrix}')
 
     # Plot the results
     #ax = ev_df['Bankroll'].plot(grid=True)
