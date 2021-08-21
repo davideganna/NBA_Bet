@@ -31,6 +31,8 @@ def add_features_to_df(df):
     df['TS%_away'] = df['PTS_away']/(2*df['FGA_away'] + (0.44*df['FTA_away']))
     
     # Elo
+    # In the DataFrame, the Elo shown as Home or Away is the Elo AFTER the match.
+    # The current Elo is stored in a dictionary found at "dal.current_team_Elo"
     df[['Elo_home', 'Elo_away']] = np.nan
     for team in dal.teams:
         dal.current_team_Elo[team] = 1500
@@ -47,7 +49,7 @@ def add_features_to_df(df):
     
     df = pd.DataFrame(rows)
 
-    df['ModelProb_Away'] = prob_away
+    df['ModelProb_Away'] = prob_away 
     df['ModelProb_Home'] = prob_home 
 
     df['OddsAway_Elo'] = 1/df['ModelProb_Away']

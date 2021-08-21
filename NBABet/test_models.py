@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import Models
+import test_Elo_model
 import backtesting
 import dicts_and_lists as dal
 import logging, coloredlogs
@@ -53,8 +54,8 @@ def extract_and_predict(next_game):
         odds_away.append(next_game['OddsAway'].values[0])
         odds_home.append(next_game['OddsHome'].values[0])
         dates_list.append(next_game['Date'].values[0])
-        home_teams_list.append(dal.teams_dict[home_team])
-        away_teams_list.append(dal.teams_dict[away_team])
+        home_teams_list.append(home_team)
+        away_teams_list.append(away_team)
 
 # Only the most significant features will be considered
 away_features = Models.away_features
@@ -63,22 +64,18 @@ features = Models.features
 
 ### Test the Classification model based on the mean of the last average_N games ###
 logger.info('\nSelect the type of model you want to backtest:\n\
-    [1]: AdaBoost\n\
-    [2]: Decision Tree\n\
-    [3]: Random Forest\n\
-    [4]: Support Vector Machine'
+    [1]: Decision Tree\n\
+    [2]: Random Forest\n\
+    [3]: Support Vector Machine'
     )
 inp = input()
 if inp == '1':
-    logger.info('Building an AdaBoost Classifier...')
-    clf = Models.build_AdaBoost_classifier()
-elif inp == '2':
     logger.info('Building a Decision Tree Classifier...')
     clf = Models.build_DT_classifier()
-elif inp == '3':
+elif inp == '2':
     logger.info('Building a Random Forest Classifier...')
     clf = Models.build_RF_classifier()
-elif inp == '4':
+elif inp == '3':
     logger.info('Building a Support Vector Machine Classifier...')
     clf = Models.build_SVM_classifier()
 
@@ -99,7 +96,7 @@ evaluated_indexes = []
 df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # Maximum allowed average_N: 35
-average_N = 15
+average_N = 35
 skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
@@ -147,8 +144,8 @@ for skip_n_games in range(skip_n, 50-average_N):
 data = {
     'index'             : evaluated_indexes,
     'Date'              : dates_list,
-    'AwayTeam'          : away_teams_list,
-    'HomeTeam'          : home_teams_list,
+    'Team_away'         : away_teams_list,
+    'Team_home'         : home_teams_list,
     'Predictions'       : predictions,
     'Winner'            : winners,
     'ModelProbability'  : model_prob,
@@ -156,7 +153,7 @@ data = {
     'OddsHome'          : odds_home,
     'OddsAway'          : odds_away
 }
-ev_df = pd.DataFrame(data).sort_values('index')
+forest_df = pd.DataFrame(data).sort_values('index')
 
 # Hyperparameters
 margin = 0
@@ -164,30 +161,30 @@ prob_limit = 0.5
 betting_limiter = True
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
-correctly_predicted_amount = ev_df.loc[
-    (ev_df['Predictions'] == ev_df['Winner']) &
+correctly_predicted_amount = forest_df.loc[
+    (forest_df['Predictions'] == forest_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
-        ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
+        ((forest_df['OddsHome'] > forest_df['OddsAway'] + margin) & (forest_df['Predictions'] == 1)) |
+        ((forest_df['OddsAway'] > forest_df['OddsHome'] + margin) & (forest_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1)) |
-        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) 
+        ((forest_df['OddsAway'] >= forest_df['ModelOdds']) & (forest_df['Predictions'] == 1)) |
+        ((forest_df['OddsHome'] >= forest_df['ModelOdds']) & (forest_df['Predictions'] == 0)) 
     ) &
-    (ev_df['ModelProbability'] >= prob_limit)
+    (forest_df['ModelProbability'] >= prob_limit)
     ].count()
 
-wrongly_predicted_amount = ev_df.loc[
-    (ev_df['Predictions'] != ev_df['Winner']) &
+wrongly_predicted_amount = forest_df.loc[
+    (forest_df['Predictions'] != forest_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
-        ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
+        ((forest_df['OddsHome'] > forest_df['OddsAway'] + margin) & (forest_df['Predictions'] == 1)) |
+        ((forest_df['OddsAway'] > forest_df['OddsHome'] + margin) & (forest_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1)) |
-        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) 
+        ((forest_df['OddsAway'] >= forest_df['ModelOdds']) & (forest_df['Predictions'] == 1)) |
+        ((forest_df['OddsHome'] >= forest_df['ModelOdds']) & (forest_df['Predictions'] == 0)) 
     ) &
-    (ev_df['ModelProbability'] >= prob_limit)
+    (forest_df['ModelProbability'] >= prob_limit)
     ].count()
 
 total_predicted = correctly_predicted_amount[0] + wrongly_predicted_amount[0]
@@ -200,36 +197,36 @@ else:
 
 # Extract the rows where the model predicted the lowest odds between the two teams,
 # i.e., where the team is the favorite to win. (Plus some margin)
-correctly_pred_df = ev_df.loc[
-    (ev_df['Predictions'] == ev_df['Winner']) &
+correctly_pred_df = forest_df.loc[
+    (forest_df['Predictions'] == forest_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
-        ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
+        ((forest_df['OddsHome'] > forest_df['OddsAway'] + margin) & (forest_df['Predictions'] == 1)) |
+        ((forest_df['OddsAway'] > forest_df['OddsHome'] + margin) & (forest_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1)) |
-        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) 
+        ((forest_df['OddsAway'] >= forest_df['ModelOdds']) & (forest_df['Predictions'] == 1)) |
+        ((forest_df['OddsHome'] >= forest_df['ModelOdds']) & (forest_df['Predictions'] == 0)) 
     ) &
-    (ev_df['ModelProbability'] >= prob_limit)
+    (forest_df['ModelProbability'] >= prob_limit)
     ]
 
-wrongly_pred_df = ev_df.loc[
-    (ev_df['Predictions'] != ev_df['Winner']) &
+wrongly_pred_df = forest_df.loc[
+    (forest_df['Predictions'] != forest_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
-        ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
+        ((forest_df['OddsHome'] > forest_df['OddsAway'] + margin) & (forest_df['Predictions'] == 1)) |
+        ((forest_df['OddsAway'] > forest_df['OddsHome'] + margin) & (forest_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1)) |
-        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) 
+        ((forest_df['OddsAway'] >= forest_df['ModelOdds']) & (forest_df['Predictions'] == 1)) |
+        ((forest_df['OddsHome'] >= forest_df['ModelOdds']) & (forest_df['Predictions'] == 0)) 
     ) &
-    (ev_df['ModelProbability'] >= prob_limit)
+    (forest_df['ModelProbability'] >= prob_limit)
     ]
 
-ev_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_values('index').reset_index(drop=True)
+forest_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_values('index').reset_index(drop=True)
 
 # Compare Predictions and TrueValues
-comparison_column = np.where(ev_df['Predictions'] == ev_df['Winner'], True, False)
+comparison_column = np.where(forest_df['Predictions'] == forest_df['Winner'], True, False)
 
 # Kelly's criterion: bet a different fraction of the bankroll depending on odds
 starting_bankroll = 100 # €
@@ -238,7 +235,7 @@ bet_amount  = []
 frac_bet    = [] # Percentage of bankroll bet
 net_won     = []
 bankroll    = []
-for n, row in ev_df.iterrows():
+for n, row in forest_df.iterrows():
     if row['Winner'] == 0:
         frac_amount = (row['ModelProbability']*row['OddsHome']-1)/(row['OddsHome']-1)
     else:
@@ -276,23 +273,35 @@ for n, row in ev_df.iterrows():
         bankroll.append(current_bankroll)
 
 
-ev_df['FractionBet'] = frac_bet
-ev_df['BetAmount']   = bet_amount
-ev_df['NetWon']      = net_won
-ev_df['Bankroll']    = bankroll
+forest_df['FractionBet'] = frac_bet
+forest_df['BetAmount']   = bet_amount
+forest_df['NetWon']      = net_won
+forest_df['Bankroll']    = bankroll
 
 # Evaluate the bankroll and the ROI
-print(ev_df)
+print(forest_df)
 print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
 print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
 
 # Plot the results
-ax = ev_df['Bankroll'].plot(grid=True)
+ax = forest_df['Bankroll'].plot(grid=True)
 ax.set_title('Bankroll versus number of games played')
 ax.set_xlabel('Games played')
 ax.set_ylabel('Bankroll (€)')
-plt.show()
+#plt.show()
 
 # Confusion Matrix
-conf_matrix = confusion_matrix(ev_df['Predictions'], ev_df['Winner'])
+conf_matrix = confusion_matrix(forest_df['Predictions'], forest_df['Winner'])
 print(conf_matrix)
+
+
+# ---------- STACKING ---------- #
+
+# Build the Elo model then stack the two
+elo_df = test_Elo_model.build_model()
+print(forest_df.head())
+print(elo_df.head())
+
+# Merge the 2 DFs
+merged_df = forest_df.merge(elo_df, on=['Date', 'Team_away', 'Team_home'], how='inner')
+print(merged_df)

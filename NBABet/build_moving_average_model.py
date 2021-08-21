@@ -76,7 +76,7 @@ df_2018 = pd.read_csv('past_data/2018_2019/split_stats_per_game_2018.csv')
 df_2019 = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
 
 # Maximum allowed average_N: 35
-average_N = 15
+average_N = 5
 skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
