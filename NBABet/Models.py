@@ -89,7 +89,7 @@ def build_RF_classifier():
     X_train, y_train = df[features], df[[target]]
     # Define a Random Forest Classifier
     rf_clf = RandomForestClassifier(
-        n_estimators=200, max_leaf_nodes=16, n_jobs=-1, random_state=42
+        n_estimators=100, max_leaf_nodes=16, n_jobs=-1, random_state=42
     )
     rf_clf.fit(X_train, y_train.values.ravel())
     return rf_clf

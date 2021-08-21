@@ -180,15 +180,12 @@ correctly_pred_df = merged_df.loc[
         ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
     ) &
     (
-        ((merged_df['OddsAway'] >= merged_df['ModelOdds']) & (merged_df['Predictions'] == 1)) |
-        ((merged_df['OddsHome'] >= merged_df['ModelOdds']) & (merged_df['Predictions'] == 0)) 
+        ((merged_df['OddsAway'] >= (merged_df['OddsAway_Elo']+merged_df['ModelOdds'])/2) & (merged_df['Predictions'] == 1)) |
+        ((merged_df['OddsHome'] >= (merged_df['OddsHome_Elo']+merged_df['ModelOdds'])/2) & (merged_df['Predictions'] == 0)) 
     ) &
     (
-        (merged_df['ModelProbability'] >= prob_limit) &
-        (
-            ((merged_df['ModelProb_Away'] >= prob_limit) & (merged_df['Predictions'] == 1)) |
-            ((merged_df['ModelProb_Home'] >= prob_limit) & (merged_df['Predictions'] == 0))
-        )
+        ((((merged_df['ModelProb_Away']+merged_df['ModelProbability'])/2) >= prob_limit) & (merged_df['Predictions'] == 1)) |
+        ((((merged_df['ModelProb_Home']+merged_df['ModelProbability'])/2) >= prob_limit) & (merged_df['Predictions'] == 0))
     )
     ]
 
@@ -199,15 +196,12 @@ wrongly_pred_df = merged_df.loc[
         ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
     ) &
     (
-        ((merged_df['OddsAway'] >= merged_df['ModelOdds']) & (merged_df['Predictions'] == 1)) |
-        ((merged_df['OddsHome'] >= merged_df['ModelOdds']) & (merged_df['Predictions'] == 0)) 
+        ((merged_df['OddsAway'] >= (merged_df['OddsAway_Elo']+merged_df['ModelOdds'])/2) & (merged_df['Predictions'] == 1)) |
+        ((merged_df['OddsHome'] >= (merged_df['OddsHome_Elo']+merged_df['ModelOdds'])/2) & (merged_df['Predictions'] == 0))
     ) &
     (
-        (merged_df['ModelProbability'] >= prob_limit) &
-        (
-            ((merged_df['ModelProb_Away'] >= prob_limit) & (merged_df['Predictions'] == 1)) |
-            ((merged_df['ModelProb_Home'] >= prob_limit) & (merged_df['Predictions'] == 0))
-        )
+        ((((merged_df['ModelProb_Away']+merged_df['ModelProbability'])/2) >= prob_limit) & (merged_df['Predictions'] == 1)) |
+        ((((merged_df['ModelProb_Home']+merged_df['ModelProbability'])/2) >= prob_limit) & (merged_df['Predictions'] == 0))
     )
     ]
 
@@ -237,14 +231,14 @@ bankroll    = []
 for n, row in merged_df.iterrows():
     if row['Predictions'] == 0:
         frac_amount = (((row['ModelProbability']+row['ModelProb_Home'])/2)*row['OddsHome']-1)/(row['OddsHome']-1)
-    else:
+    elif row['Predictions'] == 1:
         frac_amount = (((row['ModelProbability']+row['ModelProb_Away'])/2)*row['OddsAway']-1)/(row['OddsAway']-1)
     
     if frac_amount > 0:
         # Limit the portion of bankroll to bet
         if (
-            (row['ModelProbability'] < 0.62 and row['ModelProb_Away'] < 0.62 and row['Predictions'] == 1) or
-            (row['ModelProbability'] < 0.62 and row['ModelProb_Home'] < 0.62 and row['Predictions'] == 0)
+            (row['ModelProbability'] < 0.66 and row['ModelProb_Away'] < 0.66 and row['Predictions'] == 1) or
+            (row['ModelProbability'] < 0.66 and row['ModelProb_Home'] < 0.66 and row['Predictions'] == 0)
             ):
             if frac_amount > betting_limit and betting_limiter == True:
                 frac_amount = betting_limit
@@ -284,7 +278,7 @@ merged_df['NetWon']      = net_won
 merged_df['Bankroll']    = bankroll
 
 # Evaluate the bankroll and the ROI
-print(merged_df)
+print(merged_df[['index', 'Predictions', 'Winner', 'ModelProbability', 'ModelOdds', 'ModelProb_Home', 'ModelProb_Away', 'OddsHome_Elo', 'OddsHome', 'OddsAway', 'FractionBet',  'BetAmount',  'NetWon',  'Bankroll']])
 print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
 print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
 
