@@ -66,7 +66,7 @@ for _n, _row in df.iterrows():
     probas = Elo.get_probas(_row['Team_away'], _row['Team_home'])
     prob_away.append(probas[0])
     prob_home.append(probas[1])
-    rows.append(Elo.update(_row, _row['Team_away'], _row['Team_home'], _row['Winner']))
+    rows.append(Elo.update(_row))
 
 # Create the DataFrame
 df = pd.DataFrame(rows)
@@ -90,32 +90,41 @@ ev_df = df.copy()
 
 # Hyperparameters
 margin = 0
-prob_limit = 0.7
+prob_limit = 0.6
 betting_limiter = True
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 correctly_predicted_amount = ev_df.loc[
     (ev_df['Predictions'] == ev_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) |
-        ((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1))
-    ) 
+        
+        #((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) 
+    ) &
+    (
+        #((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['ModelProb_Home'] >= prob_limit) & (ev_df['Predictions'] == 0))
+    )
     ].count()
 
 wrongly_predicted_amount = ev_df.loc[
     (ev_df['Predictions'] != ev_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) |
-        ((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1))
-    ) 
+        #((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) 
+    ) &
+    (
+        #((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['ModelProb_Home'] >= prob_limit) & (ev_df['Predictions'] == 0))
+    )
     ].count()
 
 total_predicted = correctly_predicted_amount[0] + wrongly_predicted_amount[0]
@@ -130,25 +139,34 @@ else:
 correctly_pred_df = ev_df.loc[
     (ev_df['Predictions'] == ev_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) |
-        ((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1))
-    ) 
+        
+        #((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) 
+    ) &
+    (
+        #((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['ModelProb_Home'] >= prob_limit) & (ev_df['Predictions'] == 0))
+    )
     ]
 
 wrongly_pred_df = ev_df.loc[
     (ev_df['Predictions'] != ev_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) |
-        ((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1))
-    ) 
+        #((ev_df['OddsAway'] >= ev_df['OddsAway_Elo']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] >= ev_df['OddsHome_Elo']) & (ev_df['Predictions'] == 0)) 
+    ) &
+    (
+        #((ev_df['ModelProb_Away'] >= prob_limit) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['ModelProb_Home'] >= prob_limit) & (ev_df['Predictions'] == 0))
+    )
     ]
 
 ev_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_index().reset_index(drop=True)
@@ -208,28 +226,34 @@ ev_df['NetWon']      = net_won
 ev_df['Bankroll']    = bankroll
 
 # Evaluate the bankroll and the ROI
-print(
-    ev_df[
-        [
-            'Date', 
-            'Team_away', 
-            'Team_home', 
-            'Predictions', 
-            'Winner', 
-            'OddsAway_Elo', 
-            'OddsHome_Elo', 
-            'ModelProb_Away',
-            'ModelProb_Home',
-            'OddsAway', 
-            'OddsHome', 
-            'FractionBet', 
-            'BetAmount', 
-            'NetWon', 
-            'Bankroll'
+ev_df = ev_df[
+            [
+                'Date', 
+                'Team_away', 
+                'Team_home', 
+                'Predictions', 
+                'Winner', 
+                'OddsAway_Elo', 
+                'OddsHome_Elo', 
+                'ModelProb_Away',
+                'ModelProb_Home',
+                'OddsAway', 
+                'OddsHome', 
+                'FractionBet', 
+                'BetAmount', 
+                'NetWon', 
+                'Bankroll'
+            ]
         ]
-    ])
+
+print(ev_df)
+
 print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
 print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
+
+# Confusion Matrix
+conf_matrix = confusion_matrix(ev_df['Predictions'], ev_df['Winner'])
+print(f'Confusion Matrix:\n {conf_matrix}')
 
 # Plot the results
 ax = ev_df['Bankroll'].plot(grid=True)
@@ -238,6 +262,6 @@ ax.set_xlabel('Games played')
 ax.set_ylabel('Bankroll (€)')
 plt.show()
 
-# Confusion Matrix
-conf_matrix = confusion_matrix(ev_df['Predictions'], ev_df['Winner'])[0]
-print(conf_matrix)
+
+
+

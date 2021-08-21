@@ -159,20 +159,20 @@ data = {
 ev_df = pd.DataFrame(data).sort_values('index')
 
 # Hyperparameters
-margin = 0.2
-prob_limit = 0.7
+margin = 0
+prob_limit = 0.6
 betting_limiter = True
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
 correctly_predicted_amount = ev_df.loc[
     (ev_df['Predictions'] == ev_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) |
-        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1))
+        #((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) 
     ) &
     (ev_df['ModelProbability'] >= prob_limit)
     ].count()
@@ -180,12 +180,12 @@ correctly_predicted_amount = ev_df.loc[
 wrongly_predicted_amount = ev_df.loc[
     (ev_df['Predictions'] != ev_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) |
-        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1))
+        #((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) 
     ) &
     (ev_df['ModelProbability'] >= prob_limit)
     ].count()
@@ -203,27 +203,28 @@ else:
 correctly_pred_df = ev_df.loc[
     (ev_df['Predictions'] == ev_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) |
-        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1))
+        #((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) 
     ) &
     (ev_df['ModelProbability'] >= prob_limit)
-]
+    ]
+
 wrongly_pred_df = ev_df.loc[
     (ev_df['Predictions'] != ev_df['Winner']) &
     (
-        ((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
+        #((ev_df['OddsHome'] > ev_df['OddsAway'] + margin) & (ev_df['Predictions'] == 1)) |
         ((ev_df['OddsAway'] > ev_df['OddsHome'] + margin) & (ev_df['Predictions'] == 0))
     ) &
     (
-        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) |
-        ((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1))
+        #((ev_df['OddsAway'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 1)) |
+        ((ev_df['OddsHome'] >= ev_df['ModelOdds']) & (ev_df['Predictions'] == 0)) 
     ) &
     (ev_df['ModelProbability'] >= prob_limit)
-]
+    ]
 
 ev_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_values('index').reset_index(drop=True)
 
@@ -250,13 +251,16 @@ for n, row in ev_df.iterrows():
 
         frac_bet.append(round(frac_amount, 2))
         
-        """ # Max win is capped at 10000
-        if (current_bankroll * frac_amount * row['OddsWinner']) > 10000:
-            bet_amount.append(int(10000/row['OddsWinner']))
-        else:
-            bet_amount.append(int(current_bankroll * frac_amount)) """
-        
-        bet_amount.append(int(current_bankroll * frac_amount))
+        # Max win is capped at 10000
+        if ((current_bankroll * frac_amount * row['OddsHome']) and (row['Winner'] == 0)) > 10000:
+            bet_amount.append(int(10000/row['OddsHome']))
+        elif ((current_bankroll * frac_amount * row['OddsAway']) and (row['Winner'] == 1)) > 10000:
+            bet_amount.append(int(10000/row['OddsAway']))
+        # Min bet is 2€
+        elif int(current_bankroll * frac_amount) >= 2:
+            bet_amount.append(int(current_bankroll * frac_amount))
+        elif int(current_bankroll * frac_amount) < 2:
+            bet_amount.append(0)
 
         if row['Winner'] == 0:
             net_won.append(bet_amount[n] * row['OddsHome'] * (row['Predictions'] == row['Winner']) - bet_amount[n])
