@@ -13,80 +13,12 @@ pd.set_option('display.max_rows', 1000)
 logger = logging.getLogger('test_models.py')
 coloredlogs.install(level='INFO', logger=logger)
 
-df_2017 = pd.read_csv('past_data/2017_2018/split_stats_per_game_2017.csv')
-df_2018 = pd.read_csv('past_data/2018_2019/split_stats_per_game_2018.csv')
-df_2019 = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
-df_2020 = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
-merged_19 = pd.read_csv('past_data/merged_seasons/2017_to_2019_Stats.csv')
-merged_20 = pd.read_csv('past_data/merged_seasons/2017_to_2020_Stats.csv')
-merged_21 = pd.read_csv('past_data/merged_seasons/2017_to_2021_Stats.csv')
 
-df_list = [
-    df_2017,
-    df_2018,
-    df_2019,
-    df_2020,
-    merged_19,
-    merged_20,
-    merged_21
-]
-
-""" for df in df_list:
-    df = Helper.add_features_to_df(df)
-    if df is df_2017:
-        df.to_csv('past_data/2017_2018/split_stats_per_game_2017.csv', index=False)
-    elif df is df_2018:
-        df.to_csv('past_data/2018_2019/split_stats_per_game_2018.csv', index=False)
-    elif df is df_2019:
-        df.to_csv('past_data/2019_2020/split_stats_per_game_2019.csv', index=False)
-    elif df is df_2020:
-        df.to_csv('past_data/2020_2021/split_stats_per_game.csv', index=False)
-    elif df is merged_19:
-        df.to_csv('past_data/merged_seasons/2017_to_2019_Stats.csv', index=False)
-    elif df is merged_20:
-        df.to_csv('past_data/merged_seasons/2017_to_2020_Stats.csv', index=False)
-    elif df is merged_21:
-        df.to_csv('past_data/merged_seasons/2017_to_2021_Stats.csv', index=False) """
+folder = 'past_data/2018_2019/'
+Helper.build_stats_per_game_csv(folder)
 
 
-#
-
-df = df_2020
-df[['Elo_home', 'Elo_away']] = np.nan
-
-for team in dal.teams:
-    dal.current_team_Elo[team] = 1500
-
-rows = []
-prob_away = []
-prob_home = []
-predictions = []
-
-for _n, _row in df.iterrows():
-    probas = Elo.get_probas(_row['Team_away'], _row['Team_home'])
-    prob_away.append(probas[0])
-    prob_home.append(probas[1])
-    rows.append(Elo.update(_row))
-
-# Create the DataFrame
-df = pd.DataFrame(rows)
-
-df['ModelProb_Away'] = prob_away
-df['ModelProb_Home'] = prob_home 
-
-df['OddsAway_Elo'] = 1/df['ModelProb_Away']
-df['OddsHome_Elo'] = 1/df['ModelProb_Home']
-
-for _n, _row in df.iterrows():
-    # Predict new results based on Elo rating
-    if (_row['ModelProb_Away'] > _row['ModelProb_Home']):
-        predictions.append(1)
-    else:
-        predictions.append(0)
-
-df['Predictions'] = predictions
-
-# Evaluate odds per range
+""" # Evaluate odds per range
 df_1_11 = df.loc[(df['OddsHome'] <= 1.1) | (df['OddsAway'] <= 1.1)].count()
 
 correctly_1_11 = df.loc[
@@ -222,4 +154,4 @@ print(df.loc[
                 'OddsAway', 
                 'OddsHome', 
             ]
-        ])
+        ]) """
