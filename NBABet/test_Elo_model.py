@@ -13,10 +13,10 @@ pd.set_option('display.max_rows', 1000)
 logger = logging.getLogger('test_models.py')
 coloredlogs.install(level='INFO', logger=logger)
 
-def build_model():
-    # Backtest on the 2020/2021 Season
-    df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
-
+def build_model(df):
+    """
+    Backtest on the DataFrame in input.
+    """
     predictions = []
     for _n, _row in df.iterrows():
         # Predict new results based on Elo rating
@@ -31,7 +31,7 @@ def build_model():
 
     # Hyperparameters
     margin = 0
-    prob_limit = 0.5
+    prob_limit = 0
     betting_limiter = True
 
     # Calculate accuracy of predicted teams, when they were the favorite by a margin
@@ -187,8 +187,6 @@ def build_model():
                 ]
             ]
 
-    print(ev_df)
-
     print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
     print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
 
@@ -197,10 +195,10 @@ def build_model():
     print(f'Confusion Matrix:\n {conf_matrix}')
 
     # Plot the results
-    ax = ev_df['Bankroll'].plot(grid=True)
-    ax.set_title('Bankroll versus number of games played')
-    ax.set_xlabel('Games played')
-    ax.set_ylabel('Bankroll (€)')
+    #ax = ev_df['Bankroll'].plot(grid=True)
+    #ax.set_title('Bankroll versus number of games played')
+    #ax.set_xlabel('Games played')
+    #ax.set_ylabel('Bankroll (€)')
     #plt.show()
 
     return ev_df

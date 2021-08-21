@@ -13,6 +13,12 @@ pd.set_option('display.max_rows', 1000)
 logger = logging.getLogger('script_testing.py')
 coloredlogs.install(level='INFO', logger=logger)
 
+# ---------- TESTS ---------- #
+merged_21 = pd.read_csv('past_data/merged_seasons/2017_to_2021_Stats.csv')
+corr_matrix = merged_21.corr()
+print(corr_matrix['Winner'])
+
+
 
 
 """ df_2017 = pd.read_csv('past_data/2017_2018/split_stats_per_game_2017.csv')
