@@ -14,8 +14,9 @@ logger = logging.getLogger('test_models.py')
 coloredlogs.install(level='INFO', logger=logger)
 
 
-folder = 'past_data/2018_2019/'
-Helper.build_stats_per_game_csv(folder)
+
+
+
 
 
 """ # Evaluate odds per range

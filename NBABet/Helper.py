@@ -162,6 +162,22 @@ def append_stats_per_game(df, team):
     dal.data_dict['PTS'].append(int(df.loc[df.index[-1], ('Basic Box Score Stats', 'PTS')]))
     dal.data_dict['+/-'].append(df.loc[df.index[-1], ('Basic Box Score Stats', '+/-')])
 
+def build_merged_seasons():
+    df_2017 = pd.read_csv('past_data/2017_2018/split_stats_per_game_2017.csv')
+    df_2018 = pd.read_csv('past_data/2018_2019/split_stats_per_game_2018.csv')
+    df_2019 = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
+    df_2020 = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+
+    df_2018 = df_2018.drop(['Date'], axis=1)
+    merged_19 = pd.concat([df_2017, df_2018], axis=1)
+    merged_20 = pd.concat([df_2017, df_2018, df_2019], axis=1)
+    merged_21 = pd.concat([df_2017, df_2018, df_2019, df_2020], axis=1)
+
+    merged_19.to_csv('past_data/merged_seasons/2017_to_2019_Stats.csv', index=False)
+    merged_20.to_csv('past_data/merged_seasons/2017_to_2020_Stats.csv', index=False)
+    merged_21.to_csv('past_data/merged_seasons/2017_to_2021_Stats.csv', index=False)
+
+
 def build_season_df(folder):
     december_df = pd.read_csv(folder + 'december_data.csv')
     january_df = pd.read_csv(folder + 'january_data.csv')

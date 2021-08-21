@@ -32,6 +32,7 @@ df_list = [
 ]
 
 for df in df_list:
+    print(df.head(1))
     df = Helper.add_features_to_df(df)
     if df is df_2017:
         df.to_csv('past_data/2017_2018/split_stats_per_game_2017.csv', index=False)
