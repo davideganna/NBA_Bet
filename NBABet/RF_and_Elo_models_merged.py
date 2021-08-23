@@ -103,7 +103,7 @@ away_teams_list   = []
 evaluated_indexes = []
 
 # Backtest on the 2020/2021 Season
-df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv') 
 
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
