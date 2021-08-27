@@ -24,8 +24,7 @@ coloredlogs.install(level='WARNING')
 
 #-------- Main -------- #
 folder = 'past_data/2020_2021/' # Specify the current NBA season to save the .csv datasets.
-try:
-    elo_df = pd.read_csv('elo.csv') 
+try: 
     season_df = pd.read_csv(folder + '2020_2021_season.csv')
 except:
     logger.error('Program could not access the .csv datasets. Be sure to run "Setup.py" before "main.py".\n'\

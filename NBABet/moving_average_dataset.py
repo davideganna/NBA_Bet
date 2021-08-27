@@ -64,14 +64,16 @@ def extract_and_insert(next_game, _df, average_N, evaluated_indexes, to_insert_l
         to_insert_list.append(to_insert)
         winners_list.append(_df['Winner'].loc[_df.index == next_game.index[0]].values[0])
 
+
 def build_moving_average_dataset(average_N, skip_n):
     df_2017 = pd.read_csv('past_data/2017_2018/split_stats_per_game_2017.csv')
     df_2018 = pd.read_csv('past_data/2018_2019/split_stats_per_game_2018.csv')
     df_2019 = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
+    df_2020 = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
-    print(f'Averaging 3 datasets. MA: {average_N} games, first {skip_n} games are skipped.')
+    print(f'Averaging 4 datasets. MA: {average_N} games, first {skip_n} games are skipped.')
 
-    for _df in [df_2017, df_2018, df_2019]:
+    for _df in [df_2017, df_2018, df_2019, df_2020]:
         # Cleanup at every iteration
         evaluated_indexes = []
         to_insert_list = []
@@ -126,6 +128,9 @@ def build_moving_average_dataset(average_N, skip_n):
         elif _df is df_2019:
             _df.name = '2019/2020 Season DataFrame' 
             avg_df.to_csv('past_data/average_seasons/average2019.csv', index=False)
+        elif _df is df_2020:
+            _df.name = '2020/2021 Season DataFrame' 
+            avg_df.to_csv('past_data/average_seasons/average2020.csv', index=False)
 
         logger.info(f'Retrieved stats for {_df.name}')
 
@@ -133,6 +138,7 @@ def build_moving_average_dataset(average_N, skip_n):
     avg_2017_df = pd.read_csv('past_data/average_seasons/average2017.csv')
     avg_2018_df = pd.read_csv('past_data/average_seasons/average2018.csv')
     avg_2019_df = pd.read_csv('past_data/average_seasons/average2019.csv')
+    avg_2020_df = pd.read_csv('past_data/average_seasons/average2020.csv')
 
-    avg_total_df = pd.concat([avg_2017_df, avg_2018_df, avg_2019_df], axis=0)
-    avg_total_df.to_csv('past_data/average_seasons/average_N_3Seasons.csv', index=False)
+    avg_total_df = pd.concat([avg_2017_df, avg_2018_df, avg_2019_df, avg_2020_df], axis=0)
+    avg_total_df.to_csv('past_data/average_seasons/average_N_4Seasons.csv', index=False)

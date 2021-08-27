@@ -15,8 +15,8 @@ pd.set_option('display.max_rows', 1000)
 margin = 0
 betting_limiter = True
 betting_limit = 0.1
-prob_threshold = 0.65
-average_N = 5
+prob_threshold = 0.7
+average_N = 3
 skip_n = 0
 
 # ------ Logger ------- #
@@ -174,6 +174,7 @@ merged_df = forest_df.merge(elo_df, on=['Date', 'Team_away', 'Team_home', 'Predi
 merged_df = merged_df.assign(CombinedProb = np.maximum(merged_df['ModelProbability'], merged_df['ModelProb_Home']))
 merged_df['CombinedProb'].loc[(merged_df['Predictions'] == 1)] = np.maximum(merged_df['ModelProbability'], merged_df['ModelProb_Home'])
 
+merged_df['CombinedProb'] = merged_df['CombinedProb']
 merged_df['CombinedOdds'] = 1/merged_df['CombinedProb']
 
 # Extract the rows where the model predicted the lowest odds between the two teams,
@@ -183,11 +184,15 @@ correctly_pred_df = merged_df.loc[
     (
         ((merged_df['OddsHome'] > merged_df['OddsAway'] + margin) & (merged_df['Predictions'] == 1)) |
         ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
-    ) &
-    (
-        ((merged_df['OddsAway'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 1)) |
-        ((merged_df['OddsHome'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 0)) 
-    ) 
+    ) #&
+    #(
+    #    ((merged_df['OddsAway'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 1)) |
+    #    ((merged_df['OddsHome'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 0)) 
+    #) 
+    #(
+    #    ((merged_df['Predictions'] == 1) & (merged_df['OddsAway'] >= 1.1)) |
+    #    ((merged_df['Predictions'] == 0) & (merged_df['OddsHome'] >= 1.1))
+    #)
     ]
 
 wrongly_pred_df = merged_df.loc[
@@ -195,11 +200,15 @@ wrongly_pred_df = merged_df.loc[
     (
         ((merged_df['OddsHome'] > merged_df['OddsAway'] + margin) & (merged_df['Predictions'] == 1)) |
         ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
-    ) &
-    (
-        ((merged_df['OddsAway'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 1)) |
-        ((merged_df['OddsHome'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 0))  
-    ) 
+    ) #&
+    #(
+    #    ((merged_df['OddsAway'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 1)) |
+    #    ((merged_df['OddsHome'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 0)) 
+    #) 
+    #(
+    #    ((merged_df['Predictions'] == 1) & (merged_df['OddsAway'] >= 1.1)) |
+    #    ((merged_df['Predictions'] == 0) & (merged_df['OddsHome'] >= 1.1))
+    #)
     ]
 
 merged_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_values('index').reset_index(drop=True)
@@ -264,26 +273,50 @@ merged_df['BetAmount']   = bet_amount
 merged_df['NetWon']      = net_won
 merged_df['Bankroll']    = bankroll
 
-# Calculate accuracy of predicted teams, when they were the favorite by a margin
-total_predicted = correctly_pred_df.count()[0] + wrongly_pred_df.count()[0]
-
-if correctly_pred_df.count()[0] != 0 and total_predicted != 0:
-    accuracy = correctly_pred_df.count()[0]/total_predicted
-    logger.info(f'Accuracy when team is favorite, loser odds are greater than winner ones + margin ({margin}) and combined odds are greater than bookmaker ones: {accuracy:.3f}')
-else:
-    logger.info('Accuracy could not be computed. You may want to relax the conditions.')
-
 # Evaluate the bankroll and the ROI
-print(merged_df[['index', 'Predictions', 'Winner', 'ModelProbability', 'ModelProb_Home', 'ModelProb_Away', 'CombinedProb', 'CombinedOdds', 'OddsHome', 'OddsAway', 'FractionBet',  'BetAmount',  'NetWon',  'Bankroll']])
+bet_df = merged_df.copy()
+bet_df = bet_df.loc[bet_df['BetAmount'] > 0]
+bet_df.reset_index(drop=True, inplace=True)
+print(
+    bet_df[
+        [
+            'index', 
+            'Predictions', 
+            'Winner', 
+            'ModelProbability', 
+            'ModelProb_Home', 
+            'ModelProb_Away', 
+            'CombinedProb', 
+            'CombinedOdds', 
+            'OddsHome', 
+            'OddsAway', 
+            'FractionBet',  
+            'BetAmount',  
+            'NetWon',  
+            'Bankroll'
+        ]
+    ]
+    )
 print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
 print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
 
+
+# Calculate accuracy of predicted teams, when they were the favorite by a margin
+correctly_amount = bet_df.loc[bet_df['Predictions'] == bet_df['Winner']].count()[0]
+total_predicted = len(bet_df)
+
+if correctly_pred_df.count()[0] != 0 and total_predicted != 0:
+    accuracy = correctly_amount/total_predicted
+    logger.info(f'Accuracy when team is favorite, loser odds are greater than winner ones + margin ({margin}): {accuracy:.3f}')
+else:
+    logger.info('Accuracy could not be computed. You may want to relax the conditions.')
+
 # Confusion Matrix
-conf_matrix = confusion_matrix(merged_df['Predictions'], merged_df['Winner'])
+conf_matrix = confusion_matrix(bet_df['Predictions'], bet_df['Winner'])
 print(conf_matrix)
 
 # Plot the results
-ax = merged_df['Bankroll'].plot(grid=True)
+ax = bet_df['Bankroll'].plot(grid=True)
 ax.set_title('Bankroll versus number of games played')
 ax.set_xlabel('Games played')
 ax.set_ylabel('Bankroll (€)')

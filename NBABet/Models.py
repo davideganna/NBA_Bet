@@ -12,7 +12,6 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 
 # Create the df containing stats per single game on every row
 df = pd.read_csv('past_data/average_seasons/average_N_3Seasons.csv')
-#df = pd.read_csv('past_data/merged_seasons/2017_to_2020_Stats.csv')
 
 # Define the target
 target = 'Winner'
@@ -89,7 +88,7 @@ def build_RF_classifier():
     X_train, y_train = df[features], df[[target]]
     # Define a Random Forest Classifier
     rf_clf = RandomForestClassifier(
-        n_estimators=200, max_leaf_nodes=16, n_jobs=-1, random_state=42
+        n_estimators=100, max_leaf_nodes=16, n_jobs=-1, random_state=42
     )
     rf_clf.fit(X_train, y_train.values.ravel())
     return rf_clf
