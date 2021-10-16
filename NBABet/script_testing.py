@@ -14,9 +14,12 @@ logger = logging.getLogger('script_testing.py')
 coloredlogs.install(level='INFO', logger=logger)
 
 # ---------- TESTS ---------- #
+Helper.build_elo_csv()
+
+""" 
 merged_21 = pd.read_csv('past_data/merged_seasons/2017_to_2021_Stats.csv')
 corr_matrix = merged_21.corr()
-print(corr_matrix['Winner'])
+print(corr_matrix['Winner']) """
 
 
 

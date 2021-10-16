@@ -7,31 +7,30 @@
 #    888   Y8888 888   d88P  d8888888888     888   d88P Y8b.     Y88b. 
 #    888    Y888 8888888P"  d88P     888     8888888P"   "Y8888   "Y888
 
-from apscheduler.schedulers.background import BackgroundScheduler
+#from apscheduler.schedulers.background import BackgroundScheduler
 import Helper
 import logging, coloredlogs
 import pandas as pd
-import telegram_integration
+#import telegram_integration
 
 # ----- Scheduler ----- #
-sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda: Helper.check_df(),'interval', hours=24)
-sched.add_job(lambda: telegram_integration.send_predictions(),'interval', minutes=10)
+#sched = BackgroundScheduler(daemon=True)
+#sched.add_job(lambda: Helper.check_df(),'interval', hours=24)
+#sched.add_job(lambda: telegram_integration.send_predictions(),'interval', minutes=10)
 
 # ------ Logger ------- #
 logger = logging.getLogger(__name__)
 coloredlogs.install(level='WARNING')
 
 #-------- Main -------- #
-folder = 'past_data/2020_2021/' # Specify the current NBA season to save the .csv datasets.
-try: 
-    season_df = pd.read_csv(folder + '2020_2021_season.csv')
+folder = 'past_data/2021_2022/' # Specify the current NBA season to save the .csv datasets.
+try:
+    season_df = pd.read_csv(folder + '2021_2022_season.csv')
 except:
     logger.error('Program could not access the .csv datasets. Be sure to run "Setup.py" before "main.py".\n'\
     'Alternatively, check that the path to the folder where the .csv files are located is correct.')
 else:
-    # Uncomment when the 2022 season will start
-    #Helper.check_df(folder)
+    Helper.check_df(folder)
     
     # 1. Get next matches --> API.get_next_games()
     # 2. Iteratively extract Home_Team and Away_Team
@@ -40,12 +39,12 @@ else:
     # 5. Send the predictions to the Telegram Bot
 
     # ----- If you want the Telegram Integration ----- #
-    bankroll = telegram_integration.test_br()
+    #bankroll = telegram_integration.test_br()
     
-    # ----- If you don't want to run the program at fixed times, uncomment the lines below. ----- #
-    sched.start()
+    # ----- If you want to run the program at fixed times, uncomment the lines below. ----- #
+    """ sched.start()
     logger.warning('Type "exit" to stop the program.\n')
     inp = input()
     while inp != 'exit':
         logger.warning('Program is running. Type "exit" to stop the program.\n')
-        inp = input()
+        inp = input() """

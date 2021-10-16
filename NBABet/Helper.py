@@ -167,6 +167,15 @@ def append_stats_per_game(df, team):
     dal.data_dict['PTS'].append(int(df.loc[df.index[-1], ('Basic Box Score Stats', 'PTS')]))
     dal.data_dict['+/-'].append(df.loc[df.index[-1], ('Basic Box Score Stats', '+/-')])
 
+
+def build_elo_csv():
+    # Initial Elo setup
+    df = pd.DataFrame(dal.teams, columns=['Team'])
+    df['Elo'] = 1500
+    df.to_csv('past_data/2021_2022/elo.csv', index=False)
+    return df
+
+
 def build_merged_seasons():
     df_2017 = pd.read_csv('past_data/2017_2018/split_stats_per_game_2017.csv')
     df_2018 = pd.read_csv('past_data/2018_2019/split_stats_per_game_2018.csv')
@@ -271,7 +280,7 @@ def check_df(folder:str):
     """
     current_month = date.today().strftime("%B").lower()
     # Retrieve url based on current month
-    url = 'https://www.basketball-reference.com/leagues/NBA_2021_games-'+ current_month + '.html'
+    url = 'https://www.basketball-reference.com/leagues/NBA_2022_games-'+ current_month + '.html'
     df_url = pd.read_html(url)[0]
     df_url = df_url.rename(columns=
         {
@@ -288,7 +297,7 @@ def check_df(folder:str):
 
     if not my_file.exists(): # If current data is not present in past_data folder, add it
         df_url.to_csv(folder + current_month + '_data.csv', index=False) # Save the df as .csv
-        season_df = pd.read_csv(folder + '/2020_2021_season.csv')
+        season_df = pd.read_csv(folder + '/2021_2022_season.csv')
         
         logger.info(f'An update has been made: {current_month}_data.csv has been created.')
         update_elo_csv(df_url)
@@ -300,8 +309,8 @@ def check_df(folder:str):
         if not ((season_df.merge(df_url)).drop_duplicates().reset_index(drop=True).equals(df_url)): 
             season_df = pd.concat([season_df, df_url])
             season_df = season_df.drop_duplicates().reset_index(drop=True)
-            season_df.to_csv(folder + '2020_2021_season.csv', index=False)
-            logger.info(f'An update has been made: rows from {current_month}_data.csv have been added to the 2020_2021_season.csv file.')
+            season_df.to_csv(folder + '2021_2022_season.csv', index=False)
+            logger.info(f'An update has been made: rows from {current_month}_data.csv have been added to the 2021_2022_season.csv file.')
             
     # If the file did not exist, it has been created.
     df_old = pd.read_csv(folder + current_month + '_data.csv') # Extract the old DataFrame
@@ -315,7 +324,7 @@ def check_df(folder:str):
         diff = df_old.merge(df_url, how='right', indicator=True).query('_merge == "right_only"').drop('_merge', 1)
 
         # Compute the intersection between the old and the new DataFrame
-        season_df = pd.read_csv(folder + '2020_2021_season.csv')
+        season_df = pd.read_csv(folder + '2021_2022_season.csv')
         season_df = season_df.drop_duplicates().reset_index(drop=True)
         inner_merged = pd.merge(season_df, diff, how='inner')
 
@@ -328,23 +337,20 @@ def check_df(folder:str):
             # Update rows in the Season DataFrame
             season_df = pd.concat([season_df, diff])
             season_df = season_df.drop_duplicates().reset_index(drop=True)
-            season_df.to_csv(folder + '2020_2021_season.csv', index=False)
-            logger.info(f'An update has been made: new rows have been added to the 2020_2021_season.csv file.')
+            season_df.to_csv(folder + '2021_2022_season.csv', index=False)
+            logger.info(f'An update has been made: new rows have been added to the 2021_2022_season.csv file.')
             logger.info(f'Added rows:\n {diff}')
             
         # Following is a pipeline of actions to be performed every time new rows are added.
         update_elo_csv(diff)
         update_stats_per_game_csv(folder, diff)
     
-    logger.info(f'\n----- Dataset 2020_2021_season.csv is up to date. -----\n')
+    logger.info(f'\n----- Dataset 2021_2022_season.csv is up to date. -----\n')
 
 
-def elo_setup():
-    # Initial Elo setup
-    df = pd.DataFrame(dal.teams, columns=['Team'])
-    df = Elo.setup(df)
-    df.to_csv('elo.csv', index=False)
-    return df
+def scrape_odds():
+    dfs = pd.read_html('https://www.pokerstarssports.it/#/basketball/daily')
+    return dfs
 
 def split_stats_per_game(folder:str):
     df = pd.read_csv(folder + 'stats_per_game_2018.csv', index_col=False)
@@ -378,7 +384,7 @@ def update_elo_csv(df):
     """
     Updates the elo.csv dataset based on the rows contained in df. 
     """
-    elo_df = pd.read_csv('elo.csv')
+    elo_df = pd.read_csv('past_data/2021_2022/elo.csv')
 
     for _, row in df.iterrows():
         away_team = row['AwayTeam']
