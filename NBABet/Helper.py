@@ -275,7 +275,7 @@ def build_stats_per_game_csv(folder:str):
     
 def check_df(folder:str):
     """
-    Checks if 2020_2021_season.csv file is up to date.
+    Checks if 2021_2022_season.csv file is up to date.
     If not, new rows are added to the file.
     """
     current_month = date.today().strftime("%B").lower()
@@ -293,9 +293,9 @@ def check_df(folder:str):
     df_url = df_url.drop(['Unnamed: 6', 'Unnamed: 7', 'Attend.', 'Notes'], axis=1) # Remove non interesting columns
     df_url = df_url.dropna(subset=['AwayPoints', 'HomePoints']) # Remove rows containing games not yet played
 
-    my_file = Path(os.getcwd() + '/' + folder + current_month + '_data.csv')
+    csv_path = Path(os.getcwd() + '/' + folder + current_month + '_data.csv')
 
-    if not my_file.exists(): # If current data is not present in past_data folder, add it
+    if not csv_path.exists(): # If current data is not present in past_data folder, add it
         df_url.to_csv(folder + current_month + '_data.csv', index=False) # Save the df as .csv
         season_df = pd.read_csv(folder + '/2021_2022_season.csv')
         
@@ -379,13 +379,21 @@ def update_elo_csv(df):
     """
     Updates the elo.csv dataset based on the rows contained in df. 
     """
-    rows = []
-    for _, row in df.iterrows():
-        rows.append(Elo.update(row))
+    elo_df = pd.read_csv('past_data/2021_2022/elo.csv')
 
-    elo_df = pd.DataFrame(rows)
+    for _, row in df.iterrows():
+        away_team = row['AwayTeam']
+        home_team = row['HomeTeam']
+        away_pts = row['AwayPoints']
+        home_pts = row['HomePoints']
+        
+        if(away_pts > home_pts):
+            winner = 1
+        elif(home_pts > away_pts):
+            winner = 0
+        elo_df = Elo.update_DataFrame(elo_df, away_team, home_team, away_pts, home_pts, winner)
     
-    elo_df.to_csv('elo.csv', index=False)
+    elo_df.to_csv('past_data/2021_2022/elo.csv', index=False)
 
 
 def update_stats_per_game_csv(folder:str, diff:DataFrame):
