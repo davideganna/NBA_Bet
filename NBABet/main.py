@@ -20,7 +20,7 @@ import pandas as pd
 
 # ------ Logger ------- #
 logger = logging.getLogger(__name__)
-coloredlogs.install(level='WARNING')
+coloredlogs.install(level='INFO')
 
 #-------- Main -------- #
 folder = 'past_data/2021_2022/' # Specify the current NBA season to save the .csv datasets.

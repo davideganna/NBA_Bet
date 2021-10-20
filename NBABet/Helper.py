@@ -347,13 +347,8 @@ def check_df(folder:str):
     
     logger.info(f'\n----- Dataset 2021_2022_season.csv is up to date. -----\n')
 
-
-def scrape_odds():
-    dfs = pd.read_html('https://www.pokerstarssports.it/#/basketball/daily')
-    return dfs
-
 def split_stats_per_game(folder:str):
-    df = pd.read_csv(folder + 'stats_per_game_2018.csv', index_col=False)
+    df = pd.read_csv(folder + 'stats_per_game.csv', index_col=False)
     spg_away =  df.iloc[::2]
     spg_home =  df.iloc[1::2]
 
@@ -373,10 +368,10 @@ def split_stats_per_game(folder:str):
     df['Winner'].loc[df['PTS_away'] > df['PTS_home']] = 1 # Change to Away if PTS_away > PTS_home
 
     # Assign the date per single game based on past season DataFrame
-    season_df = pd.read_csv(folder + '2018_2019_season.csv', index_col=False)
+    season_df = pd.read_csv(folder + '2021_2022_season.csv', index_col=False)
     df.insert(loc=0, column='Date', value=season_df['Date'])
     
-    df.to_csv(folder + 'split_stats_per_game_2018.csv', index=False)
+    df.to_csv(folder + 'split_stats_per_game.csv', index=False)
 
     return df
 
@@ -384,19 +379,11 @@ def update_elo_csv(df):
     """
     Updates the elo.csv dataset based on the rows contained in df. 
     """
-    elo_df = pd.read_csv('past_data/2021_2022/elo.csv')
-
+    rows = []
     for _, row in df.iterrows():
-        away_team = row['AwayTeam']
-        home_team = row['HomeTeam']
-        away_pts = row['AwayPoints']
-        home_pts = row['HomePoints']
-        
-        if(away_pts > home_pts):
-            winner = away_team
-        elif(home_pts > away_pts):
-            winner = home_team
-        elo_df = Elo.update(elo_df, away_team, home_team, winner)
+        rows.append(Elo.update(row))
+
+    elo_df = pd.DataFrame(rows)
     
     elo_df.to_csv('elo.csv', index=False)
 
@@ -419,6 +406,8 @@ def update_stats_per_game_csv(folder:str, diff:DataFrame):
         logger.info(f'Fetching data from: {url}')
         tables = pd.read_html(url, match='Basic')
         for table in tables:
+            if (table.loc[table.index[-1], ('Basic Box Score Stats', 'MP')]) is np.nan:
+                continue
             if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'MP')])) >= 240: # Get only the full game tables
                 if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'PTS')])) == row['HomePoints']:
                     append_stats_per_game(df=table, team=row['HomeTeam'])

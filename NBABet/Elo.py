@@ -6,12 +6,12 @@ import dicts_and_lists as dal
 # Functions
 def update(row):
     """
-    Updates the Elo rating for team_A and team_B.
-    Returns the updated DataFrame.
+    Updates the Elo rating for team_A and team_B for a single row.
+    Returns the updated row.
     """
-    away_team = row['Team_away']
-    home_team = row['Team_home']
-    winner = row['Winner']
+    away_team = row['AwayTeam'] 
+    home_team = row['HomeTeam'] 
+    winner = 0 if row['HomePoints'] > row['AwayPoints'] else 1  
     # Current Elo ratings for away_team and home_team
     elo_away_team = dal.current_team_Elo[away_team]
     elo_home_team = dal.current_team_Elo[home_team]
@@ -21,11 +21,11 @@ def update(row):
     exp_win_home_team = 1/(1+10**((elo_away_team - elo_home_team)/400))
     
     # Define the K-Factor as K: the maximum possible adjustment per game.
-    if (abs(row['PTS_home'] - row['PTS_away']) > 15):
+    if (abs(row['HomePoints'] - row['AwayPoints']) > 15):
         K = 30
-    elif (abs(row['PTS_home'] - row['PTS_away']) > 9):
+    elif (abs(row['HomePoints'] - row['AwayPoints']) > 9):
         K = 15
-    elif (abs(row['PTS_home'] - row['PTS_away']) > 5):
+    elif (abs(row['HomePoints'] - row['AwayPoints']) > 5):
         K = 7
     else:
         K = 0
