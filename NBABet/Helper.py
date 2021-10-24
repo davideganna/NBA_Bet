@@ -295,18 +295,18 @@ def check_df(folder:str):
 
     csv_path = Path(os.getcwd() + '/' + folder + current_month + '_data.csv')
 
-    if not csv_path.exists(): # If current data is not present in past_data folder, add it
+    # If current month is not saved as csv, create the file
+    if not csv_path.exists():
         df_url.to_csv(folder + current_month + '_data.csv', index=False) # Save the df as .csv
         season_df = pd.read_csv(folder + '/2021_2022_season.csv')
-        
         logger.info(f'An update has been made: {current_month}_data.csv has been created.')
-        update_elo_csv(df_url)
         
-        logger.info(f'An update has been made: elo.csv updated based on {current_month}_data.csv.')
-        update_stats_per_game_csv(folder, df_url)
-
-        # Drop duplicates in season_df if it already contains data from current month
+        # Check if the intersection between new data and saved data is equal to new data.
+        # If not, new rows have been added. Calculates the Elo and saves to season_df.
         if not ((season_df.merge(df_url)).drop_duplicates().reset_index(drop=True).equals(df_url)): 
+            update_elo_csv(df_url)
+            logger.info(f'An update has been made: elo.csv has been updated based on {current_month}_data.csv.')
+            update_stats_per_game_csv(folder, df_url)
             season_df = pd.concat([season_df, df_url])
             season_df = season_df.drop_duplicates().reset_index(drop=True)
             season_df.to_csv(folder + '2021_2022_season.csv', index=False)
@@ -326,14 +326,11 @@ def check_df(folder:str):
         # Compute the intersection between the old and the new DataFrame
         season_df = pd.read_csv(folder + '2021_2022_season.csv')
         season_df = season_df.drop_duplicates().reset_index(drop=True)
-        inner_merged = pd.merge(season_df, diff, how='inner')
+        inner_merged = pd.merge(season_df, df_url, how='inner')
 
         # If the intersection between the two DataFrames is the original DataFrame, it already contains the diff rows
         # If not, add the diff rows to the month and the season DataFrame
         if not season_df.equals(inner_merged): 
-            # Update rows in the month DataFrame
-            df_url.to_csv(folder + current_month + '_data.csv', index=False) # Save the df as .csv
-            logger.info(f'An update has been made: new rows have been added to {current_month}_data.csv file.')
             # Update rows in the Season DataFrame
             season_df = pd.concat([season_df, diff])
             season_df = season_df.drop_duplicates().reset_index(drop=True)
@@ -341,9 +338,14 @@ def check_df(folder:str):
             logger.info(f'An update has been made: new rows have been added to the 2021_2022_season.csv file.')
             logger.info(f'Added rows:\n {diff}')
             
-        # Following is a pipeline of actions to be performed every time new rows are added.
-        update_elo_csv(diff)
-        update_stats_per_game_csv(folder, diff)
+            # Following is a pipeline of actions to be performed every time new rows are added.
+            update_elo_csv(diff)
+            update_stats_per_game_csv(folder, diff)
+        
+        
+        # Update rows in the month DataFrame
+        df_url.to_csv(folder + current_month + '_data.csv', index=False) # Save the df as .csv
+        logger.info(f'An update has been made: new rows have been added to {current_month}_data.csv file.')
     
     logger.info(f'\n----- Dataset 2021_2022_season.csv is up to date. -----\n')
 
