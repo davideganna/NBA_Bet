@@ -319,7 +319,7 @@ def check_df(folder:str):
     rows_df_url = df_url.shape[0]
     
     # Compare if there are new rows
-    if rows_df_url > rows_df_old:
+    if rows_df_url > rows_df_old: 
         # Get the new rows (Pandas right-excluding merge)
         diff = df_old.merge(df_url, how='right', indicator=True).query('_merge == "right_only"').drop('_merge', 1)
 
@@ -330,7 +330,7 @@ def check_df(folder:str):
 
         # If the intersection between the two DataFrames is the original DataFrame, it already contains the diff rows
         # If not, add the diff rows to the month and the season DataFrame
-        if not season_df.equals(inner_merged): 
+        if not inner_merged.equals(df_url): 
             # Update rows in the Season DataFrame
             season_df = pd.concat([season_df, diff])
             season_df = season_df.drop_duplicates().reset_index(drop=True)
@@ -341,7 +341,6 @@ def check_df(folder:str):
             # Following is a pipeline of actions to be performed every time new rows are added.
             update_elo_csv(diff)
             update_stats_per_game_csv(folder, diff)
-        
         
         # Update rows in the month DataFrame
         df_url.to_csv(folder + current_month + '_data.csv', index=False) # Save the df as .csv
