@@ -18,3 +18,13 @@ In its current version, running ```Setup.py``` is not needed if the project has 
 
 Gambling involves risk. The author does not encourage or promote gambling in any way, nor the author takes any responsibilities for losses associated with the utilization of the software. 
 The utilization NBA Bet is only intended for legal age people. 
+
+### Best Hyperparameters Selection (Still in progress)
+```margin = 0
+betting_limiter = True
+betting_limit = 0.1
+prob_threshold = 0.7
+average_N = 5
+skip_n = 0
+
+Net return per €: 3.73
