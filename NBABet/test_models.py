@@ -96,7 +96,7 @@ evaluated_indexes = []
 df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # Maximum allowed average_N: 35
-average_N = 35
+average_N = 3
 skip_n = 0
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 

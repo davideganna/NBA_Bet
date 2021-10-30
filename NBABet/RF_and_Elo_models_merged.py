@@ -103,7 +103,7 @@ away_teams_list   = []
 evaluated_indexes = []
 
 # Backtest on the 2020/2021 Season
-df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv') 
+df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
@@ -184,15 +184,7 @@ correctly_pred_df = merged_df.loc[
     (
         ((merged_df['OddsHome'] > merged_df['OddsAway'] + margin) & (merged_df['Predictions'] == 1)) |
         ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
-    ) #&
-    #(
-    #    ((merged_df['OddsAway'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 1)) |
-    #    ((merged_df['OddsHome'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 0)) 
-    #) 
-    #(
-    #    ((merged_df['Predictions'] == 1) & (merged_df['OddsAway'] >= 1.1)) |
-    #    ((merged_df['Predictions'] == 0) & (merged_df['OddsHome'] >= 1.1))
-    #)
+    )
     ]
 
 wrongly_pred_df = merged_df.loc[
@@ -200,15 +192,7 @@ wrongly_pred_df = merged_df.loc[
     (
         ((merged_df['OddsHome'] > merged_df['OddsAway'] + margin) & (merged_df['Predictions'] == 1)) |
         ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
-    ) #&
-    #(
-    #    ((merged_df['OddsAway'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 1)) |
-    #    ((merged_df['OddsHome'] >= merged_df['CombinedOdds']) & (merged_df['Predictions'] == 0)) 
-    #) 
-    #(
-    #    ((merged_df['Predictions'] == 1) & (merged_df['OddsAway'] >= 1.1)) |
-    #    ((merged_df['Predictions'] == 0) & (merged_df['OddsHome'] >= 1.1))
-    #)
+    )
     ]
 
 merged_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_values('index').reset_index(drop=True)
@@ -216,7 +200,8 @@ merged_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_values(
 # Compare Predictions and TrueValues
 comparison_column = np.where(merged_df['Predictions'] == merged_df['Winner'], True, False)
 
-# Kelly's criterion: bet a different fraction of the bankroll depending on odds
+# ---------- Kelly's Criterion ---------- #
+# Bet a different fraction of the bankroll depending on odds
 starting_bankroll = 100 # €
 current_bankroll = starting_bankroll
 bet_amount  = []
