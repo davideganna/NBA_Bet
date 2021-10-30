@@ -11,6 +11,9 @@
 import Helper
 import logging, coloredlogs
 import pandas as pd
+import os
+
+from Api import API
 #import telegram_integration
 
 # ----- Scheduler ----- #
@@ -24,6 +27,7 @@ coloredlogs.install(level='INFO')
 
 #-------- Main -------- #
 folder = 'past_data/2021_2022/' # Specify the current NBA season to save the .csv datasets.
+
 try:
     season_df = pd.read_csv(folder + '2021_2022_season.csv')
 except:
@@ -31,7 +35,8 @@ except:
     'Alternatively, check that the path to the folder where the .csv files are located is correct.')
 else:
     Helper.check_df(folder)
-    
+    api = API().get_tomorrows_games()
+
     # 1. Get next matches --> API.get_next_games()
     # 2. Iteratively extract Home_Team and Away_Team
     # 3. Get Average stats for Home_Team and Away_Team

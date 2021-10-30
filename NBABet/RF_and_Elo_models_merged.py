@@ -16,7 +16,7 @@ margin = 0
 betting_limiter = True
 betting_limit = 0.1
 prob_threshold = 0.7
-average_N = 5
+average_N = 3
 skip_n = 0
 
 # ------ Logger ------- #
