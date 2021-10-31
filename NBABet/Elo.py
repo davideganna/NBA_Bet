@@ -72,8 +72,9 @@ def update_DataFrame(elo_df, away_team, home_team, away_pts, home_pts, winner):
 
 def get_probas(away_team, home_team):
     # Current Elo ratings for away_team and home_team
-    elo_away_team = dal.current_team_Elo[away_team]
-    elo_home_team = dal.current_team_Elo[home_team]
+    elo_df = pd.read_csv('past_data/2021_2022/elo.csv')
+    elo_away_team = elo_df.loc[elo_df['Team'] == away_team, 'Elo'].values[0]
+    elo_home_team = elo_df.loc[elo_df['Team'] == home_team, 'Elo'].values[0]
     # Expected Win probability for away_team and home_team
     prob_away_wins = 1/(1+10**((elo_home_team - elo_away_team)/400))
     prob_home_wins = 1/(1+10**((elo_away_team - elo_home_team)/400))
