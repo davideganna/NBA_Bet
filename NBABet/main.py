@@ -7,19 +7,17 @@
 #    888   Y8888 888   d88P  d8888888888     888   d88P Y8b.     Y88b. 
 #    888    Y888 8888888P"  d88P     888     8888888P"   "Y8888   "Y888
 
-#from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 import Helper
 import logging, coloredlogs
 import pandas as pd
-import os
-
-from Api import API
-#import telegram_integration
+from Api import Api
+from Telegram import TelegramBot
 
 # ----- Scheduler ----- #
-#sched = BackgroundScheduler(daemon=True)
-#sched.add_job(lambda: Helper.check_df(),'interval', hours=24)
-#sched.add_job(lambda: telegram_integration.send_predictions(),'interval', minutes=10)
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(lambda: Helper.check_df(),'interval', hours=24)
+sched.add_job(lambda: TelegramBot().send_message(next_games),'interval', hours=24)
 
 # ------ Logger ------- #
 logger = logging.getLogger(__name__)
@@ -35,8 +33,8 @@ except:
     'Alternatively, check that the path to the folder where the .csv files are located is correct.')
 else:
     Helper.check_df(folder)
-    api = API().get_tomorrows_games()
-
+    next_games = Api().get_tomorrows_games()
+    
     # 1. Get next matches --> API.get_next_games()
     # 2. Iteratively extract Home_Team and Away_Team
     # 3. Get Average stats for Home_Team and Away_Team
@@ -44,12 +42,12 @@ else:
     # 5. Send the predictions to the Telegram Bot
 
     # ----- If you want the Telegram Integration ----- #
-    #bankroll = telegram_integration.test_br()
+    TelegramBot().send_message(next_games)
     
     # ----- If you want to run the program at fixed times, uncomment the lines below. ----- #
-    """ sched.start()
+    sched.start()
     logger.warning('Type "exit" to stop the program.\n')
     inp = input()
     while inp != 'exit':
         logger.warning('Program is running. Type "exit" to stop the program.\n')
-        inp = input() """
+        inp = input()

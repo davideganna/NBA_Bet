@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import requests
 
-class API:
+class Api:
     """
     Base class for interfacing with the Basketball API.
     """
@@ -30,6 +30,7 @@ class API:
             home_team = match['teams']['home']['name']
             away_team = match['teams']['away']['name']
             next_games[home_team] = away_team
+        return next_games
 
 
         
