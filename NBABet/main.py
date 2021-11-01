@@ -16,8 +16,8 @@ from Telegram import TelegramBot
 
 # ----- Scheduler ----- #
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda: Helper.check_df(),'interval', hours=24)
-sched.add_job(lambda: TelegramBot().send_message(next_games),'cron', hour=20, minute=00)
+sched.add_job(lambda: Helper.check_df(),'interval', hours=12)
+sched.add_job(lambda: TelegramBot().send_message(Api().get_tomorrows_games()),'cron', hour=20, minute=00)
 
 # ------ Logger ------- #
 logger = logging.getLogger(__name__)
@@ -33,15 +33,8 @@ except:
     'Alternatively, check that the path to the folder where the .csv files are located is correct.')
 else:
     Helper.check_df(folder)
-    next_games = Api().get_tomorrows_games()
     # ----- If you want the Telegram Integration ----- #
-    TelegramBot().send_message(next_games)
-
-    # 1. Get next matches --> API.get_next_games()
-    # 2. Iteratively extract Home_Team and Away_Team
-    # 3. Get Average stats for Home_Team and Away_Team
-    # 4. Predict the results for the retrieved matches
-    # 5. Send the predictions to the Telegram Bot
+    TelegramBot().send_message(Api().get_tomorrows_games())
 
     # ----- If you don't want to run the program at fixed times, comment the lines below. ----- #
     sched.start()
