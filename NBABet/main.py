@@ -33,8 +33,6 @@ except:
     'Alternatively, check that the path to the folder where the .csv files are located is correct.')
 else:
     Helper.check_df(folder)
-    # ----- If you want the Telegram Integration ----- #
-    TelegramBot().send_message(Api().get_tomorrows_games())
 
     # ----- If you don't want to run the program at fixed times, comment the lines below. ----- #
     sched.start()

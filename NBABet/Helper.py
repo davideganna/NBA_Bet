@@ -1,5 +1,6 @@
 # External Libraries
-from datetime import date
+from datetime import date, datetime, timedelta
+from time import time
 import pandas as pd
 pd.options.mode.chained_assignment = None
 import numpy as np
@@ -278,7 +279,12 @@ def check_df(folder:str):
     Checks if 2021_2022_season.csv file is up to date.
     If not, new rows are added to the file.
     """
-    current_month = date.today().strftime("%B").lower()
+    # If it is the first day of the month, get last month's data. Otherwise, get this month's one.
+    if date.today().day == 1:
+        yesterday = datetime.now() - timedelta(1)
+        current_month = yesterday.strftime("%B").lower()
+    else:
+        current_month = date.today().strftime("%B").lower()
     # Retrieve url based on current month
     url = 'https://www.basketball-reference.com/leagues/NBA_2022_games-'+ current_month + '.html'
     df_url = pd.read_html(url)[0]
