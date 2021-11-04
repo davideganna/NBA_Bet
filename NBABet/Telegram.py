@@ -1,8 +1,12 @@
 # --------------------- Telegram.py --------------------------------- #
 # Allows the integration with Telegram Bot.
 # ------------------------------------------------------------------- #
+from numpy.core.fromnumeric import around
 import requests
 import Elo
+import Models
+import Helper
+import pandas as pd
 import numpy as np
 
 class TelegramBot():
@@ -16,12 +20,37 @@ class TelegramBot():
             self.bot_token = lines[0].strip()
             self.chat_id = lines[1].strip()
     
+
     def send_message(self, d:dict):
-        text = "🏀 Tomorrow's Games: Home vs. Away 🏀\n\n"
+        df = pd.read_csv('past_data/2021_2022/split_stats_per_game.csv')
+        df = Helper.add_features_to_df(df)
+
+        n = 3
+
+        clf = Models.build_RF_classifier()
+
+        text = "🏀 Tonight's Games: Home vs. Away 🏀\n\n"
         for home, away in d.items():
-            prob_away, prob_home = Elo.get_probas(away, home)
-            prob_away, prob_home = np.around(prob_away, decimals=3), np.around(prob_home, decimals=3), 
+            last_N_games_away = df.loc[df['Team_away'] == away].tail(n)
+            last_N_games_home = df.loc[df['Team_home'] == home].tail(n)
+
+            to_predict = pd.concat(
+                [
+                    last_N_games_away[Models.away_features].mean(), 
+                    last_N_games_home[Models.home_features].mean()
+                ],
+                axis=0)[Models.features]
+
+            prob_home_rf, prob_away_rf = clf.predict_proba(to_predict.values.reshape(1,-1))[0]
+
+            prob_away_elo, prob_home_elo = Elo.get_probas(away, home)
+            prob_away, prob_home = [
+                around((prob_away_rf+prob_away_elo)/2, decimals=3), 
+                around((prob_home_rf+prob_home_elo)/2, decimals=3)
+            ]
+
             text = text + home + '(' + str(prob_home) + ') vs. ' + away + '(' + str(prob_away) + ')\n\n'
+
         query = self.url + self.bot_token + '/sendMessage?' + self.chat_id + '&text=' + text
         requests.request("POST", query)
 

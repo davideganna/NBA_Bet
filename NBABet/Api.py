@@ -17,8 +17,8 @@ class Api:
         }
 
 
-    def get_tomorrows_games(self):
-        date = 'date=' + (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
+    def get_tonights_games(self):
+        date = 'date=' + (datetime.today()).strftime('%Y-%m-%d')
         endpoint = 'games?' + date + '&league=' + self.league + '&season=' + self.season
         query = self.url + endpoint
         payload = {}

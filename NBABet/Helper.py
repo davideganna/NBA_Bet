@@ -34,31 +34,6 @@ def add_features_to_df(df):
     df = df.assign(HomeTeamWon = 1)
     df['HomeTeamWon'].loc[(df['PTS_away'] > df['PTS_home'])] = 0
 
-    # Elo
-    # In the DataFrame, the Elo shown as Home or Away is the Elo AFTER the match.
-    # The current Elo is stored in a dictionary found at "dal.current_team_Elo"
-    df[['Elo_home', 'Elo_away']] = np.nan
-    for team in dal.teams:
-        dal.current_team_Elo[team] = 1500
-    
-    rows = []
-    prob_away = []
-    prob_home = []
-
-    for _n, _row in df.iterrows():
-        probas = Elo.get_probas(_row['Team_away'], _row['Team_home'])
-        prob_away.append(probas[0])
-        prob_home.append(probas[1])
-        rows.append(Elo.update(_row))
-    
-    df = pd.DataFrame(rows)
-
-    df['ModelProb_Away'] = prob_away 
-    df['ModelProb_Home'] = prob_home 
-
-    df['OddsAway_Elo'] = 1/df['ModelProb_Away']
-    df['OddsHome_Elo'] = 1/df['ModelProb_Home']
-
     return df
 
 def add_odds_to_split_df():
