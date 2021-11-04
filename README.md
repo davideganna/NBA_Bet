@@ -24,7 +24,7 @@ The utilization NBA Bet is only intended for legal age people.
 betting_limiter = True
 betting_limit = 0.1
 prob_threshold = 0.7
-average_N = 5
+average_N = 3
 skip_n = 0
 
-Net return per €: 3.73
+Net return per €: 7.37
