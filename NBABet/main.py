@@ -16,8 +16,8 @@ from Telegram import TelegramBot
 
 # ----- Scheduler ----- #
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda: Helper.check_df(folder),'interval', hours=12)
-sched.add_job(lambda: TelegramBot().send_message(Api().get_tonights_games()),'cron', hour=20, minute=00)
+sched.add_job(lambda: Helper.check_df(folder),'cron', hour=16, minute=45)
+sched.add_job(lambda: TelegramBot().send_message(Api().get_tonights_games()), 'cron', hour=17, minute=00)
 
 # ------ Logger ------- #
 logger = logging.getLogger(__name__)
