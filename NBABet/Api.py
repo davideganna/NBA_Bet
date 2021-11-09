@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
 import requests
 
 class Api:
@@ -18,7 +18,7 @@ class Api:
 
 
     def get_tonights_games(self):
-        date = 'date=' + (datetime.today()).strftime('%Y-%m-%d')
+        date = 'date=' + (datetime.today() + timedelta(1)).strftime('%Y-%m-%d')
         endpoint = 'games?' + date + '&league=' + self.league + '&season=' + self.season
         query = self.url + endpoint
         payload = {}
