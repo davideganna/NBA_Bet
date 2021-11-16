@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import Models
+import Helper
 import moving_average_dataset
 import test_Elo_model
 import backtesting
@@ -14,8 +15,8 @@ pd.set_option('display.max_rows', 1000)
 # ------------ Hyperparameters ------------ #
 margin = 0
 betting_limiter = True
-betting_limit = 0.1
-prob_threshold = 0.7
+betting_limit = 0.125
+prob_threshold = 0.65
 average_N = 3
 skip_n = 0
 
@@ -172,7 +173,7 @@ elo_df.drop(['Winner','OddsAway', 'OddsHome', 'FractionBet', 'BetAmount', 'NetWo
 merged_df = forest_df.merge(elo_df, on=['Date', 'Team_away', 'Team_home', 'Predictions'], how='inner')
 
 merged_df = merged_df.assign(CombinedProb = np.maximum(merged_df['ModelProbability'], merged_df['ModelProb_Home']))
-merged_df['CombinedProb'].loc[(merged_df['Predictions'] == 1)] = np.maximum(merged_df['ModelProbability'], merged_df['ModelProb_Home'])
+merged_df['CombinedProb'].loc[(merged_df['Predictions'] == 1)] = np.maximum(merged_df['ModelProbability'], merged_df['ModelProb_Away'])
 
 merged_df['CombinedProb'] = merged_df['CombinedProb']
 merged_df['CombinedOdds'] = 1/merged_df['CombinedProb']
@@ -215,7 +216,7 @@ for n, row in merged_df.iterrows():
         frac_amount = ((row['CombinedProb'])*row['OddsAway']-1)/(row['OddsAway']-1)
     
     if frac_amount > 0:
-        # Limit the portion of bankroll to bet
+        # Bet a larger amount if probabilities exceed a threshold
         if (
             (row['ModelProbability'] >= prob_threshold and row['ModelProb_Away'] >= prob_threshold and row['Predictions'] == 1) or
             (row['ModelProbability'] >= prob_threshold and row['ModelProb_Home'] >= prob_threshold and row['Predictions'] == 0)
@@ -223,6 +224,9 @@ for n, row in merged_df.iterrows():
             if 2*betting_limit < current_bankroll:
                 frac_amount = 2*betting_limit
 
+            elif frac_amount > betting_limit and betting_limiter == True:
+                frac_amount = betting_limit
+        
         elif frac_amount > betting_limit and betting_limiter == True:
             frac_amount = betting_limit
 
