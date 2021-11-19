@@ -169,17 +169,19 @@ def build_merged_seasons():
 
 
 def build_season_df(folder):
-    december_df = pd.read_csv(folder + 'december_data.csv')
+    october_df = pd.read_csv(folder + 'october_data.csv')
+    november_df = pd.read_csv(folder + 'november_data.csv')
+    """ december_df = pd.read_csv(folder + 'december_data.csv')
     january_df = pd.read_csv(folder + 'january_data.csv')
     february_df = pd.read_csv(folder + 'february_data.csv')
     march_df = pd.read_csv(folder + 'march_data.csv')
     april_df = pd.read_csv(folder + 'april_data.csv')
     may_df = pd.read_csv(folder + 'may_data.csv')
     june_df = pd.read_csv(folder + 'june_data.csv')
-    july_df = pd.read_csv(folder + 'july_data.csv')
+    july_df = pd.read_csv(folder + 'july_data.csv') """
 
-    season_df = pd.concat([december_df, january_df, february_df, march_df, april_df, may_df, june_df, july_df])
-    season_df.to_csv(folder + '2020_2021_season.csv', index=False)
+    season_df = pd.concat([october_df, november_df])
+    season_df.to_csv(folder + '2021_2022_season.csv', index=False)
 
     return season_df
 
@@ -375,7 +377,7 @@ def update_elo_csv(df):
             winner = 0
         elo_df = Elo.update_DataFrame(elo_df, away_team, home_team, away_pts, home_pts, winner)
     
-    elo_df.to_csv('past_data/2021_2022/elo.csv', index=False)
+    elo_df.to_csv('past_data/2021_2022/elo.csv', index=False) 
 
 
 def update_stats_per_game_csv(folder:str, diff:DataFrame):

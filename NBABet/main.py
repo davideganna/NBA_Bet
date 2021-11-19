@@ -13,6 +13,7 @@ import logging, coloredlogs
 import pandas as pd
 from Api import Api
 from Telegram import TelegramBot
+from ETL import DataExtractor, DataTransformer, DataLoader
 
 # ----- Scheduler ----- #
 sched = BackgroundScheduler(daemon=True)
@@ -32,10 +33,17 @@ except:
     logger.error('Program could not access the .csv datasets. Be sure to run "Setup.py" before "main.py".\n'\
     'Alternatively, check that the path to the folder where the .csv files are located is correct.')
 else:
-    Helper.check_df(folder)
+    Extraction = DataExtractor.Extraction(folder)
+    Transformation = DataTransformer.Transformation(folder)
+    Loading = DataLoader.Loading(folder)
+
+    # Full Pipeline
+    df_month, current_month = Extraction.get_current_month_data()
+    df_month, csv_path = Transformation.polish_df_month(df_month, current_month)
+    Loading.save_df_month(df_month, current_month, csv_path)
     
     # For testing purposes
-    TelegramBot().send_message(Api().get_tonights_games())
+    #TelegramBot().send_message(Api().get_tonights_games())
 
     # ----- If you don't want to run the program at fixed times, comment the lines below. ----- #
     sched.start()
