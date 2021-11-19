@@ -103,7 +103,7 @@ class Loading():
                 winner = 0
             elo_df = Elo.update_DataFrame(elo_df, away_team, home_team, away_pts, home_pts, winner)
         
-        elo_df.to_csv('past_data/2021_2022/elo.csv', index=False) 
+        elo_df.sort_values(by='Elo', ascending=False).to_csv('past_data/2021_2022/elo.csv', index=False)
     
 
     def save_split_stats_per_game(self, df:DataFrame):

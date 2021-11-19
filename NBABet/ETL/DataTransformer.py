@@ -118,6 +118,3 @@ class Transformation():
         Loading = DataLoader.Loading(self.folder)
         
         Loading.save_split_stats_per_game(df)
-        
-        
-

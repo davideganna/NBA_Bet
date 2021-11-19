@@ -1,11 +1,17 @@
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import Models
 import moving_average_dataset
-import test_Elo_model
 import backtesting
+import elo_model
 import dicts_and_lists as dal
 import logging, coloredlogs
 
@@ -66,6 +72,9 @@ def extract_and_predict(next_game):
         home_teams_list.append(home_team)
         away_teams_list.append(away_team)
 
+# Create the df containing stats per single game on every row
+train_df = pd.read_csv('../past_data/average_seasons/average_N_4Seasons.csv')
+
 # Only the most significant features will be considered
 away_features = Models.away_features
 home_features = Models.home_features
@@ -80,14 +89,14 @@ logger.info('\nSelect the type of model you want to backtest:\n\
 inp = input()
 if inp == '1':
     logger.info('Building a Decision Tree Classifier...')
-    clf = Models.build_DT_classifier()
+    clf = Models.build_DT_classifier(train_df)
 elif inp == '2':
     logger.info('Building a Random Forest Classifier...')
-    clf = Models.build_RF_classifier()
+    clf = Models.build_RF_classifier(train_df)
 elif inp == '3':
     moving_average_dataset.build_moving_average_dataset(average_N, skip_n)
     logger.info('Building a Random Forest Classifier...')
-    clf = Models.build_RF_classifier()
+    clf = Models.build_RF_classifier(train_df)
 
 
 # To evaluate accuracy
@@ -103,7 +112,7 @@ away_teams_list   = []
 evaluated_indexes = []
 
 # Backtest on the 2020/2021 Season
-df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+df = pd.read_csv('../past_data/2020_2021/split_stats_per_game.csv')
 
 print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
 
@@ -165,7 +174,7 @@ forest_df = pd.DataFrame(data).sort_values('index')
 # ---------- MERGING THE RANDOM FOREST MODEL AND THE ELO MODEL ---------- #
 
 # Build the Elo model then stack the two
-elo_df = test_Elo_model.build_model(df)
+elo_df = elo_model.build_model(df)
 elo_df.drop(['Winner','OddsAway', 'OddsHome', 'FractionBet', 'BetAmount', 'NetWon', 'Bankroll'], axis=1, inplace=True)
 
 # Merge the 2 DFs

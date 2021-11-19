@@ -43,7 +43,7 @@ else:
     Loading.save_df_month(df_month, current_month, csv_path)
     
     # For testing purposes
-    #TelegramBot().send_message(Api().get_tonights_games())
+    TelegramBot().send_message(Api().get_tonights_games())
 
     # ----- If you don't want to run the program at fixed times, comment the lines below. ----- #
     sched.start()

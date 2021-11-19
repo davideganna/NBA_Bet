@@ -1,17 +1,11 @@
-from sklearn import tree
-import Helper
 import pandas as pd
-pd.options.mode.chained_assignment = None
-from sklearn.preprocessing import OrdinalEncoder
+from pandas.core.frame import DataFrame
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
-
-
-# Create the df containing stats per single game on every row
-df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
+pd.options.mode.chained_assignment = None
 
 # Define the target
 target = 'Winner'
@@ -58,7 +52,7 @@ features = away_features + home_features
 
 ############### Different functions for building different models. ###############
 
-def build_AdaBoost_classifier():
+def build_AdaBoost_classifier(df:DataFrame):
     """
     Builds an AdaBoost Classifier.
     """
@@ -70,7 +64,8 @@ def build_AdaBoost_classifier():
     ada_clf.fit(X_train, y_train.values.ravel())
     return ada_clf
 
-def build_DT_classifier():
+
+def build_DT_classifier(df:DataFrame):
     """
     Builds a Decision Tree Classifier.
     """
@@ -80,7 +75,8 @@ def build_DT_classifier():
     tree_clf.fit(X_train, y_train)
     return tree_clf 
 
-def build_RF_classifier():
+
+def build_RF_classifier(df:DataFrame):
     """
     Builds a Random Forest Classifier.
     """
@@ -93,7 +89,8 @@ def build_RF_classifier():
     rf_clf.fit(X_train, y_train.values.ravel())
     return rf_clf
 
-def build_SVM_classifier():
+
+def build_SVM_classifier(df:DataFrame):
     """
     Builds a Support Vector Machine Classifier.
     """

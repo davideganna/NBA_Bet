@@ -4,7 +4,7 @@
 from numpy.core.fromnumeric import around
 import requests
 import Elo
-import Models
+from Models import Models
 import Helper
 import pandas as pd
 import numpy as np
@@ -26,8 +26,9 @@ class TelegramBot():
         df = Helper.add_features_to_df(df)
 
         n = 3
-
-        clf = Models.build_RF_classifier()
+        
+        train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
+        clf = Models.build_RF_classifier(train_df)
 
         text = "🏀 Tonight's Games: Home vs. Away 🏀\n\n"
         for home, away in d.items():
