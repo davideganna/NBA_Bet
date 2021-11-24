@@ -1,6 +1,7 @@
 # External Libraries
 import pandas as pd
 import numpy as np
+import Elo
 import logging, coloredlogs
 import dicts_and_lists as dal
 
@@ -29,6 +30,7 @@ def add_features_to_df(df):
     df['HomeTeamWon'].loc[(df['PTS_away'] > df['PTS_home'])] = 0
 
     return df
+
 
 def add_odds_to_split_df():
     odds_df = pd.read_csv('past_data/2020_2021/historical_odds_2020_2021.csv', sep=';', index_col=False)
@@ -114,11 +116,26 @@ def add_odds_to_split_df():
 
 
 def build_elo_csv():
-    # Initial Elo setup
-    df = pd.DataFrame(dal.teams, columns=['Team'])
-    df['Elo'] = 1500
-    df.to_csv('past_data/2021_2022/elo.csv', index=False)
-    return df
+    """
+    Re-Builds the Elo DataFrame starting from the first match in the season.
+    Saves the DataFrame in a .csv file. 
+    """
+    df = pd.read_csv('past_data/2021_2022/2021_2022_season.csv')
+    elo_df = pd.DataFrame(dal.teams, columns=['Team'])
+    elo_df['Elo'] = 1500
+    for _, row in df.iterrows():
+        away_team = row['AwayTeam']
+        home_team = row['HomeTeam']
+        away_pts = row['AwayPoints']
+        home_pts = row['HomePoints']
+        
+        if(away_pts > home_pts):
+            winner = 1
+        elif(home_pts > away_pts):
+            winner = 0
+        elo_df = Elo.update_DataFrame(elo_df, away_team, home_team, away_pts, home_pts, winner)
+        
+    elo_df.sort_values(by='Elo', ascending=False).to_csv('past_data/2021_2022/elo.csv', index=False)
 
 
 def build_merged_seasons():

@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging, coloredlogs
+from pandas.core.frame import DataFrame
 
 pd.set_option('display.max_rows', 1000)
 
@@ -8,7 +9,7 @@ pd.set_option('display.max_rows', 1000)
 logger = logging.getLogger('elo_model.py')
 coloredlogs.install(level='INFO', logger=logger)
 
-def build_model(df):
+def build_model(df:DataFrame):
     """
     Backtest on the DataFrame in input.
     """

@@ -17,8 +17,8 @@ from ETL import DataExtractor, DataTransformer, DataLoader
 
 # ----- Scheduler ----- #
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda: Helper.check_df(folder),'cron', hour=16, minute=45)
-sched.add_job(lambda: TelegramBot().send_message(Api().get_tonights_games()), 'cron', hour=17, minute=00)
+sched.add_job(lambda: Helper.check_df(folder),'cron', hour=12, minute=15)
+sched.add_job(lambda: TelegramBot().send_message(Api().get_tonights_games()), 'cron', hour=12, minute=30)
 
 # ------ Logger ------- #
 logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ else:
     Transformation = DataTransformer.Transformation(folder)
     Loading = DataLoader.Loading(folder)
 
-    # Full Pipeline
+    # Full ETL Pipeline
     df_month, current_month = Extraction.get_current_month_data()
     df_month, csv_path = Transformation.polish_df_month(df_month, current_month)
     Loading.save_df_month(df_month, current_month, csv_path)

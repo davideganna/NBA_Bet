@@ -47,12 +47,14 @@ class TelegramBot():
             prob_away_elo, prob_home_elo = Elo.get_probas(away, home)
 
             if ((prob_home_rf > 0.5) and (prob_home_elo > 0.5)):
-                prob_home = around(np.maximum(prob_home_rf, prob_home_elo), decimals=3)
-                text = text + home + '(' + str(prob_home) + ') vs. ' + away + '\n\n'
+                prob_home = str(around(np.maximum(prob_home_rf, prob_home_elo), decimals=3))
+                odds_home = str(around(1/float(prob_home), decimals=2))
+                text = text + home + '(' + prob_home + ' --> ' + odds_home + ') vs. ' + away + '\n\n'
 
             if ((prob_away_rf > 0.5) and (prob_away_elo > 0.5)):
-                prob_away = around(np.maximum(prob_away_rf, prob_away_elo), decimals=3)
-                text = text + home + ' vs. ' + away + '(' + str(prob_away) + ')\n\n'
+                prob_away = str(around(np.maximum(prob_away_rf, prob_away_elo), decimals=3))
+                odds_away = str(around(1/float(prob_away), decimals=2))
+                text = text + home + ' vs. ' + away + '(' + prob_away + ' --> ' + odds_away + ')\n\n'
 
         query = self.url + self.bot_token + '/sendMessage?' + self.chat_id + '&text=' + text
         requests.request("POST", query)
