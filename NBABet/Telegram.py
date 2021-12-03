@@ -1,7 +1,7 @@
 # --------------------- Telegram.py --------------------------------- #
 # Allows the integration with Telegram Bot.
 # ------------------------------------------------------------------- #
-from numpy.core.fromnumeric import around
+from numpy.core.fromnumeric import around, std
 import requests
 import Elo
 from Models import Models
@@ -28,7 +28,10 @@ class TelegramBot():
         n = 3
         
         train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
-        clf = Models.build_RF_classifier(train_df)
+        # Standardize the DataFrame
+        std_df, scaler = Helper.standardize_DataFrame(train_df)
+
+        clf = Models.build_RF_classifier(std_df)
 
         text = "🏀 Tonight's Games: Home vs. Away 🏀\n\n"
         for home, away in d.items():
@@ -42,7 +45,7 @@ class TelegramBot():
                 ],
                 axis=0)[Models.features]
 
-            prob_home_rf, prob_away_rf = clf.predict_proba(to_predict.values.reshape(1,-1))[0]
+            prob_home_rf, prob_away_rf = clf.predict_proba(scaler.transform(to_predict.values.reshape(1,-1)))[0]
 
             prob_away_elo, prob_home_elo = Elo.get_probas(away, home)
 

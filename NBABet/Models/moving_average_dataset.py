@@ -1,11 +1,15 @@
 import sys
 import os
 
+from pandas.core.frame import DataFrame
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
 import Models
+import Helper
 import backtesting
 import dicts_and_lists as dal
 import logging, coloredlogs
@@ -33,7 +37,7 @@ home_teams_list   = []
 away_teams_list   = []
 winners_list = []
 
-def extract_and_insert(next_game, _df, average_N, evaluated_indexes, to_insert_list, winners_list):
+def extract_and_insert(next_game, _df:DataFrame, average_N, evaluated_indexes, to_insert_list, winners_list):
     """
     Based on the next game, the function computes the average of N the previous games played by 
         the same team and inserts the values in "averageN_season.csv".
@@ -74,12 +78,14 @@ def extract_and_insert(next_game, _df, average_N, evaluated_indexes, to_insert_l
 def build_moving_average_dataset(average_N, skip_n):
     df_2017 = pd.read_csv('../past_data/2017_2018/split_stats_per_game_2017.csv')
     df_2018 = pd.read_csv('../past_data/2018_2019/split_stats_per_game_2018.csv')
-    df_2019 = pd.read_csv('../past_data/2019_2020/split_stats_per_game_2019.csv')
+    #df_2019 = pd.read_csv('../past_data/2019_2020/split_stats_per_game_2019.csv')
     df_2020 = pd.read_csv('../past_data/2020_2021/split_stats_per_game.csv')
+    df_2021 = pd.read_csv('../past_data/2021_2022/split_stats_per_game.csv')
+    df_2021 = Helper.add_features_to_df(df_2021)
 
     print(f'Averaging 4 datasets. MA: {average_N} games, first {skip_n} games are skipped.')
 
-    for _df in [df_2017, df_2018, df_2019, df_2020]:
+    for _df in [df_2017, df_2018, df_2020, df_2021]:
         # Cleanup at every iteration
         evaluated_indexes = []
         to_insert_list = []
@@ -131,20 +137,25 @@ def build_moving_average_dataset(average_N, skip_n):
         elif _df is df_2018:
             _df.name = '2018/2019 Season DataFrame' 
             avg_df.to_csv('../past_data/average_seasons/average2018.csv', index=False)
-        elif _df is df_2019:
-            _df.name = '2019/2020 Season DataFrame' 
-            avg_df.to_csv('../past_data/average_seasons/average2019.csv', index=False)
+        #elif _df is df_2019:
+        #    _df.name = '2019/2020 Season DataFrame' 
+        #    avg_df.to_csv('../past_data/average_seasons/average2019.csv', index=False)
         elif _df is df_2020:
             _df.name = '2020/2021 Season DataFrame' 
             avg_df.to_csv('../past_data/average_seasons/average2020.csv', index=False)
+        elif _df is df_2021:
+            _df.name = '2021/2022 Season DataFrame' 
+            avg_df.to_csv('../past_data/average_seasons/average2021.csv', index=False)
 
         logger.info(f'Retrieved stats for {_df.name}')
 
     # Concatenate the 3 average season datasets
     avg_2017_df = pd.read_csv('../past_data/average_seasons/average2017.csv')
     avg_2018_df = pd.read_csv('../past_data/average_seasons/average2018.csv')
-    avg_2019_df = pd.read_csv('../past_data/average_seasons/average2019.csv')
+    #avg_2019_df = pd.read_csv('../past_data/average_seasons/average2019.csv')
     avg_2020_df = pd.read_csv('../past_data/average_seasons/average2020.csv')
+    avg_2021_df = pd.read_csv('../past_data/average_seasons/average2021.csv')
 
-    avg_total_df = pd.concat([avg_2017_df, avg_2018_df, avg_2019_df, avg_2020_df], axis=0)
+    avg_total_df = pd.concat([avg_2017_df, avg_2018_df, avg_2020_df, avg_2021_df], axis=0)
+    
     avg_total_df.to_csv('../past_data/average_seasons/average_N_4Seasons.csv', index=False)

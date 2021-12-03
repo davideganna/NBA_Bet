@@ -1,3 +1,9 @@
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 import pandas as pd
 from pandas.core.frame import DataFrame
 from sklearn.svm import SVC
@@ -16,15 +22,15 @@ away_features = [
     'FG%_home',
     '3P%_home',
     'FT%_home',
-    #'ORB_home',
-    #'DRB_home',
-    #'TRB_home',
-    #'AST_home',
-    #'STL_home',
-    #'TOV_home',
+    'ORB_home',
+    'DRB_home',
+    'TRB_home',
+    'AST_home',
+    'STL_home',
+    'TOV_home',
     'PTS_home',
     'LogRatio_home',
-    #'RB_aggr_home',
+    'RB_aggr_home',
     'eFG%_home',
     'TS%_home'
 ]
@@ -33,15 +39,15 @@ home_features = [
     'FG%_away',
     '3P%_away',
     'FT%_away',
-    #'ORB_away',
-    #'DRB_away',
-    #'TRB_away',
-    #'AST_away',
-    #'STL_away',
-    #'TOV_away',
+    'ORB_away',
+    'DRB_away',
+    'TRB_away',
+    'AST_away',
+    'STL_away',
+    'TOV_away',
     'PTS_away',
     'LogRatio_away',
-    #'RB_aggr_away',
+    'RB_aggr_away',
     'eFG%_away',
     'TS%_away',
     'HomeTeamWon'
@@ -84,7 +90,7 @@ def build_RF_classifier(df:DataFrame):
     X_train, y_train = df[features], df[[target]]
     # Define a Random Forest Classifier
     rf_clf = RandomForestClassifier(
-        n_estimators=100, max_leaf_nodes=16, n_jobs=-1, random_state=42
+        n_estimators=500, n_jobs=-1, random_state=42, 
     )
     rf_clf.fit(X_train, y_train.values.ravel())
     return rf_clf

@@ -1,9 +1,18 @@
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 # External Libraries
 import pandas as pd
 import numpy as np
+from pandas.core.frame import DataFrame
 import Elo
 import logging, coloredlogs
+from Models import target, features
 import dicts_and_lists as dal
+from sklearn.preprocessing import StandardScaler
 
 pd.options.mode.chained_assignment = None
 
@@ -12,7 +21,7 @@ logger = logging.getLogger('Helper.py')
 coloredlogs.install(level='DEBUG')
 
 # Functions
-def add_features_to_df(df):
+def add_features_to_df(df:DataFrame):
     # Log Ratio
     df['LogRatio_home'] = np.log2(df['PTS_home']/df['PTS_away'])
     df['LogRatio_away'] = np.log2(df['PTS_away']/df['PTS_home'])
@@ -160,3 +169,16 @@ def build_season_df(folder):
 
     season_df = pd.concat([october_df, november_df])
     season_df.to_csv(folder + '2021_2022_season.csv', index=False)
+
+
+def standardize_DataFrame(df:DataFrame):
+    # Standardize the DataFrame
+    x = df.loc[:, features].values
+    y = df.loc[:, [target]].values
+
+    scaler = StandardScaler()
+    x = scaler.fit_transform(x)
+
+    std_df = pd.DataFrame(x, columns=features)
+    std_df = pd.concat([std_df, df['Winner'].reset_index(drop=True)], axis=1)
+    return std_df, scaler
