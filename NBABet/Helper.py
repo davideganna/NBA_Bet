@@ -10,7 +10,7 @@ import numpy as np
 from pandas.core.frame import DataFrame
 import Elo
 import logging, coloredlogs
-from Models import target, features
+from Models.Models import target, features
 import dicts_and_lists as dal
 from sklearn.preprocessing import StandardScaler
 

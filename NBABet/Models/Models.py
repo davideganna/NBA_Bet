@@ -11,6 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from xgboost import XGBClassifier
 pd.options.mode.chained_assignment = None
 
 # Define the target
@@ -94,6 +95,18 @@ def build_RF_classifier(df:DataFrame):
     )
     rf_clf.fit(X_train, y_train.values.ravel())
     return rf_clf
+
+
+def build_XGBoostClassifier(df:DataFrame):
+    """
+    Builds an Extreme Gradient Boosting Classifier.
+    """
+    # Split into train and test
+    X_train, y_train = df[features], df[[target]]
+    # Define a Random Forest Classifier
+    xgbc = XGBClassifier(n_estimators=50)
+    xgbc.fit(X_train, y_train.values.ravel())
+    return xgbc
 
 
 def build_SVM_classifier(df:DataFrame):
