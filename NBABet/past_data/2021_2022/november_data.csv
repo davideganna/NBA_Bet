@@ -1,117 +1,226 @@
 Date,Start (ET),AwayTeam,AwayPoints,HomeTeam,HomePoints
-"Mon, Nov 1, 2021",7:00p,Cleveland Cavaliers,113.0,Charlotte Hornets,110.0
-"Mon, Nov 1, 2021",7:00p,San Antonio Spurs,118.0,Indiana Pacers,131.0
-"Mon, Nov 1, 2021",7:00p,Portland Trail Blazers,103.0,Philadelphia 76ers,113.0
-"Mon, Nov 1, 2021",7:30p,Washington Wizards,111.0,Atlanta Hawks,118.0
-"Mon, Nov 1, 2021",7:30p,Chicago Bulls,128.0,Boston Celtics,114.0
-"Mon, Nov 1, 2021",7:30p,Toronto Raptors,113.0,New York Knicks,104.0
-"Mon, Nov 1, 2021",8:00p,Denver Nuggets,97.0,Memphis Grizzlies,106.0
-"Mon, Nov 1, 2021",8:00p,Orlando Magic,115.0,Minnesota Timberwolves,97.0
-"Mon, Nov 1, 2021",10:30p,Oklahoma City Thunder,94.0,Los Angeles Clippers,99.0
-"Tue, Nov 2, 2021",7:00p,Milwaukee Bucks,117.0,Detroit Pistons,89.0
-"Tue, Nov 2, 2021",7:30p,Miami Heat,125.0,Dallas Mavericks,110.0
-"Tue, Nov 2, 2021",9:00p,Sacramento Kings,113.0,Utah Jazz,119.0
-"Tue, Nov 2, 2021",10:00p,New Orleans Pelicans,100.0,Phoenix Suns,112.0
-"Tue, Nov 2, 2021",10:30p,Houston Rockets,117.0,Los Angeles Lakers,119.0
-"Wed, Nov 3, 2021",7:00p,Portland Trail Blazers,104.0,Cleveland Cavaliers,107.0
-"Wed, Nov 3, 2021",7:00p,New York Knicks,98.0,Indiana Pacers,111.0
-"Wed, Nov 3, 2021",7:00p,Boston Celtics,92.0,Orlando Magic,79.0
-"Wed, Nov 3, 2021",7:00p,Chicago Bulls,98.0,Philadelphia 76ers,103.0
-"Wed, Nov 3, 2021",7:00p,Toronto Raptors,109.0,Washington Wizards,100.0
-"Wed, Nov 3, 2021",7:30p,Atlanta Hawks,108.0,Brooklyn Nets,117.0
-"Wed, Nov 3, 2021",8:00p,Denver Nuggets,106.0,Memphis Grizzlies,108.0
-"Wed, Nov 3, 2021",8:00p,Los Angeles Clippers,126.0,Minnesota Timberwolves,115.0
-"Wed, Nov 3, 2021",8:30p,Dallas Mavericks,109.0,San Antonio Spurs,108.0
-"Wed, Nov 3, 2021",10:00p,Charlotte Hornets,92.0,Golden State Warriors,114.0
-"Wed, Nov 3, 2021",10:00p,New Orleans Pelicans,99.0,Sacramento Kings,112.0
-"Thu, Nov 4, 2021",7:00p,Philadelphia 76ers,109.0,Detroit Pistons,98.0
-"Thu, Nov 4, 2021",7:30p,Utah Jazz,116.0,Atlanta Hawks,98.0
-"Thu, Nov 4, 2021",7:30p,Boston Celtics,95.0,Miami Heat,78.0
-"Thu, Nov 4, 2021",10:00p,Houston Rockets,111.0,Phoenix Suns,123.0
-"Thu, Nov 4, 2021",10:30p,Oklahoma City Thunder,107.0,Los Angeles Lakers,104.0
-"Fri, Nov 5, 2021",7:00p,Brooklyn Nets,96.0,Detroit Pistons,90.0
-"Fri, Nov 5, 2021",7:00p,San Antonio Spurs,102.0,Orlando Magic,89.0
-"Fri, Nov 5, 2021",7:00p,Memphis Grizzlies,87.0,Washington Wizards,115.0
-"Fri, Nov 5, 2021",7:30p,New York Knicks,113.0,Milwaukee Bucks,98.0
-"Fri, Nov 5, 2021",7:30p,Cleveland Cavaliers,102.0,Toronto Raptors,101.0
-"Fri, Nov 5, 2021",8:00p,Los Angeles Clippers,104.0,Minnesota Timberwolves,84.0
-"Fri, Nov 5, 2021",10:00p,New Orleans Pelicans,85.0,Golden State Warriors,126.0
-"Fri, Nov 5, 2021",10:00p,Indiana Pacers,106.0,Portland Trail Blazers,110.0
-"Fri, Nov 5, 2021",10:00p,Charlotte Hornets,110.0,Sacramento Kings,140.0
-"Sat, Nov 6, 2021",5:00p,Houston Rockets,94.0,Denver Nuggets,95.0
-"Sat, Nov 6, 2021",7:30p,Utah Jazz,115.0,Miami Heat,118.0
-"Sat, Nov 6, 2021",8:00p,Philadelphia 76ers,114.0,Chicago Bulls,105.0
-"Sat, Nov 6, 2021",8:30p,Boston Celtics,104.0,Dallas Mavericks,107.0
-"Sat, Nov 6, 2021",10:00p,Atlanta Hawks,117.0,Phoenix Suns,121.0
-"Sat, Nov 6, 2021",10:30p,Los Angeles Lakers,90.0,Portland Trail Blazers,105.0
-"Sun, Nov 7, 2021",3:30p,Brooklyn Nets,116.0,Toronto Raptors,103.0
-"Sun, Nov 7, 2021",6:00p,Cleveland Cavaliers,126.0,New York Knicks,109.0
-"Sun, Nov 7, 2021",6:00p,Utah Jazz,100.0,Orlando Magic,107.0
-"Sun, Nov 7, 2021",6:00p,Indiana Pacers,94.0,Sacramento Kings,91.0
-"Sun, Nov 7, 2021",6:00p,Milwaukee Bucks,94.0,Washington Wizards,101.0
-"Sun, Nov 7, 2021",7:00p,San Antonio Spurs,94.0,Oklahoma City Thunder,99.0
-"Sun, Nov 7, 2021",8:30p,Houston Rockets,107.0,Golden State Warriors,120.0
-"Sun, Nov 7, 2021",9:00p,Charlotte Hornets,106.0,Los Angeles Clippers,120.0
-"Mon, Nov 8, 2021",7:00p,New York Knicks,103.0,Philadelphia 76ers,96.0
-"Mon, Nov 8, 2021",8:00p,Brooklyn Nets,95.0,Chicago Bulls,118.0
-"Mon, Nov 8, 2021",8:00p,Minnesota Timberwolves,118.0,Memphis Grizzlies,125.0
-"Mon, Nov 8, 2021",8:30p,New Orleans Pelicans,92.0,Dallas Mavericks,108.0
-"Mon, Nov 8, 2021",9:00p,Miami Heat,96.0,Denver Nuggets,113.0
-"Mon, Nov 8, 2021",10:00p,Atlanta Hawks,113.0,Golden State Warriors,127.0
-"Mon, Nov 8, 2021",10:00p,Phoenix Suns,109.0,Sacramento Kings,104.0
-"Mon, Nov 8, 2021",10:30p,Charlotte Hornets,123.0,Los Angeles Lakers,126.0
-"Tue, Nov 9, 2021",7:30p,Milwaukee Bucks,118.0,Philadelphia 76ers,109.0
-"Tue, Nov 9, 2021",9:00p,Atlanta Hawks,98.0,Utah Jazz,110.0
-"Tue, Nov 9, 2021",10:00p,Portland Trail Blazers,109.0,Los Angeles Clippers,117.0
-"Wed, Nov 10, 2021",7:00p,Washington Wizards,97.0,Cleveland Cavaliers,94.0
-"Wed, Nov 10, 2021",7:00p,Brooklyn Nets,123.0,Orlando Magic,90.0
-"Wed, Nov 10, 2021",7:30p,Toronto Raptors,88.0,Boston Celtics,104.0
-"Wed, Nov 10, 2021",7:30p,Detroit Pistons,112.0,Houston Rockets,104.0
-"Wed, Nov 10, 2021",7:30p,Milwaukee Bucks,112.0,New York Knicks,100.0
-"Wed, Nov 10, 2021",8:00p,Dallas Mavericks,107.0,Chicago Bulls,117.0
-"Wed, Nov 10, 2021",8:00p,Charlotte Hornets,118.0,Memphis Grizzlies,108.0
-"Wed, Nov 10, 2021",8:00p,Oklahoma City Thunder,108.0,New Orleans Pelicans,100.0
-"Wed, Nov 10, 2021",8:30p,Sacramento Kings,117.0,San Antonio Spurs,136.0
-"Wed, Nov 10, 2021",9:00p,Indiana Pacers,98.0,Denver Nuggets,101.0
-"Wed, Nov 10, 2021",9:00p,Portland Trail Blazers,109.0,Phoenix Suns,119.0
-"Wed, Nov 10, 2021",10:00p,Minnesota Timberwolves,110.0,Golden State Warriors,123.0
-"Wed, Nov 10, 2021",10:00p,Miami Heat,117.0,Los Angeles Lakers,120.0
-"Thu, Nov 11, 2021",7:00p,Toronto Raptors,115.0,Philadelphia 76ers,109.0
-"Thu, Nov 11, 2021",9:00p,Indiana Pacers,111.0,Utah Jazz,100.0
-"Thu, Nov 11, 2021",10:30p,Miami Heat,109.0,Los Angeles Clippers,112.0
-"Fri, Nov 12, 2021",7:00p,New York Knicks,96.0,Charlotte Hornets,104.0
-"Fri, Nov 12, 2021",7:30p,Milwaukee Bucks,113.0,Boston Celtics,122.0
-"Fri, Nov 12, 2021",7:30p,Detroit Pistons,78.0,Cleveland Cavaliers,98.0
-"Fri, Nov 12, 2021",8:00p,Portland Trail Blazers,104.0,Houston Rockets,92.0
-"Fri, Nov 12, 2021",8:00p,Phoenix Suns,119.0,Memphis Grizzlies,94.0
-"Fri, Nov 12, 2021",8:00p,Brooklyn Nets,120.0,New Orleans Pelicans,112.0
-"Fri, Nov 12, 2021",8:00p,Sacramento Kings,103.0,Oklahoma City Thunder,105.0
-"Fri, Nov 12, 2021",8:30p,Dallas Mavericks,123.0,San Antonio Spurs,109.0
-"Fri, Nov 12, 2021",9:00p,Atlanta Hawks,96.0,Denver Nuggets,105.0
-"Fri, Nov 12, 2021",10:00p,Chicago Bulls,93.0,Golden State Warriors,119.0
-"Fri, Nov 12, 2021",10:30p,Minnesota Timberwolves,107.0,Los Angeles Lakers,83.0
-"Sat, Nov 13, 2021",5:00p,Miami Heat,111.0,Utah Jazz,105.0
-"Sat, Nov 13, 2021",7:00p,Philadelphia 76ers,113.0,Indiana Pacers,118.0
-"Sat, Nov 13, 2021",7:00p,Memphis Grizzlies,101.0,New Orleans Pelicans,112.0
-"Sat, Nov 13, 2021",7:00p,Washington Wizards,104.0,Orlando Magic,92.0
-"Sat, Nov 13, 2021",7:30p,Detroit Pistons,127.0,Toronto Raptors,121.0
-"Sat, Nov 13, 2021",8:00p,Boston Celtics,89.0,Cleveland Cavaliers,91.0
-"Sat, Nov 13, 2021",10:30p,Minnesota Timberwolves,102.0,Los Angeles Clippers,129.0
-"Sun, Nov 14, 2021",3:30p,San Antonio Spurs,106.0,Los Angeles Lakers,114.0
-"Sun, Nov 14, 2021",6:00p,Milwaukee Bucks,100.0,Atlanta Hawks,120.0
-"Sun, Nov 14, 2021",7:00p,Golden State Warriors,102.0,Charlotte Hornets,106.0
-"Sun, Nov 14, 2021",7:00p,Phoenix Suns,115.0,Houston Rockets,89.0
-"Sun, Nov 14, 2021",7:00p,Brooklyn Nets,120.0,Oklahoma City Thunder,96.0
-"Sun, Nov 14, 2021",8:00p,Portland Trail Blazers,95.0,Denver Nuggets,124.0
-"Sun, Nov 14, 2021",9:30p,Chicago Bulls,100.0,Los Angeles Clippers,90.0
-"Mon, Nov 15, 2021",7:00p,Boston Celtics,98.0,Cleveland Cavaliers,92.0
-"Mon, Nov 15, 2021",7:00p,Sacramento Kings,129.0,Detroit Pistons,107.0
-"Mon, Nov 15, 2021",7:00p,New Orleans Pelicans,100.0,Washington Wizards,105.0
-"Mon, Nov 15, 2021",7:30p,Orlando Magic,111.0,Atlanta Hawks,129.0
-"Mon, Nov 15, 2021",7:30p,Indiana Pacers,84.0,New York Knicks,92.0
-"Mon, Nov 15, 2021",8:00p,Denver Nuggets,101.0,Dallas Mavericks,111.0
-"Mon, Nov 15, 2021",8:00p,Houston Rockets,102.0,Memphis Grizzlies,136.0
-"Mon, Nov 15, 2021",8:00p,Phoenix Suns,99.0,Minnesota Timberwolves,96.0
-"Mon, Nov 15, 2021",8:00p,Miami Heat,103.0,Oklahoma City Thunder,90.0
-"Mon, Nov 15, 2021",10:00p,Toronto Raptors,113.0,Portland Trail Blazers,118.0
-"Mon, Nov 15, 2021",10:30p,Chicago Bulls,121.0,Los Angeles Lakers,103.0
+"Mon, Nov 1, 2021",7:00p,Cleveland Cavaliers,113,Charlotte Hornets,110
+"Mon, Nov 1, 2021",7:00p,San Antonio Spurs,118,Indiana Pacers,131
+"Mon, Nov 1, 2021",7:00p,Portland Trail Blazers,103,Philadelphia 76ers,113
+"Mon, Nov 1, 2021",7:30p,Washington Wizards,111,Atlanta Hawks,118
+"Mon, Nov 1, 2021",7:30p,Chicago Bulls,128,Boston Celtics,114
+"Mon, Nov 1, 2021",7:30p,Toronto Raptors,113,New York Knicks,104
+"Mon, Nov 1, 2021",8:00p,Denver Nuggets,97,Memphis Grizzlies,106
+"Mon, Nov 1, 2021",8:00p,Orlando Magic,115,Minnesota Timberwolves,97
+"Mon, Nov 1, 2021",10:30p,Oklahoma City Thunder,94,Los Angeles Clippers,99
+"Tue, Nov 2, 2021",7:00p,Milwaukee Bucks,117,Detroit Pistons,89
+"Tue, Nov 2, 2021",7:30p,Miami Heat,125,Dallas Mavericks,110
+"Tue, Nov 2, 2021",9:00p,Sacramento Kings,113,Utah Jazz,119
+"Tue, Nov 2, 2021",10:00p,New Orleans Pelicans,100,Phoenix Suns,112
+"Tue, Nov 2, 2021",10:30p,Houston Rockets,117,Los Angeles Lakers,119
+"Wed, Nov 3, 2021",7:00p,Portland Trail Blazers,104,Cleveland Cavaliers,107
+"Wed, Nov 3, 2021",7:00p,New York Knicks,98,Indiana Pacers,111
+"Wed, Nov 3, 2021",7:00p,Boston Celtics,92,Orlando Magic,79
+"Wed, Nov 3, 2021",7:00p,Chicago Bulls,98,Philadelphia 76ers,103
+"Wed, Nov 3, 2021",7:00p,Toronto Raptors,109,Washington Wizards,100
+"Wed, Nov 3, 2021",7:30p,Atlanta Hawks,108,Brooklyn Nets,117
+"Wed, Nov 3, 2021",8:00p,Denver Nuggets,106,Memphis Grizzlies,108
+"Wed, Nov 3, 2021",8:00p,Los Angeles Clippers,126,Minnesota Timberwolves,115
+"Wed, Nov 3, 2021",8:30p,Dallas Mavericks,109,San Antonio Spurs,108
+"Wed, Nov 3, 2021",10:00p,Charlotte Hornets,92,Golden State Warriors,114
+"Wed, Nov 3, 2021",10:00p,New Orleans Pelicans,99,Sacramento Kings,112
+"Thu, Nov 4, 2021",7:00p,Philadelphia 76ers,109,Detroit Pistons,98
+"Thu, Nov 4, 2021",7:30p,Utah Jazz,116,Atlanta Hawks,98
+"Thu, Nov 4, 2021",7:30p,Boston Celtics,95,Miami Heat,78
+"Thu, Nov 4, 2021",10:00p,Houston Rockets,111,Phoenix Suns,123
+"Thu, Nov 4, 2021",10:30p,Oklahoma City Thunder,107,Los Angeles Lakers,104
+"Fri, Nov 5, 2021",7:00p,Brooklyn Nets,96,Detroit Pistons,90
+"Fri, Nov 5, 2021",7:00p,San Antonio Spurs,102,Orlando Magic,89
+"Fri, Nov 5, 2021",7:00p,Memphis Grizzlies,87,Washington Wizards,115
+"Fri, Nov 5, 2021",7:30p,New York Knicks,113,Milwaukee Bucks,98
+"Fri, Nov 5, 2021",7:30p,Cleveland Cavaliers,102,Toronto Raptors,101
+"Fri, Nov 5, 2021",8:00p,Los Angeles Clippers,104,Minnesota Timberwolves,84
+"Fri, Nov 5, 2021",10:00p,New Orleans Pelicans,85,Golden State Warriors,126
+"Fri, Nov 5, 2021",10:00p,Indiana Pacers,106,Portland Trail Blazers,110
+"Fri, Nov 5, 2021",10:00p,Charlotte Hornets,110,Sacramento Kings,140
+"Sat, Nov 6, 2021",5:00p,Houston Rockets,94,Denver Nuggets,95
+"Sat, Nov 6, 2021",7:30p,Utah Jazz,115,Miami Heat,118
+"Sat, Nov 6, 2021",8:00p,Philadelphia 76ers,114,Chicago Bulls,105
+"Sat, Nov 6, 2021",8:30p,Boston Celtics,104,Dallas Mavericks,107
+"Sat, Nov 6, 2021",10:00p,Atlanta Hawks,117,Phoenix Suns,121
+"Sat, Nov 6, 2021",10:30p,Los Angeles Lakers,90,Portland Trail Blazers,105
+"Sun, Nov 7, 2021",3:30p,Brooklyn Nets,116,Toronto Raptors,103
+"Sun, Nov 7, 2021",6:00p,Cleveland Cavaliers,126,New York Knicks,109
+"Sun, Nov 7, 2021",6:00p,Utah Jazz,100,Orlando Magic,107
+"Sun, Nov 7, 2021",6:00p,Indiana Pacers,94,Sacramento Kings,91
+"Sun, Nov 7, 2021",6:00p,Milwaukee Bucks,94,Washington Wizards,101
+"Sun, Nov 7, 2021",7:00p,San Antonio Spurs,94,Oklahoma City Thunder,99
+"Sun, Nov 7, 2021",8:30p,Houston Rockets,107,Golden State Warriors,120
+"Sun, Nov 7, 2021",9:00p,Charlotte Hornets,106,Los Angeles Clippers,120
+"Mon, Nov 8, 2021",7:00p,New York Knicks,103,Philadelphia 76ers,96
+"Mon, Nov 8, 2021",8:00p,Brooklyn Nets,95,Chicago Bulls,118
+"Mon, Nov 8, 2021",8:00p,Minnesota Timberwolves,118,Memphis Grizzlies,125
+"Mon, Nov 8, 2021",8:30p,New Orleans Pelicans,92,Dallas Mavericks,108
+"Mon, Nov 8, 2021",9:00p,Miami Heat,96,Denver Nuggets,113
+"Mon, Nov 8, 2021",10:00p,Atlanta Hawks,113,Golden State Warriors,127
+"Mon, Nov 8, 2021",10:00p,Phoenix Suns,109,Sacramento Kings,104
+"Mon, Nov 8, 2021",10:30p,Charlotte Hornets,123,Los Angeles Lakers,126
+"Tue, Nov 9, 2021",7:30p,Milwaukee Bucks,118,Philadelphia 76ers,109
+"Tue, Nov 9, 2021",9:00p,Atlanta Hawks,98,Utah Jazz,110
+"Tue, Nov 9, 2021",10:00p,Portland Trail Blazers,109,Los Angeles Clippers,117
+"Wed, Nov 10, 2021",7:00p,Washington Wizards,97,Cleveland Cavaliers,94
+"Wed, Nov 10, 2021",7:00p,Brooklyn Nets,123,Orlando Magic,90
+"Wed, Nov 10, 2021",7:30p,Toronto Raptors,88,Boston Celtics,104
+"Wed, Nov 10, 2021",7:30p,Detroit Pistons,112,Houston Rockets,104
+"Wed, Nov 10, 2021",7:30p,Milwaukee Bucks,112,New York Knicks,100
+"Wed, Nov 10, 2021",8:00p,Dallas Mavericks,107,Chicago Bulls,117
+"Wed, Nov 10, 2021",8:00p,Charlotte Hornets,118,Memphis Grizzlies,108
+"Wed, Nov 10, 2021",8:00p,Oklahoma City Thunder,108,New Orleans Pelicans,100
+"Wed, Nov 10, 2021",8:30p,Sacramento Kings,117,San Antonio Spurs,136
+"Wed, Nov 10, 2021",9:00p,Indiana Pacers,98,Denver Nuggets,101
+"Wed, Nov 10, 2021",9:00p,Portland Trail Blazers,109,Phoenix Suns,119
+"Wed, Nov 10, 2021",10:00p,Minnesota Timberwolves,110,Golden State Warriors,123
+"Wed, Nov 10, 2021",10:00p,Miami Heat,117,Los Angeles Lakers,120
+"Thu, Nov 11, 2021",7:00p,Toronto Raptors,115,Philadelphia 76ers,109
+"Thu, Nov 11, 2021",9:00p,Indiana Pacers,111,Utah Jazz,100
+"Thu, Nov 11, 2021",10:30p,Miami Heat,109,Los Angeles Clippers,112
+"Fri, Nov 12, 2021",7:00p,New York Knicks,96,Charlotte Hornets,104
+"Fri, Nov 12, 2021",7:30p,Milwaukee Bucks,113,Boston Celtics,122
+"Fri, Nov 12, 2021",7:30p,Detroit Pistons,78,Cleveland Cavaliers,98
+"Fri, Nov 12, 2021",8:00p,Portland Trail Blazers,104,Houston Rockets,92
+"Fri, Nov 12, 2021",8:00p,Phoenix Suns,119,Memphis Grizzlies,94
+"Fri, Nov 12, 2021",8:00p,Brooklyn Nets,120,New Orleans Pelicans,112
+"Fri, Nov 12, 2021",8:00p,Sacramento Kings,103,Oklahoma City Thunder,105
+"Fri, Nov 12, 2021",8:30p,Dallas Mavericks,123,San Antonio Spurs,109
+"Fri, Nov 12, 2021",9:00p,Atlanta Hawks,96,Denver Nuggets,105
+"Fri, Nov 12, 2021",10:00p,Chicago Bulls,93,Golden State Warriors,119
+"Fri, Nov 12, 2021",10:30p,Minnesota Timberwolves,107,Los Angeles Lakers,83
+"Sat, Nov 13, 2021",5:00p,Miami Heat,111,Utah Jazz,105
+"Sat, Nov 13, 2021",7:00p,Philadelphia 76ers,113,Indiana Pacers,118
+"Sat, Nov 13, 2021",7:00p,Memphis Grizzlies,101,New Orleans Pelicans,112
+"Sat, Nov 13, 2021",7:00p,Washington Wizards,104,Orlando Magic,92
+"Sat, Nov 13, 2021",7:30p,Detroit Pistons,127,Toronto Raptors,121
+"Sat, Nov 13, 2021",8:00p,Boston Celtics,89,Cleveland Cavaliers,91
+"Sat, Nov 13, 2021",10:30p,Minnesota Timberwolves,102,Los Angeles Clippers,129
+"Sun, Nov 14, 2021",3:30p,San Antonio Spurs,106,Los Angeles Lakers,114
+"Sun, Nov 14, 2021",6:00p,Milwaukee Bucks,100,Atlanta Hawks,120
+"Sun, Nov 14, 2021",7:00p,Golden State Warriors,102,Charlotte Hornets,106
+"Sun, Nov 14, 2021",7:00p,Phoenix Suns,115,Houston Rockets,89
+"Sun, Nov 14, 2021",7:00p,Brooklyn Nets,120,Oklahoma City Thunder,96
+"Sun, Nov 14, 2021",8:00p,Portland Trail Blazers,95,Denver Nuggets,124
+"Sun, Nov 14, 2021",9:30p,Chicago Bulls,100,Los Angeles Clippers,90
+"Mon, Nov 15, 2021",7:00p,Boston Celtics,98,Cleveland Cavaliers,92
+"Mon, Nov 15, 2021",7:00p,Sacramento Kings,129,Detroit Pistons,107
+"Mon, Nov 15, 2021",7:00p,New Orleans Pelicans,100,Washington Wizards,105
+"Mon, Nov 15, 2021",7:30p,Orlando Magic,111,Atlanta Hawks,129
+"Mon, Nov 15, 2021",7:30p,Indiana Pacers,84,New York Knicks,92
+"Mon, Nov 15, 2021",8:00p,Denver Nuggets,101,Dallas Mavericks,111
+"Mon, Nov 15, 2021",8:00p,Houston Rockets,102,Memphis Grizzlies,136
+"Mon, Nov 15, 2021",8:00p,Phoenix Suns,99,Minnesota Timberwolves,96
+"Mon, Nov 15, 2021",8:00p,Miami Heat,103,Oklahoma City Thunder,90
+"Mon, Nov 15, 2021",10:00p,Toronto Raptors,113,Portland Trail Blazers,118
+"Mon, Nov 15, 2021",10:30p,Chicago Bulls,121,Los Angeles Lakers,103
+"Tue, Nov 16, 2021",7:30p,Golden State Warriors,117,Brooklyn Nets,99
+"Tue, Nov 16, 2021",10:00p,Philadelphia 76ers,85,Utah Jazz,120
+"Tue, Nov 16, 2021",10:30p,San Antonio Spurs,92,Los Angeles Clippers,106
+"Wed, Nov 17, 2021",7:00p,Washington Wizards,87,Charlotte Hornets,97
+"Wed, Nov 17, 2021",7:00p,Indiana Pacers,89,Detroit Pistons,97
+"Wed, Nov 17, 2021",7:30p,Boston Celtics,99,Atlanta Hawks,110
+"Wed, Nov 17, 2021",7:30p,Cleveland Cavaliers,99,Brooklyn Nets,109
+"Wed, Nov 17, 2021",7:30p,New Orleans Pelicans,98,Miami Heat,113
+"Wed, Nov 17, 2021",7:30p,Los Angeles Lakers,102,Milwaukee Bucks,109
+"Wed, Nov 17, 2021",7:30p,Orlando Magic,104,New York Knicks,98
+"Wed, Nov 17, 2021",8:00p,Sacramento Kings,97,Minnesota Timberwolves,107
+"Wed, Nov 17, 2021",8:00p,Houston Rockets,89,Oklahoma City Thunder,101
+"Wed, Nov 17, 2021",10:00p,Dallas Mavericks,98,Phoenix Suns,105
+"Wed, Nov 17, 2021",10:00p,Chicago Bulls,107,Portland Trail Blazers,112
+"Thu, Nov 18, 2021",7:30p,Golden State Warriors,104,Cleveland Cavaliers,89
+"Thu, Nov 18, 2021",7:30p,Washington Wizards,97,Miami Heat,112
+"Thu, Nov 18, 2021",8:00p,Los Angeles Clippers,108,Memphis Grizzlies,120
+"Thu, Nov 18, 2021",8:00p,San Antonio Spurs,90,Minnesota Timberwolves,115
+"Thu, Nov 18, 2021",9:00p,Philadelphia 76ers,103,Denver Nuggets,89
+"Thu, Nov 18, 2021",9:00p,Toronto Raptors,103,Utah Jazz,119
+"Fri, Nov 19, 2021",7:00p,Indiana Pacers,118,Charlotte Hornets,121
+"Fri, Nov 19, 2021",7:00p,Golden State Warriors,105,Detroit Pistons,102
+"Fri, Nov 19, 2021",7:30p,Los Angeles Lakers,108,Boston Celtics,130
+"Fri, Nov 19, 2021",7:30p,Orlando Magic,113,Brooklyn Nets,115
+"Fri, Nov 19, 2021",8:00p,Oklahoma City Thunder,89,Milwaukee Bucks,96
+"Fri, Nov 19, 2021",8:00p,Los Angeles Clippers,81,New Orleans Pelicans,94
+"Fri, Nov 19, 2021",9:00p,Chicago Bulls,114,Denver Nuggets,108
+"Fri, Nov 19, 2021",10:00p,Dallas Mavericks,104,Phoenix Suns,112
+"Fri, Nov 19, 2021",10:00p,Toronto Raptors,108,Sacramento Kings,89
+"Sat, Nov 20, 2021",5:00p,Houston Rockets,99,New York Knicks,106
+"Sat, Nov 20, 2021",7:00p,New Orleans Pelicans,94,Indiana Pacers,111
+"Sat, Nov 20, 2021",7:00p,Miami Heat,100,Washington Wizards,103
+"Sat, Nov 20, 2021",7:30p,Charlotte Hornets,105,Atlanta Hawks,115
+"Sat, Nov 20, 2021",7:30p,Oklahoma City Thunder,105,Boston Celtics,111
+"Sat, Nov 20, 2021",8:00p,Orlando Magic,108,Milwaukee Bucks,117
+"Sat, Nov 20, 2021",8:00p,Memphis Grizzlies,95,Minnesota Timberwolves,138
+"Sat, Nov 20, 2021",10:00p,Philadelphia 76ers,111,Portland Trail Blazers,118
+"Sat, Nov 20, 2021",10:00p,Utah Jazz,123,Sacramento Kings,105
+"Sun, Nov 21, 2021",3:30p,Dallas Mavericks,91,Los Angeles Clippers,97
+"Sun, Nov 21, 2021",6:00p,Los Angeles Lakers,121,Detroit Pistons,116
+"Sun, Nov 21, 2021",8:00p,New York Knicks,103,Chicago Bulls,109
+"Sun, Nov 21, 2021",8:00p,Denver Nuggets,97,Phoenix Suns,126
+"Sun, Nov 21, 2021",8:30p,Toronto Raptors,104,Golden State Warriors,119
+"Mon, Nov 22, 2021",7:00p,Brooklyn Nets,117,Cleveland Cavaliers,112
+"Mon, Nov 22, 2021",7:00p,Charlotte Hornets,109,Washington Wizards,103
+"Mon, Nov 22, 2021",7:30p,Oklahoma City Thunder,101,Atlanta Hawks,113
+"Mon, Nov 22, 2021",7:30p,Houston Rockets,90,Boston Celtics,108
+"Mon, Nov 22, 2021",8:00p,Indiana Pacers,109,Chicago Bulls,77
+"Mon, Nov 22, 2021",8:00p,Orlando Magic,92,Milwaukee Bucks,123
+"Mon, Nov 22, 2021",8:00p,Minnesota Timberwolves,110,New Orleans Pelicans,96
+"Mon, Nov 22, 2021",8:30p,Phoenix Suns,115,San Antonio Spurs,111
+"Mon, Nov 22, 2021",9:00p,Memphis Grizzlies,119,Utah Jazz,118
+"Mon, Nov 22, 2021",10:00p,Philadelphia 76ers,102,Sacramento Kings,94
+"Tue, Nov 23, 2021",7:00p,Miami Heat,100,Detroit Pistons,92
+"Tue, Nov 23, 2021",7:30p,Los Angeles Lakers,100,New York Knicks,106
+"Tue, Nov 23, 2021",10:00p,Denver Nuggets,100,Portland Trail Blazers,119
+"Tue, Nov 23, 2021",10:30p,Dallas Mavericks,112,Los Angeles Clippers,104
+"Wed, Nov 24, 2021",7:00p,Phoenix Suns,120,Cleveland Cavaliers,115
+"Wed, Nov 24, 2021",7:00p,Los Angeles Lakers,124,Indiana Pacers,116
+"Wed, Nov 24, 2021",7:00p,Charlotte Hornets,106,Orlando Magic,99
+"Wed, Nov 24, 2021",7:30p,Brooklyn Nets,123,Boston Celtics,104
+"Wed, Nov 24, 2021",8:00p,Chicago Bulls,113,Houston Rockets,118
+"Wed, Nov 24, 2021",8:00p,Toronto Raptors,126,Memphis Grizzlies,113
+"Wed, Nov 24, 2021",8:00p,Detroit Pistons,93,Milwaukee Bucks,114
+"Wed, Nov 24, 2021",8:00p,Miami Heat,101,Minnesota Timberwolves,113
+"Wed, Nov 24, 2021",8:00p,Washington Wizards,102,New Orleans Pelicans,127
+"Wed, Nov 24, 2021",8:00p,Utah Jazz,110,Oklahoma City Thunder,104
+"Wed, Nov 24, 2021",8:30p,Atlanta Hawks,124,San Antonio Spurs,106
+"Wed, Nov 24, 2021",10:00p,Philadelphia 76ers,96,Golden State Warriors,116
+"Wed, Nov 24, 2021",10:00p,Portland Trail Blazers,121,Sacramento Kings,125
+"Fri, Nov 26, 2021",3:30p,Detroit Pistons,96,Los Angeles Clippers,107
+"Fri, Nov 26, 2021",7:00p,Minnesota Timberwolves,115,Charlotte Hornets,133
+"Fri, Nov 26, 2021",7:00p,Phoenix Suns,118,New York Knicks,97
+"Fri, Nov 26, 2021",7:00p,Chicago Bulls,123,Orlando Magic,88
+"Fri, Nov 26, 2021",8:00p,Toronto Raptors,97,Indiana Pacers,114
+"Fri, Nov 26, 2021",8:00p,Atlanta Hawks,132,Memphis Grizzlies,100
+"Fri, Nov 26, 2021",8:00p,Washington Wizards,101,Oklahoma City Thunder,99
+"Fri, Nov 26, 2021",8:30p,Boston Celtics,88,San Antonio Spurs,96
+"Fri, Nov 26, 2021",9:00p,Milwaukee Bucks,120,Denver Nuggets,109
+"Fri, Nov 26, 2021",9:00p,New Orleans Pelicans,98,Utah Jazz,97
+"Fri, Nov 26, 2021",10:00p,Portland Trail Blazers,103,Golden State Warriors,118
+"Fri, Nov 26, 2021",10:30p,Sacramento Kings,141,Los Angeles Lakers,137
+"Sat, Nov 27, 2021",6:00p,Minnesota Timberwolves,121,Philadelphia 76ers,120
+"Sat, Nov 27, 2021",7:30p,New York Knicks,99,Atlanta Hawks,90
+"Sat, Nov 27, 2021",7:30p,Phoenix Suns,113,Brooklyn Nets,107
+"Sat, Nov 27, 2021",8:00p,Miami Heat,107,Chicago Bulls,104
+"Sat, Nov 27, 2021",8:00p,Orlando Magic,92,Cleveland Cavaliers,105
+"Sat, Nov 27, 2021",8:00p,Charlotte Hornets,143,Houston Rockets,146
+"Sat, Nov 27, 2021",8:30p,Washington Wizards,120,Dallas Mavericks,114
+"Sat, Nov 27, 2021",9:00p,New Orleans Pelicans,105,Utah Jazz,127
+"Sun, Nov 28, 2021",3:30p,Golden State Warriors,105,Los Angeles Clippers,90
+"Sun, Nov 28, 2021",5:00p,Milwaukee Bucks,118,Indiana Pacers,100
+"Sun, Nov 28, 2021",6:00p,Sacramento Kings,101,Memphis Grizzlies,128
+"Sun, Nov 28, 2021",6:00p,Boston Celtics,109,Toronto Raptors,97
+"Sun, Nov 28, 2021",9:30p,Detroit Pistons,106,Los Angeles Lakers,110
+"Mon, Nov 29, 2021",7:00p,Orlando Magic,96,Philadelphia 76ers,101
+"Mon, Nov 29, 2021",7:30p,Denver Nuggets,120,Miami Heat,111
+"Mon, Nov 29, 2021",8:00p,Charlotte Hornets,119,Chicago Bulls,133
+"Mon, Nov 29, 2021",8:00p,Oklahoma City Thunder,89,Houston Rockets,102
+"Mon, Nov 29, 2021",8:00p,Indiana Pacers,98,Minnesota Timberwolves,100
+"Mon, Nov 29, 2021",8:30p,Cleveland Cavaliers,114,Dallas Mavericks,96
+"Mon, Nov 29, 2021",8:30p,Washington Wizards,99,San Antonio Spurs,116
+"Mon, Nov 29, 2021",9:00p,Portland Trail Blazers,107,Utah Jazz,129
+"Mon, Nov 29, 2021",10:30p,New Orleans Pelicans,123,Los Angeles Clippers,104
+"Tue, Nov 30, 2021",7:30p,New York Knicks,110,Brooklyn Nets,112
+"Tue, Nov 30, 2021",7:30p,Memphis Grizzlies,98,Toronto Raptors,91
+"Tue, Nov 30, 2021",10:00p,Golden State Warriors,96,Phoenix Suns,104
+"Tue, Nov 30, 2021",10:00p,Detroit Pistons,92,Portland Trail Blazers,110
+"Tue, Nov 30, 2021",10:00p,Los Angeles Lakers,117,Sacramento Kings,92

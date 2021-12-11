@@ -1,19 +1,15 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import Helper
-import Elo
-import dicts_and_lists as dal
 import logging, coloredlogs
-from sklearn.metrics import confusion_matrix
+from pandas.core.frame import DataFrame
 
 pd.set_option('display.max_rows', 1000)
 
 # ------ Logger ------- #
-logger = logging.getLogger('test_models.py')
+logger = logging.getLogger('elo_model.py')
 coloredlogs.install(level='INFO', logger=logger)
 
-def build_model(df):
+def build_model(df:DataFrame):
     """
     Backtest on the DataFrame in input.
     """
@@ -118,37 +114,23 @@ def build_model(df):
 
     # Evaluate the bankroll and the ROI
     ev_df = ev_df[
-                [
-                    'Date', 
-                    'Team_away', 
-                    'Team_home', 
-                    'Predictions', 
-                    'Winner', 
-                    'OddsAway_Elo', 
-                    'OddsHome_Elo', 
-                    'ModelProb_Away',
-                    'ModelProb_Home',
-                    'OddsAway', 
-                    'OddsHome', 
-                    'FractionBet', 
-                    'BetAmount', 
-                    'NetWon', 
-                    'Bankroll'
-                ]
-            ]
-
-    #print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
-    #print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
-
-    # Confusion Matrix
-    conf_matrix = confusion_matrix(ev_df['Predictions'], ev_df['Winner'])
-    #print(f'Confusion Matrix:\n {conf_matrix}')
-
-    # Plot the results
-    #ax = ev_df['Bankroll'].plot(grid=True)
-    #ax.set_title('Bankroll versus number of games played')
-    #ax.set_xlabel('Games played')
-    #ax.set_ylabel('Bankroll (€)')
-    #plt.show()
+        [
+            'Date', 
+            'Team_away', 
+            'Team_home', 
+            'Predictions', 
+            'Winner', 
+            'OddsAway_Elo', 
+            'OddsHome_Elo', 
+            'ModelProb_Away',
+            'ModelProb_Home',
+            'OddsAway', 
+            'OddsHome', 
+            'FractionBet', 
+            'BetAmount', 
+            'NetWon', 
+            'Bankroll'
+        ]
+    ]
 
     return ev_df

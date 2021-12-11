@@ -6,7 +6,7 @@ import dicts_and_lists as dal
 # Functions
 def update(row):
     """
-    Updates the Elo rating for team_A and team_B for a single row.
+    Used in backtesting. Updates the Elo rating for team_A and team_B for a single row.
     Returns the updated row.
     """
     away_team = row['AwayTeam'] 
@@ -41,8 +41,9 @@ def update(row):
     row['Elo_home'] = elo_home_team_updated
     
     return row
+    
 
-def update_DataFrame(elo_df, away_team, home_team, away_pts, home_pts, winner):
+def update_DataFrame(elo_df:DataFrame, away_team, home_team, away_pts, home_pts, winner):
     """
     Updates the Elo rating for team_A and team_B.
     Returns the updated DataFrame.

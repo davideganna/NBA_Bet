@@ -1,12 +1,19 @@
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import Models
+from Models.Models import away_features, home_features, features, build_DT_classifier, build_RF_classifier, build_XGBoostClassifier
 import Helper
-import moving_average_dataset
-import test_Elo_model
-import backtesting
+import Models.moving_average_dataset
+import Models.backtesting as backtesting
+import Models.elo_model as elo_model
 import dicts_and_lists as dal
 import logging, coloredlogs
 
@@ -17,6 +24,8 @@ margin = 0
 betting_limiter = True
 betting_limit = 0.125
 prob_threshold = 0.65
+prob_2x_bet = 0.99
+offset = 0.0 # Added probability
 average_N = 3
 skip_n = 0
 
@@ -54,11 +63,14 @@ def extract_and_predict(next_game):
             ],
             axis=0)[features]
         
-        pred = int(clf.predict(to_predict.values.reshape(1,-1)))
+        # Standardize the input
+        to_predict = scaler.transform(to_predict.values.reshape(1,-1))
+        
+        pred = int(clf.predict(to_predict))
         true_value = next_game['Winner'].values[0]
         predictions.append(pred)
         winners.append(true_value)
-        prob = clf.predict_proba(to_predict.values.reshape(1,-1))
+        prob = clf.predict_proba(to_predict)
         model_prob.append(max(prob[0]))
         model_odds.append(1/max(prob[0]))
         odds_away.append(next_game['OddsAway'].values[0])
@@ -68,27 +80,40 @@ def extract_and_predict(next_game):
         away_teams_list.append(away_team)
 
 # Only the most significant features will be considered
-away_features = Models.away_features
-home_features = Models.home_features
-features = Models.features
+away_features = away_features
+home_features = home_features
+
+# Create the df containing stats per single game on every row
+train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
+
+# Standardize the DataFrame
+std_df, scaler = Helper.standardize_DataFrame(train_df)
 
 ### Test the Classification model based on the mean of the last average_N games ###
 logger.info('\nSelect the type of model you want to backtest:\n\
     [1]: Decision Tree + Elo Model\n\
     [2]: Random Forest + Elo Model\n\
-    [3]: Random Forest + Elo Model + Build Moving Average Dataset'
+    [3]: Random Forest + Elo Model + Build Moving Average Dataset\n\
+    [4]: XGBoost + Elo Model'
     )
 inp = input()
 if inp == '1':
     logger.info('Building a Decision Tree Classifier...')
-    clf = Models.build_DT_classifier()
+    clf = build_DT_classifier(std_df)
 elif inp == '2':
     logger.info('Building a Random Forest Classifier...')
-    clf = Models.build_RF_classifier()
+    clf = build_RF_classifier(std_df)
 elif inp == '3':
-    moving_average_dataset.build_moving_average_dataset(average_N, skip_n)
+    Models.moving_average_dataset.build_moving_average_dataset(average_N, skip_n, leave_out='2020')
+    train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
+
+    # Standardize the DataFrame
+    std_df, scaler = Helper.standardize_DataFrame(train_df)
+
     logger.info('Building a Random Forest Classifier...')
-    clf = Models.build_RF_classifier()
+    clf = build_RF_classifier(std_df)
+elif inp == '4':
+    clf = build_XGBoostClassifier(std_df)
 
 
 # To evaluate accuracy
@@ -166,34 +191,34 @@ forest_df = pd.DataFrame(data).sort_values('index')
 # ---------- MERGING THE RANDOM FOREST MODEL AND THE ELO MODEL ---------- #
 
 # Build the Elo model then stack the two
-elo_df = test_Elo_model.build_model(df)
+elo_df = elo_model.build_model(df)
 elo_df.drop(['Winner','OddsAway', 'OddsHome', 'FractionBet', 'BetAmount', 'NetWon', 'Bankroll'], axis=1, inplace=True)
 
 # Merge the 2 DFs
 merged_df = forest_df.merge(elo_df, on=['Date', 'Team_away', 'Team_home', 'Predictions'], how='inner')
 
-merged_df = merged_df.assign(CombinedProb = np.maximum(merged_df['ModelProbability'], merged_df['ModelProb_Home']))
-merged_df['CombinedProb'].loc[(merged_df['Predictions'] == 1)] = np.maximum(merged_df['ModelProbability'], merged_df['ModelProb_Away'])
+merged_df = merged_df.assign(CombinedProb = (merged_df['ModelProbability'] + merged_df['ModelProb_Home'])/2)
+merged_df['CombinedProb'].loc[(merged_df['Predictions'] == 1)] = (merged_df['ModelProbability'] + merged_df['ModelProb_Away'])/2
 
-merged_df['CombinedProb'] = merged_df['CombinedProb']
+merged_df['CombinedProb'] = merged_df['CombinedProb'] + offset
 merged_df['CombinedOdds'] = 1/merged_df['CombinedProb']
 
 # Extract the rows where the model predicted the lowest odds between the two teams,
 # i.e., where the team is the favorite to win. (Plus some margin)
 correctly_pred_df = merged_df.loc[
-    (merged_df['Predictions'] == merged_df['Winner']) &
-    (
-        ((merged_df['OddsHome'] > merged_df['OddsAway'] + margin) & (merged_df['Predictions'] == 1)) |
-        ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
-    )
+        (merged_df['Predictions'] == merged_df['Winner']) &
+        (
+            ((merged_df['OddsHome'] > merged_df['OddsAway'] + margin) & (merged_df['Predictions'] == 1)) |
+            ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
+        )
     ]
 
 wrongly_pred_df = merged_df.loc[
-    (merged_df['Predictions'] != merged_df['Winner']) &
-    (
-        ((merged_df['OddsHome'] > merged_df['OddsAway'] + margin) & (merged_df['Predictions'] == 1)) |
-        ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
-    )
+        (merged_df['Predictions'] != merged_df['Winner']) &
+        (
+            ((merged_df['OddsHome'] > merged_df['OddsAway'] + margin) & (merged_df['Predictions'] == 1)) |
+            ((merged_df['OddsAway'] > merged_df['OddsHome'] + margin) & (merged_df['Predictions'] == 0))
+        )
     ]
 
 merged_df = pd.concat([correctly_pred_df, wrongly_pred_df], axis=0).sort_values('index').reset_index(drop=True)
@@ -210,7 +235,9 @@ frac_bet    = [] # Percentage of bankroll bet
 net_won     = []
 bankroll    = []
 for n, row in merged_df.iterrows():
-    if row['Predictions'] == 0:
+    if row['CombinedProb'] < prob_threshold:
+        frac_amount = 0
+    elif row['Predictions'] == 0:
         frac_amount = ((row['CombinedProb'])*row['OddsHome']-1)/(row['OddsHome']-1)
     elif row['Predictions'] == 1:
         frac_amount = ((row['CombinedProb'])*row['OddsAway']-1)/(row['OddsAway']-1)
@@ -218,8 +245,8 @@ for n, row in merged_df.iterrows():
     if frac_amount > 0:
         # Bet a larger amount if probabilities exceed a threshold
         if (
-            (row['ModelProbability'] >= prob_threshold and row['ModelProb_Away'] >= prob_threshold and row['Predictions'] == 1) or
-            (row['ModelProbability'] >= prob_threshold and row['ModelProb_Home'] >= prob_threshold and row['Predictions'] == 0)
+            (row['CombinedProb'] >= prob_2x_bet and row['Predictions'] == 1) or
+            (row['CombinedProb'] >= prob_2x_bet and row['Predictions'] == 0)
             ):
             if 2*betting_limit < current_bankroll:
                 frac_amount = 2*betting_limit
@@ -287,7 +314,7 @@ print(
     ]
     )
 print(f'Net return: {current_bankroll-starting_bankroll:.2f} €')
-print(f'Net return per €: {(current_bankroll/starting_bankroll)-1:.2f}')
+print(f'Net return per €: {(current_bankroll/starting_bankroll):.2f}')
 
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
