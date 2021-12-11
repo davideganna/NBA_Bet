@@ -1,30 +1,35 @@
 # NBA Bet 🏀
 
 NBA Bet is an experimental software which aims at predicting the outcome of NBA games by the utilization of ML (and non-ML) models. 
-After a result has been predicted, NBA Bet reaches a bookmaker of choice (currently testing with *Bwin*) to get the odds for the predicted match.
+After a result has been predicted, NBA Bet reaches a bookmaker of choice (currently testing with *SkyBet*) to get the odds for the predicted match.
 
-The software is suitable for running continuously (e.g., by running it on a Raspberry Pi) and features a [telegram integration module](https://github.com/davideganna/NBA_Bet/blob/main/NBABet/telegram_integration.py) which can be used to get notified if a particular match is profitable.
+The software is suitable for running continuously (e.g., by running it on a Raspberry Pi) and features a [telegram integration module](https://github.com/davideganna/NBA_Bet/blob/435dd874b8ccd60744a2b51cdb09f1aa9bfe320e/NBABet/Telegram.py) which can be used to get notified if a particular match is profitable.
 
 ## Main structure
 The diagram below shows the execution flow of NBA Bet:
 
 ![image](https://user-images.githubusercontent.com/52606991/127752880-cef2e6c3-4e72-406f-b16b-9723b6a289fd.png)
 
-#### A few notes regarding ```Setup.py```:
-In its current version, running ```Setup.py``` is not needed if the project has been cloned from https://github.com/davideganna/NBA_Bet.git. When cloned this way, all the datasets are included and can be found in the ```past_data``` folder. However, when the 2021-2022 NBA season will start, running ```Setup.py``` will be needed. 
-
-
 ## Disclaimer
 
 Gambling involves risk. The author does not encourage or promote gambling in any way, nor the author takes any responsibilities for losses associated with the utilization of the software. 
 The utilization NBA Bet is only intended for legal age people. 
 
-### Best Hyperparameters Selection (Still in progress)
-```margin = 0
+### Best Hyperparameters Selection (latest software version)
+``` 
+Random Forest (500 trees)
+
+margin = 0
 betting_limiter = True
-betting_limit = 0.1
-prob_threshold = 0.7
+betting_limit = 0.125
+prob_threshold = 0.65
+prob_2x_bet = 0.99
+offset = 0.0
 average_N = 3
 skip_n = 0
 
-Net return per €: 7.37
+Net return per €: 2.75
+
+```
+
+![Figure_1](https://user-images.githubusercontent.com/52606991/145684052-494d6261-d8e3-445c-9b80-04ed34950480.png)
