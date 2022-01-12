@@ -61,16 +61,16 @@ def extract_and_insert(next_game, _df:DataFrame, average_N, evaluated_indexes, t
         # Concatenate the two teams with their average stats
         to_insert = pd.concat(
             [
-                round(last_N_games_away[away_features].mean(),5), 
-                round(last_N_games_home[home_features].mean(),5)
+                round(last_N_games_away.mean(),5), 
+                round(last_N_games_home.mean(),5)
             ],
-            axis=0)[features]
+            axis=0)
 
         to_insert_list.append(to_insert)
         winners_list.append(_df['Winner'].loc[_df.index == next_game.index[0]].values[0])
 
 
-def build_moving_average_dataset(average_N, skip_n, leave_out=None):
+def build_moving_average_dataset(average_N, skip_n, leave_out=None, regression=False):
     df_2017 = pd.read_csv('past_data/2017_2018/split_stats_per_game_2017.csv')
     df_2018 = pd.read_csv('past_data/2018_2019/split_stats_per_game_2018.csv')
     if leave_out != '2019':

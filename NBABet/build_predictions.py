@@ -20,6 +20,7 @@ import logging, coloredlogs
 pd.set_option('display.max_rows', 1000)
 
 # ------------ Hyperparameters ------------ #
+leave_out = '2019'
 margin = 0
 betting_limiter = True
 betting_limit = 0.125
