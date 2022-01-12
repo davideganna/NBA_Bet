@@ -17,19 +17,20 @@ The utilization NBA Bet is only intended for legal age people.
 
 ### Best Hyperparameters Selection (latest software version)
 ``` 
-Random Forest (500 trees)
+Random Forest (500 trees) + Elo
 
+leave_out = '2020'
 margin = 0
 betting_limiter = True
 betting_limit = 0.125
 prob_threshold = 0.65
-prob_2x_bet = 0.99
-offset = 0.0
+prob_2x_bet = 0.8
+offset = 0.0 # Added probability
 average_N = 3
 skip_n = 0
 
-Net return per €: 2.75
+Net return per €: 2.10
 
 ```
 
-![Figure_1](https://user-images.githubusercontent.com/52606991/145684052-494d6261-d8e3-445c-9b80-04ed34950480.png)
+![Figure_1](https://user-images.githubusercontent.com/52606991/145692119-f67c513c-2d7c-48a1-bd85-de689b8f5a7b.png)
