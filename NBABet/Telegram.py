@@ -11,7 +11,7 @@ import numpy as np
 
 class TelegramBot():
     """
-    Allows integration with Telegram Bot.
+    Allows integration with the Telegram Bot.
     """
     def __init__(self):
         self.url = 'https://api.telegram.org/'
@@ -52,7 +52,7 @@ class TelegramBot():
             if ((prob_home_rf > 0.5) and (prob_home_elo > 0.5)):
                 prob_home = str(around((prob_home_rf + prob_home_elo)/2, decimals=3))
                 odds_home = str(around(1/float(prob_home), decimals=2))
-                if float(prob_home) >= 0.65:
+                if float(prob_home) >= 0.6:
                     text = text + home + '(' + prob_home + ' --> ' + odds_home + ') vs. ' + away + '\n\
                         RF Prob.: ' + str(around(prob_home_rf, decimals=3)) + '\n\
                         Elo Prob.: ' + str(around(prob_home_elo, decimals=3)) + '\n\n'
@@ -60,7 +60,7 @@ class TelegramBot():
             if ((prob_away_rf > 0.5) and (prob_away_elo > 0.5)):
                 prob_away = str(around((prob_away_rf + prob_away_elo)/2, decimals=3))
                 odds_away = str(around(1/float(prob_away), decimals=2))
-                if float(prob_away) >= 0.65:
+                if float(prob_away) >= 0.6:
                     text = text + home + ' vs. ' + away + '(' + prob_away + ' --> ' + odds_away + ')' + '\n\
                         RF Prob.: ' + str(around(prob_away_rf, decimals=3)) + '\n\
                         Elo Prob.: ' + str(around(prob_away_elo, decimals=3)) + '\n\n'
