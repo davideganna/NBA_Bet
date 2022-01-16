@@ -18,7 +18,7 @@ pd.options.mode.chained_assignment = None
 target = 'Winner'
 
 # Only consider the features with abs(CorrelationValue) > 0.3
-away_features = [
+home_features = [
     'FG_home',
     'FG%_home',
     '3P%_home',
@@ -35,7 +35,8 @@ away_features = [
     'eFG%_home',
     'TS%_home'
 ]
-home_features = [
+
+away_features = [
     'FG_away',
     'FG%_away',
     '3P%_away',
