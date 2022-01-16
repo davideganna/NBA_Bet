@@ -20,7 +20,7 @@ import logging, coloredlogs
 pd.set_option('display.max_rows', 1000)
 
 # ------------ Hyperparameters ------------ #
-leave_out = '2019'
+leave_out = '2020'
 margin = 0
 betting_limiter = True
 betting_limit = 0.125
@@ -105,7 +105,7 @@ elif inp == '2':
     logger.info('Building a Random Forest Classifier...')
     clf = build_RF_classifier(std_df)
 elif inp == '3':
-    Models.moving_average_dataset.build_moving_average_dataset(average_N, skip_n, leave_out='2020')
+    Models.moving_average_dataset.build_moving_average_dataset(average_N, skip_n, leave_out=leave_out)
     train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
 
     # Standardize the DataFrame
