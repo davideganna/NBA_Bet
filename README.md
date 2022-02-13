@@ -1,9 +1,27 @@
 # NBA Bet 🏀
 
-NBA Bet is an experimental software which aims at predicting the outcome of NBA games by the utilization of ML (and non-ML) models. 
+NBA Bet is an experimental software which aims at predicting the outcome probability of NBA games by the utilization of ML (and non-ML) models. 
 After a result has been predicted, NBA Bet reaches a bookmaker of choice (currently testing with *SkyBet*) to get the odds for the predicted match.
 
-The software is suitable for running continuously (e.g., by running it on a Raspberry Pi) and features a [telegram integration module](https://github.com/davideganna/NBA_Bet/blob/435dd874b8ccd60744a2b51cdb09f1aa9bfe320e/NBABet/Telegram.py) which can be used to get notified if a particular match is profitable.
+The software is suitable for running continuously (e.g., by running it on a Raspberry Pi) and features a [telegram integration module](https://github.com/davideganna/NBA_Bet/blob/435dd874b8ccd60744a2b51cdb09f1aa9bfe320e/NBABet/Telegram.py) which can be used to get notified if a particular match is profitable. 
+
+But what does _profitable_ mean?
+
+## Mathematical foundations behind match profitability: Introducing EV
+The Expected Value (EV) of a bet can be found as:
+
+**EV = P(X) &middot; [Bet<sub>am</sub> &middot; (Odds-1)] - [1-P(X)] &middot; Bet<sub>am</sub>**
+
+Where:
+
+P(X) is the probability that an event occurs (returned by NBA bet);
+
+Bet<sub>am</sub> is the amount of money invested;
+
+Odds are the odds of that event (returned by the bookmaker).
+
+
+
 
 ## Main structure
 The diagram below shows the execution flow of NBA Bet:
@@ -25,7 +43,6 @@ betting_limiter = True
 betting_limit = 0.125
 prob_threshold = 0.65
 prob_2x_bet = 0.8
-offset = 0.0 # Added probability
 average_N = 3
 skip_n = 0
 
