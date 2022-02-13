@@ -1,115 +1,232 @@
 Date,Start (ET),AwayTeam,AwayPoints,HomeTeam,HomePoints
-"Sat, Jan 1, 2022",6:30p,New Orleans Pelicans,113.0,Milwaukee Bucks,136.0
-"Sat, Jan 1, 2022",7:00p,San Antonio Spurs,116.0,Detroit Pistons,117.0
-"Sat, Jan 1, 2022",7:00p,Chicago Bulls,120.0,Washington Wizards,119.0
-"Sat, Jan 1, 2022",7:30p,Los Angeles Clippers,120.0,Brooklyn Nets,116.0
-"Sat, Jan 1, 2022",8:00p,Denver Nuggets,124.0,Houston Rockets,111.0
-"Sat, Jan 1, 2022",9:00p,Golden State Warriors,123.0,Utah Jazz,116.0
-"Sun, Jan 2, 2022",3:30p,New York Knicks,105.0,Toronto Raptors,120.0
-"Sun, Jan 2, 2022",6:00p,Orlando Magic,111.0,Boston Celtics,116.0
-"Sun, Jan 2, 2022",6:00p,Indiana Pacers,104.0,Cleveland Cavaliers,108.0
-"Sun, Jan 2, 2022",6:00p,Miami Heat,113.0,Sacramento Kings,115.0
-"Sun, Jan 2, 2022",7:00p,Phoenix Suns,133.0,Charlotte Hornets,99.0
-"Sun, Jan 2, 2022",7:00p,Dallas Mavericks,95.0,Oklahoma City Thunder,86.0
-"Sun, Jan 2, 2022",9:30p,Minnesota Timberwolves,103.0,Los Angeles Lakers,108.0
-"Mon, Jan 3, 2022",7:00p,Houston Rockets,113.0,Philadelphia 76ers,133.0
-"Mon, Jan 3, 2022",7:00p,Charlotte Hornets,121.0,Washington Wizards,124.0
-"Mon, Jan 3, 2022",7:30p,Memphis Grizzlies,118.0,Brooklyn Nets,104.0
-"Mon, Jan 3, 2022",8:00p,Orlando Magic,98.0,Chicago Bulls,102.0
-"Mon, Jan 3, 2022",8:00p,Detroit Pistons,115.0,Milwaukee Bucks,106.0
-"Mon, Jan 3, 2022",8:00p,Utah Jazz,115.0,New Orleans Pelicans,104.0
-"Mon, Jan 3, 2022",8:30p,Denver Nuggets,89.0,Dallas Mavericks,103.0
-"Mon, Jan 3, 2022",10:00p,Miami Heat,108.0,Golden State Warriors,115.0
-"Mon, Jan 3, 2022",10:00p,Atlanta Hawks,131.0,Portland Trail Blazers,136.0
-"Mon, Jan 3, 2022",10:30p,Minnesota Timberwolves,122.0,Los Angeles Clippers,104.0
-"Tue, Jan 4, 2022",7:00p,Memphis Grizzlies,110.0,Cleveland Cavaliers,106.0
-"Tue, Jan 4, 2022",7:00p,San Antonio Spurs,104.0,Toronto Raptors,129.0
-"Tue, Jan 4, 2022",7:30p,Indiana Pacers,94.0,New York Knicks,104.0
-"Tue, Jan 4, 2022",8:00p,Phoenix Suns,123.0,New Orleans Pelicans,110.0
-"Tue, Jan 4, 2022",10:30p,Sacramento Kings,114.0,Los Angeles Lakers,122.0
-"Wed, Jan 5, 2022",7:00p,Detroit Pistons,111.0,Charlotte Hornets,140.0
-"Wed, Jan 5, 2022",7:00p,Philadelphia 76ers,116.0,Orlando Magic,106.0
-"Wed, Jan 5, 2022",7:00p,Houston Rockets,114.0,Washington Wizards,111.0
-"Wed, Jan 5, 2022",7:30p,San Antonio Spurs,99.0,Boston Celtics,97.0
-"Wed, Jan 5, 2022",7:30p,Golden State Warriors,82.0,Dallas Mavericks,99.0
-"Wed, Jan 5, 2022",7:30p,Brooklyn Nets,129.0,Indiana Pacers,121.0
-"Wed, Jan 5, 2022",8:00p,Toronto Raptors,117.0,Milwaukee Bucks,111.0
-"Wed, Jan 5, 2022",8:00p,Oklahoma City Thunder,90.0,Minnesota Timberwolves,98.0
-"Wed, Jan 5, 2022",10:00p,Utah Jazz,115.0,Denver Nuggets,109.0
-"Wed, Jan 5, 2022",10:00p,Miami Heat,115.0,Portland Trail Blazers,109.0
-"Wed, Jan 5, 2022",10:00p,Atlanta Hawks,108.0,Sacramento Kings,102.0
-"Thu, Jan 6, 2022",7:30p,Boston Celtics,105.0,New York Knicks,108.0
-"Thu, Jan 6, 2022",8:00p,Detroit Pistons,88.0,Memphis Grizzlies,118.0
-"Thu, Jan 6, 2022",8:00p,Golden State Warriors,96.0,New Orleans Pelicans,101.0
-"Thu, Jan 6, 2022",10:00p,Los Angeles Clippers,89.0,Phoenix Suns,106.0
-"Fri, Jan 7, 2022",7:00p,San Antonio Spurs,100.0,Philadelphia 76ers,119.0
-"Fri, Jan 7, 2022",7:30p,Milwaukee Bucks,121.0,Brooklyn Nets,109.0
-"Fri, Jan 7, 2022",7:30p,Utah Jazz,108.0,Toronto Raptors,122.0
-"Fri, Jan 7, 2022",8:00p,Washington Wizards,122.0,Chicago Bulls,130.0
-"Fri, Jan 7, 2022",8:00p,Dallas Mavericks,130.0,Houston Rockets,106.0
-"Fri, Jan 7, 2022",8:00p,Minnesota Timberwolves,135.0,Oklahoma City Thunder,105.0
-"Fri, Jan 7, 2022",9:00p,Sacramento Kings,111.0,Denver Nuggets,121.0
-"Fri, Jan 7, 2022",10:00p,Atlanta Hawks,118.0,Los Angeles Lakers,134.0
-"Fri, Jan 7, 2022",10:00p,Cleveland Cavaliers,114.0,Portland Trail Blazers,101.0
-"Sat, Jan 8, 2022",3:30p,Memphis Grizzlies,123.0,Los Angeles Clippers,108.0
-"Sat, Jan 8, 2022",7:00p,Milwaukee Bucks,106.0,Charlotte Hornets,114.0
-"Sat, Jan 8, 2022",7:00p,Orlando Magic,92.0,Detroit Pistons,97.0
-"Sat, Jan 8, 2022",7:00p,Utah Jazz,113.0,Indiana Pacers,125.0
-"Sat, Jan 8, 2022",7:30p,New York Knicks,75.0,Boston Celtics,99.0
-"Sat, Jan 8, 2022",9:00p,Miami Heat,123.0,Phoenix Suns,100.0
-"Sun, Jan 9, 2022",12:00p,San Antonio Spurs,119.0,Brooklyn Nets,121.0
-"Sun, Jan 9, 2022",3:30p,Atlanta Hawks,93.0,Los Angeles Clippers,106.0
-"Sun, Jan 9, 2022",6:00p,Washington Wizards,102.0,Orlando Magic,100.0
-"Sun, Jan 9, 2022",6:00p,New Orleans Pelicans,101.0,Toronto Raptors,105.0
-"Sun, Jan 9, 2022",7:00p,Minnesota Timberwolves,141.0,Houston Rockets,123.0
-"Sun, Jan 9, 2022",7:00p,Denver Nuggets,99.0,Oklahoma City Thunder,95.0
-"Sun, Jan 9, 2022",7:30p,Chicago Bulls,99.0,Dallas Mavericks,113.0
-"Sun, Jan 9, 2022",8:30p,Cleveland Cavaliers,82.0,Golden State Warriors,96.0
-"Sun, Jan 9, 2022",9:00p,Sacramento Kings,88.0,Portland Trail Blazers,103.0
-"Sun, Jan 9, 2022",9:30p,Memphis Grizzlies,127.0,Los Angeles Lakers,119.0
-"Mon, Jan 10, 2022",7:00p,Milwaukee Bucks,99.0,Charlotte Hornets,103.0
-"Mon, Jan 10, 2022",7:00p,Utah Jazz,116.0,Detroit Pistons,126.0
-"Mon, Jan 10, 2022",7:30p,Indiana Pacers,98.0,Boston Celtics,101.0
-"Mon, Jan 10, 2022",7:30p,San Antonio Spurs,96.0,New York Knicks,111.0
-"Mon, Jan 10, 2022",8:00p,Philadelphia 76ers,111.0,Houston Rockets,91.0
-"Mon, Jan 10, 2022",10:00p,Brooklyn Nets,108.0,Portland Trail Blazers,114.0
-"Mon, Jan 10, 2022",10:00p,Cleveland Cavaliers,109.0,Sacramento Kings,108.0
-"Tue, Jan 11, 2022",7:00p,Oklahoma City Thunder,118.0,Washington Wizards,122.0
-"Tue, Jan 11, 2022",7:30p,Phoenix Suns,99.0,Toronto Raptors,95.0
-"Tue, Jan 11, 2022",8:00p,Detroit Pistons,87.0,Chicago Bulls,133.0
-"Tue, Jan 11, 2022",8:00p,Golden State Warriors,108.0,Memphis Grizzlies,116.0
-"Tue, Jan 11, 2022",8:00p,Minnesota Timberwolves,125.0,New Orleans Pelicans,128.0
-"Tue, Jan 11, 2022",10:30p,Denver Nuggets,85.0,Los Angeles Clippers,87.0
-"Wed, Jan 12, 2022",7:00p,Boston Celtics,119.0,Indiana Pacers,100.0
-"Wed, Jan 12, 2022",7:00p,Charlotte Hornets,109.0,Philadelphia 76ers,98.0
-"Wed, Jan 12, 2022",7:00p,Orlando Magic,106.0,Washington Wizards,112.0
-"Wed, Jan 12, 2022",7:30p,Miami Heat,115.0,Atlanta Hawks,91.0
-"Wed, Jan 12, 2022",7:30p,Dallas Mavericks,85.0,New York Knicks,108.0
-"Wed, Jan 12, 2022",8:30p,Houston Rockets,128.0,San Antonio Spurs,124.0
-"Wed, Jan 12, 2022",9:00p,Cleveland Cavaliers,111.0,Utah Jazz,91.0
-"Wed, Jan 12, 2022",10:00p,Brooklyn Nets,138.0,Chicago Bulls,112.0
-"Wed, Jan 12, 2022",10:00p,Los Angeles Lakers,116.0,Sacramento Kings,125.0
-"Thu, Jan 13, 2022",7:30p,Golden State Warriors,99.0,Milwaukee Bucks,118.0
-"Thu, Jan 13, 2022",8:00p,Minnesota Timberwolves,108.0,Memphis Grizzlies,116.0
-"Thu, Jan 13, 2022",8:00p,Los Angeles Clippers,89.0,New Orleans Pelicans,113.0
-"Thu, Jan 13, 2022",8:30p,Oklahoma City Thunder,130.0,Brooklyn Nets,109.0
-"Thu, Jan 13, 2022",10:00p,Portland Trail Blazers,108.0,Denver Nuggets,140.0
-"Fri, Jan 14, 2022",7:00p,Orlando Magic,116.0,Charlotte Hornets,109.0
-"Fri, Jan 14, 2022",7:00p,Toronto Raptors,87.0,Detroit Pistons,103.0
-"Fri, Jan 14, 2022",7:00p,Phoenix Suns,112.0,Indiana Pacers,94.0
-"Fri, Jan 14, 2022",7:00p,Boston Celtics,99.0,Philadelphia 76ers,111.0
-"Fri, Jan 14, 2022",7:30p,Golden State Warriors,138.0,Chicago Bulls,96.0
-"Fri, Jan 14, 2022",8:00p,Atlanta Hawks,118.0,Miami Heat,124.0
-"Fri, Jan 14, 2022",8:30p,Cleveland Cavaliers,114.0,San Antonio Spurs,109.0
-"Fri, Jan 14, 2022",10:00p,Dallas Mavericks,112.0,Memphis Grizzlies,85.0
-"Fri, Jan 14, 2022",10:00p,Houston Rockets,114.0,Sacramento Kings,126.0
-"Sat, Jan 15, 2022",6:30p,Toronto Raptors,103.0,Milwaukee Bucks,96.0
-"Sat, Jan 15, 2022",7:00p,Portland Trail Blazers,115.0,Washington Wizards,110.0
-"Sat, Jan 15, 2022",7:30p,New York Knicks,117.0,Atlanta Hawks,108.0
-"Sat, Jan 15, 2022",7:30p,New Orleans Pelicans,105.0,Brooklyn Nets,120.0
-"Sat, Jan 15, 2022",8:00p,Philadelphia 76ers,109.0,Miami Heat,98.0
-"Sat, Jan 15, 2022",8:00p,Cleveland Cavaliers,107.0,Oklahoma City Thunder,102.0
-"Sat, Jan 15, 2022",8:30p,Chicago Bulls,112.0,Boston Celtics,114.0
-"Sat, Jan 15, 2022",8:30p,Los Angeles Clippers,94.0,San Antonio Spurs,101.0
-"Sat, Jan 15, 2022",9:00p,Los Angeles Lakers,96.0,Denver Nuggets,133.0
-"Sat, Jan 15, 2022",9:30p,Orlando Magic,92.0,Dallas Mavericks,108.0
+"Sat, Jan 1, 2022",6:30p,New Orleans Pelicans,113,Milwaukee Bucks,136
+"Sat, Jan 1, 2022",7:00p,San Antonio Spurs,116,Detroit Pistons,117
+"Sat, Jan 1, 2022",7:00p,Chicago Bulls,120,Washington Wizards,119
+"Sat, Jan 1, 2022",7:30p,Los Angeles Clippers,120,Brooklyn Nets,116
+"Sat, Jan 1, 2022",8:00p,Denver Nuggets,124,Houston Rockets,111
+"Sat, Jan 1, 2022",9:00p,Golden State Warriors,123,Utah Jazz,116
+"Sun, Jan 2, 2022",3:30p,New York Knicks,105,Toronto Raptors,120
+"Sun, Jan 2, 2022",6:00p,Orlando Magic,111,Boston Celtics,116
+"Sun, Jan 2, 2022",6:00p,Indiana Pacers,104,Cleveland Cavaliers,108
+"Sun, Jan 2, 2022",6:00p,Miami Heat,113,Sacramento Kings,115
+"Sun, Jan 2, 2022",7:00p,Phoenix Suns,133,Charlotte Hornets,99
+"Sun, Jan 2, 2022",7:00p,Dallas Mavericks,95,Oklahoma City Thunder,86
+"Sun, Jan 2, 2022",9:30p,Minnesota Timberwolves,103,Los Angeles Lakers,108
+"Mon, Jan 3, 2022",7:00p,Houston Rockets,113,Philadelphia 76ers,133
+"Mon, Jan 3, 2022",7:00p,Charlotte Hornets,121,Washington Wizards,124
+"Mon, Jan 3, 2022",7:30p,Memphis Grizzlies,118,Brooklyn Nets,104
+"Mon, Jan 3, 2022",8:00p,Orlando Magic,98,Chicago Bulls,102
+"Mon, Jan 3, 2022",8:00p,Detroit Pistons,115,Milwaukee Bucks,106
+"Mon, Jan 3, 2022",8:00p,Utah Jazz,115,New Orleans Pelicans,104
+"Mon, Jan 3, 2022",8:30p,Denver Nuggets,89,Dallas Mavericks,103
+"Mon, Jan 3, 2022",10:00p,Miami Heat,108,Golden State Warriors,115
+"Mon, Jan 3, 2022",10:00p,Atlanta Hawks,131,Portland Trail Blazers,136
+"Mon, Jan 3, 2022",10:30p,Minnesota Timberwolves,122,Los Angeles Clippers,104
+"Tue, Jan 4, 2022",7:00p,Memphis Grizzlies,110,Cleveland Cavaliers,106
+"Tue, Jan 4, 2022",7:00p,San Antonio Spurs,104,Toronto Raptors,129
+"Tue, Jan 4, 2022",7:30p,Indiana Pacers,94,New York Knicks,104
+"Tue, Jan 4, 2022",8:00p,Phoenix Suns,123,New Orleans Pelicans,110
+"Tue, Jan 4, 2022",10:30p,Sacramento Kings,114,Los Angeles Lakers,122
+"Wed, Jan 5, 2022",7:00p,Detroit Pistons,111,Charlotte Hornets,140
+"Wed, Jan 5, 2022",7:00p,Philadelphia 76ers,116,Orlando Magic,106
+"Wed, Jan 5, 2022",7:00p,Houston Rockets,114,Washington Wizards,111
+"Wed, Jan 5, 2022",7:30p,San Antonio Spurs,99,Boston Celtics,97
+"Wed, Jan 5, 2022",7:30p,Golden State Warriors,82,Dallas Mavericks,99
+"Wed, Jan 5, 2022",7:30p,Brooklyn Nets,129,Indiana Pacers,121
+"Wed, Jan 5, 2022",8:00p,Toronto Raptors,117,Milwaukee Bucks,111
+"Wed, Jan 5, 2022",8:00p,Oklahoma City Thunder,90,Minnesota Timberwolves,98
+"Wed, Jan 5, 2022",10:00p,Utah Jazz,115,Denver Nuggets,109
+"Wed, Jan 5, 2022",10:00p,Miami Heat,115,Portland Trail Blazers,109
+"Wed, Jan 5, 2022",10:00p,Atlanta Hawks,108,Sacramento Kings,102
+"Thu, Jan 6, 2022",7:30p,Boston Celtics,105,New York Knicks,108
+"Thu, Jan 6, 2022",8:00p,Detroit Pistons,88,Memphis Grizzlies,118
+"Thu, Jan 6, 2022",8:00p,Golden State Warriors,96,New Orleans Pelicans,101
+"Thu, Jan 6, 2022",10:00p,Los Angeles Clippers,89,Phoenix Suns,106
+"Fri, Jan 7, 2022",7:00p,San Antonio Spurs,100,Philadelphia 76ers,119
+"Fri, Jan 7, 2022",7:30p,Milwaukee Bucks,121,Brooklyn Nets,109
+"Fri, Jan 7, 2022",7:30p,Utah Jazz,108,Toronto Raptors,122
+"Fri, Jan 7, 2022",8:00p,Washington Wizards,122,Chicago Bulls,130
+"Fri, Jan 7, 2022",8:00p,Dallas Mavericks,130,Houston Rockets,106
+"Fri, Jan 7, 2022",8:00p,Minnesota Timberwolves,135,Oklahoma City Thunder,105
+"Fri, Jan 7, 2022",9:00p,Sacramento Kings,111,Denver Nuggets,121
+"Fri, Jan 7, 2022",10:00p,Atlanta Hawks,118,Los Angeles Lakers,134
+"Fri, Jan 7, 2022",10:00p,Cleveland Cavaliers,114,Portland Trail Blazers,101
+"Sat, Jan 8, 2022",3:30p,Memphis Grizzlies,123,Los Angeles Clippers,108
+"Sat, Jan 8, 2022",7:00p,Milwaukee Bucks,106,Charlotte Hornets,114
+"Sat, Jan 8, 2022",7:00p,Orlando Magic,92,Detroit Pistons,97
+"Sat, Jan 8, 2022",7:00p,Utah Jazz,113,Indiana Pacers,125
+"Sat, Jan 8, 2022",7:30p,New York Knicks,75,Boston Celtics,99
+"Sat, Jan 8, 2022",9:00p,Miami Heat,123,Phoenix Suns,100
+"Sun, Jan 9, 2022",12:00p,San Antonio Spurs,119,Brooklyn Nets,121
+"Sun, Jan 9, 2022",3:30p,Atlanta Hawks,93,Los Angeles Clippers,106
+"Sun, Jan 9, 2022",6:00p,Washington Wizards,102,Orlando Magic,100
+"Sun, Jan 9, 2022",6:00p,New Orleans Pelicans,101,Toronto Raptors,105
+"Sun, Jan 9, 2022",7:00p,Minnesota Timberwolves,141,Houston Rockets,123
+"Sun, Jan 9, 2022",7:00p,Denver Nuggets,99,Oklahoma City Thunder,95
+"Sun, Jan 9, 2022",7:30p,Chicago Bulls,99,Dallas Mavericks,113
+"Sun, Jan 9, 2022",8:30p,Cleveland Cavaliers,82,Golden State Warriors,96
+"Sun, Jan 9, 2022",9:00p,Sacramento Kings,88,Portland Trail Blazers,103
+"Sun, Jan 9, 2022",9:30p,Memphis Grizzlies,127,Los Angeles Lakers,119
+"Mon, Jan 10, 2022",7:00p,Milwaukee Bucks,99,Charlotte Hornets,103
+"Mon, Jan 10, 2022",7:00p,Utah Jazz,116,Detroit Pistons,126
+"Mon, Jan 10, 2022",7:30p,Indiana Pacers,98,Boston Celtics,101
+"Mon, Jan 10, 2022",7:30p,San Antonio Spurs,96,New York Knicks,111
+"Mon, Jan 10, 2022",8:00p,Philadelphia 76ers,111,Houston Rockets,91
+"Mon, Jan 10, 2022",10:00p,Brooklyn Nets,108,Portland Trail Blazers,114
+"Mon, Jan 10, 2022",10:00p,Cleveland Cavaliers,109,Sacramento Kings,108
+"Tue, Jan 11, 2022",7:00p,Oklahoma City Thunder,118,Washington Wizards,122
+"Tue, Jan 11, 2022",7:30p,Phoenix Suns,99,Toronto Raptors,95
+"Tue, Jan 11, 2022",8:00p,Detroit Pistons,87,Chicago Bulls,133
+"Tue, Jan 11, 2022",8:00p,Golden State Warriors,108,Memphis Grizzlies,116
+"Tue, Jan 11, 2022",8:00p,Minnesota Timberwolves,125,New Orleans Pelicans,128
+"Tue, Jan 11, 2022",10:30p,Denver Nuggets,85,Los Angeles Clippers,87
+"Wed, Jan 12, 2022",7:00p,Boston Celtics,119,Indiana Pacers,100
+"Wed, Jan 12, 2022",7:00p,Charlotte Hornets,109,Philadelphia 76ers,98
+"Wed, Jan 12, 2022",7:00p,Orlando Magic,106,Washington Wizards,112
+"Wed, Jan 12, 2022",7:30p,Miami Heat,115,Atlanta Hawks,91
+"Wed, Jan 12, 2022",7:30p,Dallas Mavericks,85,New York Knicks,108
+"Wed, Jan 12, 2022",8:30p,Houston Rockets,128,San Antonio Spurs,124
+"Wed, Jan 12, 2022",9:00p,Cleveland Cavaliers,111,Utah Jazz,91
+"Wed, Jan 12, 2022",10:00p,Brooklyn Nets,138,Chicago Bulls,112
+"Wed, Jan 12, 2022",10:00p,Los Angeles Lakers,116,Sacramento Kings,125
+"Thu, Jan 13, 2022",7:30p,Golden State Warriors,99,Milwaukee Bucks,118
+"Thu, Jan 13, 2022",8:00p,Minnesota Timberwolves,108,Memphis Grizzlies,116
+"Thu, Jan 13, 2022",8:00p,Los Angeles Clippers,89,New Orleans Pelicans,113
+"Thu, Jan 13, 2022",8:30p,Oklahoma City Thunder,130,Brooklyn Nets,109
+"Thu, Jan 13, 2022",10:00p,Portland Trail Blazers,108,Denver Nuggets,140
+"Fri, Jan 14, 2022",7:00p,Orlando Magic,116,Charlotte Hornets,109
+"Fri, Jan 14, 2022",7:00p,Toronto Raptors,87,Detroit Pistons,103
+"Fri, Jan 14, 2022",7:00p,Phoenix Suns,112,Indiana Pacers,94
+"Fri, Jan 14, 2022",7:00p,Boston Celtics,99,Philadelphia 76ers,111
+"Fri, Jan 14, 2022",7:30p,Golden State Warriors,138,Chicago Bulls,96
+"Fri, Jan 14, 2022",8:00p,Atlanta Hawks,118,Miami Heat,124
+"Fri, Jan 14, 2022",8:30p,Cleveland Cavaliers,114,San Antonio Spurs,109
+"Fri, Jan 14, 2022",10:00p,Dallas Mavericks,112,Memphis Grizzlies,85
+"Fri, Jan 14, 2022",10:00p,Houston Rockets,114,Sacramento Kings,126
+"Sat, Jan 15, 2022",6:30p,Toronto Raptors,103,Milwaukee Bucks,96
+"Sat, Jan 15, 2022",7:00p,Portland Trail Blazers,115,Washington Wizards,110
+"Sat, Jan 15, 2022",7:30p,New York Knicks,117,Atlanta Hawks,108
+"Sat, Jan 15, 2022",7:30p,New Orleans Pelicans,105,Brooklyn Nets,120
+"Sat, Jan 15, 2022",8:00p,Philadelphia 76ers,109,Miami Heat,98
+"Sat, Jan 15, 2022",8:00p,Cleveland Cavaliers,107,Oklahoma City Thunder,102
+"Sat, Jan 15, 2022",8:30p,Chicago Bulls,112,Boston Celtics,114
+"Sat, Jan 15, 2022",8:30p,Los Angeles Clippers,94,San Antonio Spurs,101
+"Sat, Jan 15, 2022",9:00p,Los Angeles Lakers,96,Denver Nuggets,133
+"Sat, Jan 15, 2022",9:30p,Orlando Magic,92,Dallas Mavericks,108
+"Sun, Jan 16, 2022",1:00p,Phoenix Suns,135,Detroit Pistons,108
+"Sun, Jan 16, 2022",6:00p,Houston Rockets,118,Sacramento Kings,112
+"Sun, Jan 16, 2022",8:00p,Utah Jazz,125,Denver Nuggets,102
+"Sun, Jan 16, 2022",8:00p,Golden State Warriors,99,Minnesota Timberwolves,119
+"Mon, Jan 17, 2022",12:30p,New Orleans Pelicans,92,Boston Celtics,104
+"Mon, Jan 17, 2022",1:00p,Charlotte Hornets,97,New York Knicks,87
+"Mon, Jan 17, 2022",2:00p,Philadelphia 76ers,98,Washington Wizards,117
+"Mon, Jan 17, 2022",3:00p,Brooklyn Nets,107,Cleveland Cavaliers,114
+"Mon, Jan 17, 2022",3:30p,Indiana Pacers,133,Los Angeles Clippers,139
+"Mon, Jan 17, 2022",3:30p,Chicago Bulls,106,Memphis Grizzlies,119
+"Mon, Jan 17, 2022",6:00p,Milwaukee Bucks,114,Atlanta Hawks,121
+"Mon, Jan 17, 2022",7:00p,Portland Trail Blazers,98,Orlando Magic,88
+"Mon, Jan 17, 2022",7:30p,Toronto Raptors,99,Miami Heat,104
+"Mon, Jan 17, 2022",8:30p,Oklahoma City Thunder,102,Dallas Mavericks,104
+"Mon, Jan 17, 2022",8:30p,Phoenix Suns,121,San Antonio Spurs,107
+"Mon, Jan 17, 2022",10:30p,Utah Jazz,95,Los Angeles Lakers,101
+"Tue, Jan 18, 2022",7:30p,Minnesota Timberwolves,112,New York Knicks,110
+"Tue, Jan 18, 2022",10:00p,Detroit Pistons,86,Golden State Warriors,102
+"Wed, Jan 19, 2022",7:00p,Orlando Magic,110,Philadelphia 76ers,123
+"Wed, Jan 19, 2022",7:00p,Brooklyn Nets,119,Washington Wizards,118
+"Wed, Jan 19, 2022",7:30p,Minnesota Timberwolves,122,Atlanta Hawks,134
+"Wed, Jan 19, 2022",7:30p,Charlotte Hornets,111,Boston Celtics,102
+"Wed, Jan 19, 2022",7:30p,Portland Trail Blazers,92,Miami Heat,104
+"Wed, Jan 19, 2022",8:00p,Cleveland Cavaliers,104,Chicago Bulls,117
+"Wed, Jan 19, 2022",8:00p,Memphis Grizzlies,114,Milwaukee Bucks,126
+"Wed, Jan 19, 2022",8:30p,Toronto Raptors,98,Dallas Mavericks,102
+"Wed, Jan 19, 2022",8:30p,Oklahoma City Thunder,96,San Antonio Spurs,118
+"Wed, Jan 19, 2022",9:00p,Houston Rockets,116,Utah Jazz,111
+"Wed, Jan 19, 2022",10:00p,Los Angeles Clippers,128,Denver Nuggets,130
+"Wed, Jan 19, 2022",10:00p,Detroit Pistons,133,Sacramento Kings,131
+"Wed, Jan 19, 2022",10:30p,Indiana Pacers,111,Los Angeles Lakers,104
+"Thu, Jan 20, 2022",7:30p,Phoenix Suns,109,Dallas Mavericks,101
+"Thu, Jan 20, 2022",7:30p,New Orleans Pelicans,102,New York Knicks,91
+"Thu, Jan 20, 2022",10:00p,Indiana Pacers,121,Golden State Warriors,117
+"Fri, Jan 21, 2022",7:00p,Oklahoma City Thunder,98,Charlotte Hornets,121
+"Fri, Jan 21, 2022",7:00p,Los Angeles Lakers,116,Orlando Magic,105
+"Fri, Jan 21, 2022",7:00p,Los Angeles Clippers,102,Philadelphia 76ers,101
+"Fri, Jan 21, 2022",7:30p,Miami Heat,108,Atlanta Hawks,110
+"Fri, Jan 21, 2022",7:30p,Portland Trail Blazers,109,Boston Celtics,105
+"Fri, Jan 21, 2022",8:00p,Chicago Bulls,90,Milwaukee Bucks,94
+"Fri, Jan 21, 2022",8:00p,Toronto Raptors,109,Washington Wizards,105
+"Fri, Jan 21, 2022",8:30p,Brooklyn Nets,117,San Antonio Spurs,102
+"Fri, Jan 21, 2022",9:00p,Memphis Grizzlies,122,Denver Nuggets,118
+"Fri, Jan 21, 2022",9:00p,Detroit Pistons,101,Utah Jazz,111
+"Fri, Jan 21, 2022",10:00p,Houston Rockets,103,Golden State Warriors,105
+"Sat, Jan 22, 2022",7:00p,Sacramento Kings,127,Milwaukee Bucks,133
+"Sat, Jan 22, 2022",8:00p,Oklahoma City Thunder,87,Cleveland Cavaliers,94
+"Sat, Jan 22, 2022",9:00p,Indiana Pacers,103,Phoenix Suns,113
+"Sun, Jan 23, 2022",1:00p,Los Angeles Clippers,102,New York Knicks,110
+"Sun, Jan 23, 2022",3:30p,Boston Celtics,116,Washington Wizards,87
+"Sun, Jan 23, 2022",6:00p,Los Angeles Lakers,107,Miami Heat,113
+"Sun, Jan 23, 2022",6:00p,Chicago Bulls,95,Orlando Magic,114
+"Sun, Jan 23, 2022",6:00p,Portland Trail Blazers,114,Toronto Raptors,105
+"Sun, Jan 23, 2022",7:00p,Atlanta Hawks,113,Charlotte Hornets,91
+"Sun, Jan 23, 2022",7:00p,Philadelphia 76ers,115,San Antonio Spurs,109
+"Sun, Jan 23, 2022",7:30p,Memphis Grizzlies,91,Dallas Mavericks,104
+"Sun, Jan 23, 2022",8:00p,Detroit Pistons,111,Denver Nuggets,117
+"Sun, Jan 23, 2022",8:00p,Brooklyn Nets,125,Minnesota Timberwolves,136
+"Sun, Jan 23, 2022",8:30p,Utah Jazz,92,Golden State Warriors,94
+"Mon, Jan 24, 2022",7:00p,New York Knicks,93,Cleveland Cavaliers,95
+"Mon, Jan 24, 2022",8:00p,Indiana Pacers,113,New Orleans Pelicans,117
+"Mon, Jan 24, 2022",8:00p,Chicago Bulls,111,Oklahoma City Thunder,110
+"Mon, Jan 24, 2022",9:00p,Utah Jazz,109,Phoenix Suns,115
+"Tue, Jan 25, 2022",7:00p,Denver Nuggets,110,Detroit Pistons,105
+"Tue, Jan 25, 2022",7:00p,New Orleans Pelicans,107,Philadelphia 76ers,117
+"Tue, Jan 25, 2022",7:00p,Charlotte Hornets,113,Toronto Raptors,125
+"Tue, Jan 25, 2022",7:00p,Los Angeles Clippers,116,Washington Wizards,115
+"Tue, Jan 25, 2022",7:30p,Sacramento Kings,75,Boston Celtics,128
+"Tue, Jan 25, 2022",7:30p,Los Angeles Lakers,106,Brooklyn Nets,96
+"Tue, Jan 25, 2022",8:00p,San Antonio Spurs,134,Houston Rockets,104
+"Tue, Jan 25, 2022",10:00p,Dallas Mavericks,92,Golden State Warriors,130
+"Tue, Jan 25, 2022",10:00p,Minnesota Timberwolves,109,Portland Trail Blazers,107
+"Wed, Jan 26, 2022",7:00p,Milwaukee Bucks,99,Cleveland Cavaliers,115
+"Wed, Jan 26, 2022",7:00p,Charlotte Hornets,158,Indiana Pacers,126
+"Wed, Jan 26, 2022",7:00p,Los Angeles Clippers,111,Orlando Magic,102
+"Wed, Jan 26, 2022",7:30p,Sacramento Kings,104,Atlanta Hawks,121
+"Wed, Jan 26, 2022",7:30p,New York Knicks,96,Miami Heat,110
+"Wed, Jan 26, 2022",8:00p,Denver Nuggets,124,Brooklyn Nets,118
+"Wed, Jan 26, 2022",8:00p,Toronto Raptors,105,Chicago Bulls,111
+"Wed, Jan 26, 2022",8:30p,Memphis Grizzlies,118,San Antonio Spurs,110
+"Wed, Jan 26, 2022",10:00p,Dallas Mavericks,132,Portland Trail Blazers,112
+"Wed, Jan 26, 2022",10:00p,Phoenix Suns,105,Utah Jazz,97
+"Thu, Jan 27, 2022",7:30p,Los Angeles Lakers,87,Philadelphia 76ers,105
+"Thu, Jan 27, 2022",10:00p,Minnesota Timberwolves,115,Golden State Warriors,124
+"Fri, Jan 28, 2022",7:00p,Detroit Pistons,103,Orlando Magic,119
+"Fri, Jan 28, 2022",7:30p,Boston Celtics,92,Atlanta Hawks,108
+"Fri, Jan 28, 2022",7:30p,Los Angeles Lakers,114,Charlotte Hornets,117
+"Fri, Jan 28, 2022",8:00p,Portland Trail Blazers,125,Houston Rockets,110
+"Fri, Jan 28, 2022",8:00p,Utah Jazz,109,Memphis Grizzlies,119
+"Fri, Jan 28, 2022",8:00p,Los Angeles Clippers,114,Miami Heat,121
+"Fri, Jan 28, 2022",8:00p,Denver Nuggets,116,New Orleans Pelicans,105
+"Fri, Jan 28, 2022",8:00p,Indiana Pacers,113,Oklahoma City Thunder,110
+"Fri, Jan 28, 2022",8:30p,Chicago Bulls,122,San Antonio Spurs,131
+"Fri, Jan 28, 2022",9:00p,Minnesota Timberwolves,124,Phoenix Suns,134
+"Fri, Jan 28, 2022",10:00p,New York Knicks,108,Milwaukee Bucks,123
+"Sat, Jan 29, 2022",7:00p,Indiana Pacers,105,Dallas Mavericks,132
+"Sat, Jan 29, 2022",7:00p,Boston Celtics,107,New Orleans Pelicans,97
+"Sat, Jan 29, 2022",7:30p,Sacramento Kings,101,Philadelphia 76ers,103
+"Sat, Jan 29, 2022",8:00p,Washington Wizards,95,Memphis Grizzlies,115
+"Sat, Jan 29, 2022",8:00p,Toronto Raptors,124,Miami Heat,120
+"Sat, Jan 29, 2022",8:30p,Brooklyn Nets,106,Golden State Warriors,110
+"Sun, Jan 30, 2022",1:00p,Los Angeles Lakers,121,Atlanta Hawks,129
+"Sun, Jan 30, 2022",1:00p,Los Angeles Clippers,115,Charlotte Hornets,90
+"Sun, Jan 30, 2022",3:30p,Portland Trail Blazers,116,Chicago Bulls,130
+"Sun, Jan 30, 2022",6:00p,Cleveland Cavaliers,105,Detroit Pistons,115
+"Sun, Jan 30, 2022",7:00p,Denver Nuggets,136,Milwaukee Bucks,100
+"Sun, Jan 30, 2022",7:00p,Dallas Mavericks,108,Orlando Magic,110
+"Sun, Jan 30, 2022",8:00p,Utah Jazz,106,Minnesota Timberwolves,126
+"Sun, Jan 30, 2022",8:00p,San Antonio Spurs,110,Phoenix Suns,115
+"Mon, Jan 31, 2022",7:00p,New Orleans Pelicans,90,Cleveland Cavaliers,93
+"Mon, Jan 31, 2022",7:00p,Los Angeles Clippers,116,Indiana Pacers,122
+"Mon, Jan 31, 2022",7:00p,Memphis Grizzlies,119,Philadelphia 76ers,122
+"Mon, Jan 31, 2022",7:30p,Toronto Raptors,106,Atlanta Hawks,100
+"Mon, Jan 31, 2022",7:30p,Miami Heat,92,Boston Celtics,122
+"Mon, Jan 31, 2022",7:30p,Sacramento Kings,96,New York Knicks,116
+"Mon, Jan 31, 2022",8:00p,Golden State Warriors,122,Houston Rockets,108
+"Mon, Jan 31, 2022",8:00p,Portland Trail Blazers,81,Oklahoma City Thunder,98

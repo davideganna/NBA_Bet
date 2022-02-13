@@ -10,8 +10,7 @@ logger = logging.getLogger('Setup.py')
 coloredlogs.install(level='DEBUG')
 
 folder = 'past_data/2021_2022/' # Specify the current NBA season to save the .csv datasets.
-# DataFrame Setup
-#season_df = Helper.build_season_df(folder)
+# Elo Setup
 Helper.build_elo_csv()
 
 # To build the stats_per_game.csv
