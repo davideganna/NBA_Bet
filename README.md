@@ -44,11 +44,6 @@ The diagram below shows the execution flow of NBA Bet:
 
 ![image](https://user-images.githubusercontent.com/52606991/127752880-cef2e6c3-4e72-406f-b16b-9723b6a289fd.png)
 
-## Disclaimer
-
-Gambling involves risk. The author does not encourage or promote gambling in any way, nor the author takes any responsibilities for losses associated with the utilization of the software. 
-The utilization NBA Bet is only intended for legal age people. 
-
 ### Best Hyperparameters Selection (latest software version)
 The simulated results from NBA Season 2020 can be found below:
 ``` 
@@ -69,4 +64,9 @@ Net return per €: 2.10
 
 ![Figure_1](https://user-images.githubusercontent.com/52606991/145692119-f67c513c-2d7c-48a1-bd85-de689b8f5a7b.png)
 
-The simulation combines a 500-tree RF model stacked with an Elo model to bet only on matches predicted by both the models. Bets amount are found using Kelly's criterion, with an initial bankroll of 100€.
+The simulation combines a 500-tree RF model stacked with an Elo model to bet only on matches predicted by both models. Bets amount are found using Kelly's criterion, with an initial bankroll of 100€.
+
+## Disclaimer
+
+Gambling involves risk. The author does not encourage or promote gambling in any way, nor the author takes any responsibilities for losses associated with the utilization of the software. 
+The utilization NBA Bet is only intended for legal age people. 
