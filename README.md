@@ -24,7 +24,7 @@ Odds are the odds of that event (returned by the bookmaker).
 
 The result obtained after the computation of the above formula is the expected gain/loss of the bet. An example follows:
 
-Consider a NBA match between Home<sub>team</sub> and Away<sub>team</sub>, where NBA bet returned a probability of Home<sub>team</sub> winning of 0.75, and the odds offered by a particular bookmaker are 1.38. With this information, if we choose to bet 100$ on the said match, the EV of the bet is:
+Consider a NBA match between _HomeTeam_ and _AwayTeam_, where NBA bet returned a probability of _HomeTeam_ winning equal to 0.75, and the odds offered by a particular bookmaker are 1.38. With this information, if we choose to bet 100$ on the said match, the EV of the bet is:
 
 EV = 0.75 &middot; (100$ &middot; 0.38) - 0.25 &middot; 100$
 
