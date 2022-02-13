@@ -1,38 +1,151 @@
-import sys
-import os
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
 import pandas as pd
-from sklearn.metrics import confusion_matrix
+import numpy as np
 import matplotlib.pyplot as plt
-import Models
-from Models.Models import away_features, home_features, features, build_DT_classifier, build_RF_classifier, build_XGBoostClassifier
+from pandas.core.frame import DataFrame
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+import dicts_and_lists as dal
 import Helper
 import Models.moving_average_dataset
 import Models.backtesting as backtesting
 import Models.elo_model as elo_model
 import dicts_and_lists as dal
+from sklearn.metrics import confusion_matrix
 import logging, coloredlogs
 
-pd.set_option('display.max_rows', 1000)
+pd.set_option('display.max_rows', 2000)
+
+# ------ Logger ------- #
+logger = logging.getLogger('neural_networks.py')
+coloredlogs.install(level='INFO', logger=logger)
+
+# Define the features
+
+home_features = [
+    'FG%_home',
+    '3P%_home',
+    'FT%_home',
+    'LogRatio_home',
+    'RB_aggr_home',
+    'eFG%_home',
+    'TS%_home'
+]
+
+away_features = [
+    'FG%_away',
+    '3P%_away',
+    'FT%_away',
+    'LogRatio_away',
+    'RB_aggr_away',
+    'eFG%_away',
+    'TS%_away'
+]
+
+features = home_features + away_features
+
+def standardize_DataFrame(test_df:DataFrame):
+    # Standardize the DataFrame
+    x = test_df.loc[:, features].values
+
+    scaler = StandardScaler()
+    x = scaler.fit_transform(x)
+
+    std_df = pd.DataFrame(x, columns=features)
+    std_df = pd.concat([std_df, test_df['Winner'].reset_index(drop=True)], axis=1)
+    return std_df, scaler
+
+train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
+train_df, scaler = standardize_DataFrame(train_df)
+
+# Validate on the 2020 dataset
+test_df = pd.read_csv('past_data/average_seasons/average2020.csv')
+x = test_df.loc[:, features].values
+x = scaler.transform(x)
+std_df = pd.DataFrame(x, columns=features)
+valid_df = pd.concat([std_df, test_df['Winner'].reset_index(drop=True)], axis=1)
+
+
+
+# ------------ Neural Networks ------------ #
+
+# Define the Training dataset
+X_train = train_df[features]
+y_train = train_df['Winner']
+
+# Define the Validation dataset
+X_valid = valid_df[features]
+y_valid = valid_df['Winner']
+
+# Define the model
+model = keras.Sequential([
+    layers.BatchNormalization(input_shape=[14]),
+    layers.Dense(64, activation='relu'),
+    layers.BatchNormalization(),
+    layers.Dropout(0.3),
+    layers.Dense(64, activation='relu'),  
+    layers.BatchNormalization(),
+    layers.Dropout(0.3),
+    layers.Dense(1, activation='sigmoid'),
+])
+
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['binary_accuracy'],
+)
+
+early_stopping = keras.callbacks.EarlyStopping(
+    patience=10,
+    min_delta=0.001,
+    restore_best_weights=True,
+)
+
+history = model.fit(
+    X_train, y_train,
+    validation_data=(X_valid, y_valid),
+    batch_size=512,
+    epochs=1000,
+    callbacks=[early_stopping],
+    verbose=0,
+)
+
+history_df = pd.DataFrame(history.history)
+# Start the plot at epoch 5
+#history_df.loc[5:, ['loss', 'val_loss']].plot()
+#history_df.loc[5:, ['binary_accuracy', 'val_binary_accuracy']].plot()
+#plt.show()
+
+print(("Best Validation Loss: {:0.4f}" +\
+      "\nBest Validation Accuracy: {:0.4f}")\
+      .format(history_df['val_loss'].min(), 
+              history_df['val_binary_accuracy'].max()))
+
 
 # ------------ Hyperparameters ------------ #
 leave_out = '2020'
 margin = 0
 betting_limiter = True
-betting_limit = 0.15
-prob_threshold = 0.6
-prob_2x_bet = 0.75
-offset = 0.025 # Added probability
+betting_limit = 0.125
+prob_threshold = 0.65
+prob_2x_bet = 0.7
+offset = 0.0 # Added probability
 average_N = 3
 skip_n = 0
 
-# ------ Logger ------- #
-logger = logging.getLogger('build_predictions.py')
-coloredlogs.install(level='INFO', logger=logger)
+# To evaluate accuracy
+dates_list  = []
+predictions = []
+winners = []
+model_prob  = []
+model_odds  = []
+odds_away = []
+odds_home  = []
+home_teams_list   = []
+away_teams_list   = []
+evaluated_indexes = []
 
 def extract_and_predict(next_game):
     # Extract away_team Name and home_team Name from last_N_games_away and last_N_games_home
@@ -47,14 +160,14 @@ def extract_and_predict(next_game):
         evaluated_indexes.append(next_game.index[0])
 
         # Extract indexes for last N games
-        next_games_away_indexes = df.loc[df['Team_away'] == away_team].index
-        next_games_home_indexes = df.loc[df['Team_home'] == home_team].index
+        next_games_away_indexes = test_df.loc[test_df['Team_away'] == away_team].index
+        next_games_home_indexes = test_df.loc[test_df['Team_home'] == home_team].index
         next_away_indexes_reduced = [x for x in next_games_away_indexes if x < next_game.index[0]][-average_N:]
         next_home_indexes_reduced = [x for x in next_games_home_indexes if x < next_game.index[0]][-average_N:]
 
         # Extract last N games based on indexes
-        last_N_games_away = df.iloc[next_away_indexes_reduced]
-        last_N_games_home = df.iloc[next_home_indexes_reduced]
+        last_N_games_away = test_df.iloc[next_away_indexes_reduced]
+        last_N_games_home = test_df.iloc[next_home_indexes_reduced]
 
         # Concatenate the two teams with their average stats
         to_predict = pd.concat(
@@ -66,87 +179,37 @@ def extract_and_predict(next_game):
         
         # Standardize the input
         to_predict = scaler.transform(to_predict.values.reshape(1,-1))
-        
-        pred = int(clf.predict(to_predict))
-        true_value = next_game['Winner'].values[0]
-        predictions.append(pred)
-        winners.append(true_value)
-        prob = clf.predict_proba(to_predict)
-        model_prob.append(max(prob[0]))
-        model_odds.append(1/max(prob[0]))
+    
+        pred = model.predict(to_predict)
+        if pred[0][0] > 0.5:
+            predictions.append(1)
+            model_prob.append(pred[0][0])
+            model_odds.append(1/(pred[0][0]))
+        else:
+            predictions.append(0)
+            model_prob.append(1 - pred[0][0])
+            model_odds.append(1/(1 - pred[0][0]))
+        true_winner = next_game['Winner'].values[0]
+        winners.append(true_winner)
         odds_away.append(next_game['OddsAway'].values[0])
         odds_home.append(next_game['OddsHome'].values[0])
         dates_list.append(next_game['Date'].values[0])
         home_teams_list.append(home_team)
         away_teams_list.append(away_team)
 
-# Only the most significant features will be considered
-away_features = away_features
-home_features = home_features
-
-# Create the df containing stats per single game on every row
+# Create the test_df containing stats per single game on every row
 train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
+test_df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
 
 # Standardize the DataFrame
-std_df, scaler = Helper.standardize_DataFrame(train_df)
-
-### Test the Classification model based on the mean of the last average_N games ###
-logger.info('\nSelect the type of model you want to backtest:\n\
-    [1]: Decision Tree + Elo Model\n\
-    [2]: Random Forest + Elo Model\n\
-    [3]: Random Forest + Elo Model + Build Moving Average Dataset\n\
-    [4]: XGBoost + Elo Model'
-    )
-inp = input()
-if inp == '1':
-    logger.info('Building a Decision Tree Classifier...')
-    clf = build_DT_classifier(std_df)
-elif inp == '2':
-    logger.info('Building a Random Forest Classifier...')
-    clf = build_RF_classifier(std_df)
-elif inp == '3':
-    Models.moving_average_dataset.build_moving_average_dataset(average_N, skip_n, leave_out=leave_out)
-    train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
-
-    # Standardize the DataFrame
-    std_df, scaler = Helper.standardize_DataFrame(train_df)
-
-    logger.info('Building a Random Forest Classifier...')
-    clf = build_RF_classifier(std_df)
-elif inp == '4':
-    clf = build_XGBoostClassifier(std_df)
-
-
-# To evaluate accuracy
-dates_list  = []
-predictions = []
-winners = []
-model_prob  = []
-model_odds  = []
-odds_away = []
-odds_home  = []
-home_teams_list   = []
-away_teams_list   = []
-evaluated_indexes = []
-
-if leave_out == '2020':
-    # Backtest on the 2020/2021 Season
-    df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
-elif leave_out == '2019':
-    # Backtest on the 2020/2021 Season
-    df = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
-else:
-    logger.error('Specify a valid year to backtest. [2019 or 2020]')
-    sys.exit()
-
-print(f'Stats averaged from {average_N} games, first {skip_n} games are skipped.')
+std_df, scaler = standardize_DataFrame(train_df)
 
 for skip_n_games in range(skip_n, 50-average_N):
-    last_N_games_away, last_N_games_home = backtesting.get_first_N_games(df, average_N, skip_n_games)
+    last_N_games_away, last_N_games_home = backtesting.get_first_N_games(test_df, average_N, skip_n_games)
     # Get next game based on next_game_index
     for team in dal.teams:
         # Find all games where "team" plays away
-        next_games_away_indexes = df.loc[df['Team_away'] == team].index
+        next_games_away_indexes = test_df.loc[test_df['Team_away'] == team].index
         last_away_game = last_N_games_away[dal.teams_to_int[team]][-1:]
         # Check if there are more games past the current index 
         try:
@@ -155,15 +218,15 @@ for skip_n_games in range(skip_n, 50-average_N):
             pass
         if max(next_games_away_indexes) != dal.last_home_away_index_dict[team][0]:
             next_game_index = min(i for i in next_games_away_indexes[skip_n+average_N:] if i > last_away_game.index)
-            next_game = df.loc[df.index == next_game_index]
+            next_game = test_df.loc[test_df.index == next_game_index]
 
-            next_games_home_indexes = df.loc[df['Team_home'] == next_game['Team_home'].values[0]].index
+            next_games_home_indexes = test_df.loc[test_df['Team_home'] == next_game['Team_home'].values[0]].index
 
             if next_game_index in next_games_home_indexes[skip_n+average_N:]:
                 extract_and_predict(next_game)
 
         # Find all games where "team" plays home
-        next_games_home_indexes = df.loc[df['Team_home'] == team].index
+        next_games_home_indexes = test_df.loc[test_df['Team_home'] == team].index
         last_home_game = last_N_games_home[dal.teams_to_int[team]][-1:]
         # Check if there are more games past the current index 
         try:
@@ -172,9 +235,9 @@ for skip_n_games in range(skip_n, 50-average_N):
             pass
         if max(next_games_home_indexes) != dal.last_home_away_index_dict[team][1]:
             next_game_index = min(i for i in next_games_home_indexes[skip_n+average_N:] if i > last_home_game.index)
-            next_game = df.loc[df.index == next_game_index]
+            next_game = test_df.loc[test_df.index == next_game_index]
             
-            next_games_away_indexes = df.loc[df['Team_away'] == next_game['Team_away'].values[0]].index
+            next_games_away_indexes = test_df.loc[test_df['Team_away'] == next_game['Team_away'].values[0]].index
             
             if next_game_index in next_games_away_indexes[skip_n+average_N:]:
                 extract_and_predict(next_game)
@@ -194,21 +257,14 @@ data = {
     'OddsHome'          : odds_home,
     'OddsAway'          : odds_away
 }
-forest_df = pd.DataFrame(data).sort_values('index')
+nn_df = pd.DataFrame(data).sort_values('index')
 
-# ---------- MERGING THE RANDOM FOREST MODEL AND THE ELO MODEL ---------- #
+print(nn_df)
 
-# Build the Elo model then stack the two
-elo_df = elo_model.build_model(df)
-elo_df.drop(['Winner','OddsAway', 'OddsHome', 'FractionBet', 'BetAmount', 'NetWon', 'Bankroll'], axis=1, inplace=True)
+# ----------------------------------- Kelly ------------------------------------------ #
 
-# Merge the 2 DFs
-merged_df = forest_df.merge(elo_df, on=['Date', 'Team_away', 'Team_home', 'Predictions'], how='inner')
-
-merged_df = merged_df.assign(CombinedProb = (merged_df['ModelProbability'] + merged_df['ModelProb_Home'])/2)
-merged_df['CombinedProb'].loc[(merged_df['Predictions'] == 1)] = (merged_df['ModelProbability'] + merged_df['ModelProb_Away'])/2
-
-merged_df['CombinedProb'] = merged_df['CombinedProb'] + offset
+merged_df = nn_df.assign(CombinedProb = (nn_df['ModelProbability']))
+merged_df['CombinedProb'].loc[(merged_df['Predictions'] == 1)] = merged_df['ModelProbability']
 merged_df['CombinedOdds'] = 1/merged_df['CombinedProb']
 
 # Extract the rows where the model predicted the lowest odds between the two teams,
@@ -308,8 +364,6 @@ print(
             'Predictions', 
             'Winner', 
             'ModelProbability', 
-            'ModelProb_Home', 
-            'ModelProb_Away', 
             'CombinedProb', 
             'CombinedOdds', 
             'OddsHome', 
@@ -345,3 +399,5 @@ ax.set_title('Bankroll versus number of games played')
 ax.set_xlabel('Games played')
 ax.set_ylabel('Bankroll (€)')
 plt.show()
+
+

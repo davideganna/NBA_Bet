@@ -169,7 +169,7 @@ def build_moving_average_dataset(average_N, skip_n, leave_out=None):
 
     if leave_out == '2019':
         avg_total_df = pd.concat([avg_2017_df, avg_2018_df, avg_2020_df, avg_2021_df], axis=0)
-    if leave_out == '2020':
+    elif leave_out == '2020':
         avg_total_df = pd.concat([avg_2017_df, avg_2018_df, avg_2019_df, avg_2021_df], axis=0)
     else:
         avg_total_df = pd.concat([avg_2017_df, avg_2018_df, avg_2019_df, avg_2020_df, avg_2021_df], axis=0)
