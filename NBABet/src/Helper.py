@@ -1,5 +1,6 @@
 import sys
 import os
+from typing import Tuple
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
@@ -7,7 +8,6 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 # External Libraries
 import pandas as pd
 import numpy as np
-from pandas.core.frame import DataFrame
 import src.Elo as Elo
 import logging, coloredlogs
 from src.Models.Models import target, features
@@ -21,7 +21,7 @@ logger = logging.getLogger('Helper.py')
 coloredlogs.install(level='DEBUG')
 
 # Functions
-def add_features_to_df(df:DataFrame):
+def add_features_to_df(df: pd.DataFrame):
     # Log Ratio
     df['LogRatio_home'] = np.log2(df['PTS_home']/df['PTS_away'])
     df['LogRatio_away'] = np.log2(df['PTS_away']/df['PTS_home'])
@@ -124,12 +124,12 @@ def add_odds_to_split_df():
     split_stats_df.to_csv('src/past_data/2020-2021/split_stats_per_game.csv', index=False)
 
 
-def build_elo_csv():
+def build_elo_csv(years):
     """
     Re-Builds the Elo DataFrame starting from the first match in the season.
     Saves the DataFrame in a .csv file. 
     """
-    df = pd.read_csv('src/past_data/2021-2022/2021-2022_season.csv')
+    df = pd.read_csv(f'src/past_data/{years}/{years}_season.csv')
     elo_df = pd.DataFrame(dal.teams, columns=['Team'])
     elo_df['Elo'] = 1500
     for _, row in df.iterrows():
@@ -158,20 +158,20 @@ def build_merged_seasons():
     merged_20 = pd.concat([df_2017, df_2018, df_2019], axis=1)
     merged_21 = pd.concat([df_2017, df_2018, df_2019, df_2020], axis=1)
 
-    merged_19.to_csv('src/past_data/merged_seasons/2017_to-2019_Stats.csv', index=False)
-    merged_20.to_csv('src/past_data/merged_seasons/2017_to-2020_Stats.csv', index=False)
-    merged_21.to_csv('src/past_data/merged_seasons/2017_to-2021_Stats.csv', index=False)
+    merged_19.to_csv('src/past_data/merged_seasons/2017_to_2019_Stats.csv', index=False)
+    merged_20.to_csv('src/past_data/merged_seasons/2017_to_2020_Stats.csv', index=False)
+    merged_21.to_csv('src/past_data/merged_seasons/2017_to_2021_Stats.csv', index=False)
 
 
-def build_season_df(folder):
+def build_season_df(folder, years):
     october_df = pd.read_csv(folder + 'october_data.csv')
     november_df = pd.read_csv(folder + 'november_data.csv')
 
     season_df = pd.concat([october_df, november_df])
-    season_df.to_csv(folder + '2021-2022_season.csv', index=False)
+    season_df.to_csv(f'{folder}{years}_season.csv', index=False)
 
 
-def standardize_DataFrame(df:DataFrame):
+def standardize_DataFrame(df: pd.DataFrame) -> Tuple[pd.DataFrame, StandardScaler]:
     # Standardize the DataFrame
     x = df.loc[:, features].values
     y = df.loc[:, [target]].values

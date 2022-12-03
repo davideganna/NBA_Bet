@@ -19,20 +19,21 @@ class Loading():
     Loading represents the third and final module in the ETL pipeline.
     Data passed to this class is saved in dedicated .csv files.
     """
-    def __init__(self, folder) -> None:
+    def __init__(self, folder: str, years: str) -> None:
         self.folder = folder
+        self.years = years
 
 
     def save_df_month(self, df_month:DataFrame, current_month:str, csv_path:Path):
         # If current month is not saved as csv, create the file
         if not csv_path.exists():
             df_month.to_csv(self.folder + current_month + '_data.csv', index=False) # Save the df as .csv
-            season_df = pd.read_csv(self.folder + '/2021-2022_season.csv')
+            season_df = pd.read_csv(self.folder + f'/{self.years}_season.csv')
             logger.info(f'An update has been made: {current_month}_data.csv has been created.')
             
             # Check if the intersection between new data and saved data is equal to new data.
             # If not, new rows have been added. Calculates the Elo and saves to season_df.
-            if not ((season_df.merge(df_month)).drop_duplicates().reset_index(drop=True).equals(df_month)): 
+            if not season_df.merge(df_month).drop_duplicates().reset_index(drop=True).equals(df_month): 
                 self.update_elo_csv(df_month)
                 logger.info(f'An update has been made: elo.csv has been updated based on {current_month}_data.csv.')
                 DataExtractor.Extraction(self.folder).get_stats_per_game(df_month)
@@ -82,7 +83,7 @@ class Loading():
             df_month.to_csv(self.folder + current_month + '_data.csv', index=False) # Save the df as .csv
             logger.info(f'An update has been made: new rows have been added to {current_month}_data.csv file.')
         
-        logger.info(f'\n----- Dataset 2021-2022_season.csv is up to date. -----\n')
+        logger.info(f'\n----- Dataset {self.years}_season.csv is up to date. -----\n')
     
 
     def update_elo_csv(self, df:DataFrame):
@@ -103,7 +104,13 @@ class Loading():
                 winner = 0
             elo_df = Elo.update_DataFrame(elo_df, away_team, home_team, away_pts, home_pts, winner)
         
-        elo_df.sort_values(by='Elo', ascending=False).to_csv('src/past_data/2021-2022/elo.csv', index=False)
+        elo_df.sort_values(by='Elo', ascending=False).to_csv('src/past_data/' + self.folder + '/elo.csv', index=False)
+
+        # Refactor
+        elo_df = pd.read_csv('src/past_data/' + self.folder + '/elo.csv')
+
+
+
     
 
     def save_split_stats_per_game(self, df:DataFrame):

@@ -1,9 +1,8 @@
+from typing import Tuple
 import pandas as pd
 from datetime import datetime, date, timedelta
 import numpy as np
 import os
-from pathlib import Path
-from pandas.core.frame import DataFrame
 from ETL import DataTransformer
 import src.dicts_and_lists as dal
 import logging, coloredlogs
@@ -19,13 +18,14 @@ class Extraction():
     It involves the acquisition of data from basketball-reference.com.
     """
 
-    def __init__(self, folder) -> None:
+    def __init__(self, folder: str, season: str) -> None:
         self.folder = folder
+        self.season = season
 
 
-    def get_current_month_data(self):
+    def get_current_month_data(self) -> Tuple[pd.DataFrame, str]:
         """
-        Checks if 2021-2022_season.csv file is up to date.
+        Checks if the 202*-202*_season.csv file is up to date.
         If not, new rows are added to the file.
         """
         # If it is the first day of the month, get last month's data. Otherwise, get this month's one.
@@ -36,13 +36,13 @@ class Extraction():
             current_month = date.today().strftime("%B").lower()
 
         # Retrieve url based on current month
-        url = 'https://www.basketball-reference.com/leagues/NBA_'+ os.environ.get('season') + '_games-' + current_month + '.html'
+        url = 'https://www.basketball-reference.com/leagues/NBA_'+ self.season + '_games-' + current_month + '.html'
         df_month = pd.read_html(url)[0]
 
         return df_month, current_month
 
     
-    def get_stats_per_game(self, diff:DataFrame):
+    def get_stats_per_game(self, diff: pd.DataFrame) -> None:
         """
         For each game in the diff DataFrame, get in-game stats (e.g., Steals, Assists, etc.).
         """

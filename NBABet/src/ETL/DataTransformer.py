@@ -1,6 +1,5 @@
+from typing import Tuple
 import pandas as pd
-from datetime import datetime, date, timedelta
-import numpy as np
 import os
 from pathlib import Path
 from pandas.core.frame import DataFrame
@@ -18,22 +17,28 @@ class Transformation():
     Transformation represents the second module in the ETL pipeline.
     Data passed in this method is polished, arranged and organized in specific columns.
     """
-    def __init__(self, folder) -> None:
+
+    def __init__(self, folder: str) -> None:
         self.folder = folder
 
 
-    def polish_df_month(self, df_month:DataFrame, current_month:str):
-        df_month = df_month.rename(columns=
-            {
-                'Visitor/Neutral' : 'AwayTeam',
-                'Home/Neutral' : 'HomeTeam',
-                'PTS' : 'AwayPoints',
-                'PTS.1' : 'HomePoints'
-            }
-        )
-        df_month = df_month.drop(['Unnamed: 6', 'Unnamed: 7', 'Attend.', 'Notes'], axis=1) # Remove non interesting columns
-        df_month = df_month.dropna(subset=['AwayPoints', 'HomePoints']) # Remove rows containing games not yet played
+    def polish_df_month(self, df_month: pd.DataFrame, current_month: str) -> Tuple[pd.DataFrame, str]:
+        """
+        Cleans the DataFrame by 
+            1) Renaming the columns, 
+            2) Dropping non useful ones,
+            3) Removing rows containing games not yet played
+        """
 
+        df_month = df_month.rename(columns={
+                                'Visitor/Neutral' : 'AwayTeam',
+                                'Home/Neutral' : 'HomeTeam',
+                                'PTS' : 'AwayPoints',
+                                'PTS.1' : 'HomePoints'
+                            }) \
+                            .drop(columns=['Unnamed: 6', 'Unnamed: 7', 'Attend.', 'Arena', 'Notes']) \
+                            .dropna(subset=['AwayPoints', 'HomePoints'])
+        
         csv_path = Path(os.getcwd() + '/' + self.folder + current_month + '_data.csv')
 
         return df_month, csv_path

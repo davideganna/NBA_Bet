@@ -12,7 +12,7 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             "env": {
-                "year": "2021-2022",
+                "years": "2022-2023",
                 "season": "2023",
             }
         }
