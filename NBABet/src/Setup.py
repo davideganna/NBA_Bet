@@ -2,14 +2,14 @@
 # To be run only once, before main.py is run.                              
 # It creates the required .csv datasets which will be accessed in main.py  
 # ------------------------------------------------------------------------ #
-import Helper
+import src.Helper as Helper
 import logging, coloredlogs
 
 # ------ Logger ------- #
 logger = logging.getLogger('Setup.py')
 coloredlogs.install(level='DEBUG')
 
-folder = 'past_data/2021_2022/' # Specify the current NBA season to save the .csv datasets.
+folder = 'src/past_data/2021-2022/' # Specify the current NBA season to save the .csv datasets.
 # Elo Setup
 Helper.build_elo_csv()
 

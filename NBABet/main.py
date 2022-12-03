@@ -10,14 +10,15 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 import logging, coloredlogs
 import pandas as pd
-from Api import Api
-from Models.moving_average_dataset import build_moving_average_dataset
-from Telegram import TelegramBot
-from ETL import DataExtractor, DataTransformer, DataLoader
+import os
+from src.Api import Api
+from src.Models.moving_average_dataset import build_moving_average_dataset
+from src.Telegram import TelegramBot
+from src.ETL import DataExtractor, DataTransformer, DataLoader
 
 # ----- Scheduler ----- #
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda: etl_pipeline(),'cron', hour=12, minute=00)
+sched.add_job(lambda: etl_pipeline(), 'cron', hour=12, minute=00)
 sched.add_job(lambda: TelegramBot().send_message(Api().get_tonights_games()), 'cron', hour=12, minute=30)
 
 # ------ Logger ------- #
@@ -25,7 +26,7 @@ logger = logging.getLogger(__name__)
 coloredlogs.install(level='INFO')
 
 #-------- Main -------- #
-folder = 'past_data/2021_2022/' # Specify the current NBA season to save the .csv datasets.
+folder = 'src/past_data/' + os.environ.get('year') + '/' # Specify the current NBA season to save the .csv datasets.
 
 Extraction = DataExtractor.Extraction(folder)
 Transformation = DataTransformer.Transformation(folder)
@@ -40,9 +41,9 @@ def etl_pipeline():
 
 
 try:
-    season_df = pd.read_csv(folder + '2021_2022_season.csv')
+    season_df = pd.read_csv(folder + os.environ.get('year') + '_season.csv')
 except:
-    logger.error('Program could not access the .csv datasets. Be sure to run "Setup.py" before "main.py".\n'\
+    logger.error('The program could not access the .csv datasets. Be sure to run "Setup.py" before "main.py".\n'\
     'Alternatively, check that the path to the folder where the .csv files are located is correct.')
 else:
     # Full ETL Pipeline

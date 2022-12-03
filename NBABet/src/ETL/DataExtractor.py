@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 from pandas.core.frame import DataFrame
 from ETL import DataTransformer
-import dicts_and_lists as dal
+import src.dicts_and_lists as dal
 import logging, coloredlogs
 pd.options.mode.chained_assignment = None
 
@@ -25,7 +25,7 @@ class Extraction():
 
     def get_current_month_data(self):
         """
-        Checks if 2021_2022_season.csv file is up to date.
+        Checks if 2021-2022_season.csv file is up to date.
         If not, new rows are added to the file.
         """
         # If it is the first day of the month, get last month's data. Otherwise, get this month's one.
@@ -36,7 +36,7 @@ class Extraction():
             current_month = date.today().strftime("%B").lower()
 
         # Retrieve url based on current month
-        url = 'https://www.basketball-reference.com/leagues/NBA_2022_games-'+ current_month + '.html'
+        url = 'https://www.basketball-reference.com/leagues/NBA_'+ os.environ.get('season') + '_games-' + current_month + '.html'
         df_month = pd.read_html(url)[0]
 
         return df_month, current_month

@@ -10,11 +10,11 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import Models
 from Models.Models import away_features, home_features, features, build_DT_classifier, build_RF_classifier, build_XGBoostClassifier
-import Helper
+import src.Helper as Helper
 import Models.moving_average_dataset
 import Models.backtesting as backtesting
 import Models.elo_model as elo_model
-import dicts_and_lists as dal
+import src.dicts_and_lists as dal
 import logging, coloredlogs
 
 pd.set_option('display.max_rows', 1000)
@@ -85,7 +85,7 @@ away_features = away_features
 home_features = home_features
 
 # Create the df containing stats per single game on every row
-train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
+train_df = pd.read_csv('src/past_data/average_seasons/average_N_4Seasons.csv')
 
 # Standardize the DataFrame
 std_df, scaler = Helper.standardize_DataFrame(train_df)
@@ -106,7 +106,7 @@ elif inp == '2':
     clf = build_RF_classifier(std_df)
 elif inp == '3':
     Models.moving_average_dataset.build_moving_average_dataset(average_N, skip_n, leave_out=leave_out)
-    train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
+    train_df = pd.read_csv('src/past_data/average_seasons/average_N_4Seasons.csv')
 
     # Standardize the DataFrame
     std_df, scaler = Helper.standardize_DataFrame(train_df)
@@ -131,10 +131,10 @@ evaluated_indexes = []
 
 if leave_out == '2020':
     # Backtest on the 2020/2021 Season
-    df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+    df = pd.read_csv('src/past_data/2020-2021/split_stats_per_game.csv')
 elif leave_out == '2019':
     # Backtest on the 2020/2021 Season
-    df = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
+    df = pd.read_csv('src/past_data/2019-2020/split_stats_per_game-2019.csv')
 else:
     logger.error('Specify a valid year to backtest. [2019 or 2020]')
     sys.exit()

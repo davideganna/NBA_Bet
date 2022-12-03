@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 from pandas.core.frame import DataFrame
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
-import dicts_and_lists as dal
-import Helper
+import src.dicts_and_lists as dal
+import src.Helper as Helper
 import Models.moving_average_dataset
 import Models.backtesting as backtesting
 import Models.elo_model as elo_model
-import dicts_and_lists as dal
+import src.dicts_and_lists as dal
 from sklearn.metrics import confusion_matrix
 import logging, coloredlogs
 
@@ -57,11 +57,11 @@ def standardize_DataFrame(test_df:DataFrame):
     std_df = pd.concat([std_df, test_df['Winner'].reset_index(drop=True)], axis=1)
     return std_df, scaler
 
-train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
+train_df = pd.read_csv('src/past_data/average_seasons/average_N_4Seasons.csv')
 train_df, scaler = standardize_DataFrame(train_df)
 
 # Validate on the 2020 dataset
-test_df = pd.read_csv('past_data/average_seasons/average2020.csv')
+test_df = pd.read_csv('src/past_data/average_seasons/average2020.csv')
 x = test_df.loc[:, features].values
 x = scaler.transform(x)
 std_df = pd.DataFrame(x, columns=features)
@@ -198,8 +198,8 @@ def extract_and_predict(next_game):
         away_teams_list.append(away_team)
 
 # Create the test_df containing stats per single game on every row
-train_df = pd.read_csv('past_data/average_seasons/average_N_4Seasons.csv')
-test_df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+train_df = pd.read_csv('src/past_data/average_seasons/average_N_4Seasons.csv')
+test_df = pd.read_csv('src/past_data/2020-2021/split_stats_per_game.csv')
 
 # Standardize the DataFrame
 std_df, scaler = standardize_DataFrame(train_df)

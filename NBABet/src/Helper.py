@@ -8,10 +8,10 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 import pandas as pd
 import numpy as np
 from pandas.core.frame import DataFrame
-import Elo
+import src.Elo as Elo
 import logging, coloredlogs
-from Models.Models import target, features
-import dicts_and_lists as dal
+from src.Models.Models import target, features
+import src.dicts_and_lists as dal
 from sklearn.preprocessing import StandardScaler
 
 pd.options.mode.chained_assignment = None
@@ -42,7 +42,7 @@ def add_features_to_df(df:DataFrame):
 
 
 def add_odds_to_split_df():
-    odds_df = pd.read_csv('past_data/2020_2021/historical_odds_2020_2021.csv', sep=';', index_col=False)
+    odds_df = pd.read_csv('src/past_data/2020-2021/historical_odds-2020-2021.csv', sep=';', index_col=False)
     # Compute European Odds
     odds_df = odds_df.assign(Odds = 1 + odds_df['ML']/100) # Set the winner as the Home Team
     odds_df['Odds'].loc[odds_df['ML'] < 0] = (1 + 100/(-odds_df['ML']))
@@ -68,7 +68,7 @@ def add_odds_to_split_df():
     odds_df.insert(loc=0, column='Date', value=dates_list)
     
     # Read stats_per_game.csv
-    split_stats_df = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+    split_stats_df = pd.read_csv('src/past_data/2020-2021/split_stats_per_game.csv')
     
     # Add column with odds
     split_stats_df = split_stats_df.assign(OddsAway = np.nan)
@@ -121,7 +121,7 @@ def add_odds_to_split_df():
         split_stats_df['OddsHome'].iloc[n] = round(row['OddsHome'].values[0], 2)
         split_stats_df['OddsAway'].iloc[n] = round(row['OddsAway'].values[0], 2)
 
-    split_stats_df.to_csv('past_data/2020_2021/split_stats_per_game.csv', index=False)
+    split_stats_df.to_csv('src/past_data/2020-2021/split_stats_per_game.csv', index=False)
 
 
 def build_elo_csv():
@@ -129,7 +129,7 @@ def build_elo_csv():
     Re-Builds the Elo DataFrame starting from the first match in the season.
     Saves the DataFrame in a .csv file. 
     """
-    df = pd.read_csv('past_data/2021_2022/2021_2022_season.csv')
+    df = pd.read_csv('src/past_data/2021-2022/2021-2022_season.csv')
     elo_df = pd.DataFrame(dal.teams, columns=['Team'])
     elo_df['Elo'] = 1500
     for _, row in df.iterrows():
@@ -144,23 +144,23 @@ def build_elo_csv():
             winner = 0
         elo_df = Elo.update_DataFrame(elo_df, away_team, home_team, away_pts, home_pts, winner)
         
-    elo_df.sort_values(by='Elo', ascending=False).to_csv('past_data/2021_2022/elo.csv', index=False)
+    elo_df.sort_values(by='Elo', ascending=False).to_csv('src/past_data/2021-2022/elo.csv', index=False)
 
 
 def build_merged_seasons():
-    df_2017 = pd.read_csv('past_data/2017_2018/split_stats_per_game_2017.csv')
-    df_2018 = pd.read_csv('past_data/2018_2019/split_stats_per_game_2018.csv')
-    df_2019 = pd.read_csv('past_data/2019_2020/split_stats_per_game_2019.csv')
-    df_2020 = pd.read_csv('past_data/2020_2021/split_stats_per_game.csv')
+    df_2017 = pd.read_csv('src/past_data/2017-2018/split_stats_per_game-2017.csv')
+    df_2018 = pd.read_csv('src/past_data/2018-2019/split_stats_per_game-2018.csv')
+    df_2019 = pd.read_csv('src/past_data/2019-2020/split_stats_per_game-2019.csv')
+    df_2020 = pd.read_csv('src/past_data/2020-2021/split_stats_per_game.csv')
 
     df_2018 = df_2018.drop(['Date'], axis=1)
     merged_19 = pd.concat([df_2017, df_2018], axis=1)
     merged_20 = pd.concat([df_2017, df_2018, df_2019], axis=1)
     merged_21 = pd.concat([df_2017, df_2018, df_2019, df_2020], axis=1)
 
-    merged_19.to_csv('past_data/merged_seasons/2017_to_2019_Stats.csv', index=False)
-    merged_20.to_csv('past_data/merged_seasons/2017_to_2020_Stats.csv', index=False)
-    merged_21.to_csv('past_data/merged_seasons/2017_to_2021_Stats.csv', index=False)
+    merged_19.to_csv('src/past_data/merged_seasons/2017_to-2019_Stats.csv', index=False)
+    merged_20.to_csv('src/past_data/merged_seasons/2017_to-2020_Stats.csv', index=False)
+    merged_21.to_csv('src/past_data/merged_seasons/2017_to-2021_Stats.csv', index=False)
 
 
 def build_season_df(folder):
@@ -168,7 +168,7 @@ def build_season_df(folder):
     november_df = pd.read_csv(folder + 'november_data.csv')
 
     season_df = pd.concat([october_df, november_df])
-    season_df.to_csv(folder + '2021_2022_season.csv', index=False)
+    season_df.to_csv(folder + '2021-2022_season.csv', index=False)
 
 
 def standardize_DataFrame(df:DataFrame):

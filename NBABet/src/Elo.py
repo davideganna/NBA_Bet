@@ -1,7 +1,7 @@
 # Libraries
 import pandas as pd
 from pandas.core.frame import DataFrame
-import dicts_and_lists as dal
+import src.dicts_and_lists as dal
 
 # Functions
 def update(row):
@@ -73,7 +73,7 @@ def update_DataFrame(elo_df:DataFrame, away_team, home_team, away_pts, home_pts,
 
 def get_probas(away_team, home_team):
     # Current Elo ratings for away_team and home_team
-    elo_df = pd.read_csv('past_data/2021_2022/elo.csv')
+    elo_df = pd.read_csv('src/past_data/2021-2022/elo.csv')
     elo_away_team = elo_df.loc[elo_df['Team'] == away_team, 'Elo'].values[0]
     elo_home_team = elo_df.loc[elo_df['Team'] == home_team, 'Elo'].values[0]
     # Expected Win probability for away_team and home_team

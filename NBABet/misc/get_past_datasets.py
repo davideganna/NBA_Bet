@@ -6,19 +6,19 @@ import os
 from pathlib import Path
 import logging, coloredlogs
 # Internal Libraries
-import dicts_and_lists as dal
-import Helper
+import src.dicts_and_lists as dal
+import src.Helper as Helper
 
 # ------ Logger ------- #
 logger = logging.getLogger('get_past_datasets.py')
 coloredlogs.install(level='DEBUG')
 
-folder = 'past_data/2017_2018/'
+folder = 'src/past_data/2017-2018/'
 
 months = ['october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june']
 
 for month in months:
-    url = 'https://www.basketball-reference.com/leagues/NBA_2018_games-'+ month + '.html'
+    url = 'https://www.basketball-reference.com/leagues/NBA-2018_games-'+ month + '.html'
     df_url = pd.read_html(url)[0]
     df_url = df_url.rename(columns=
         {
@@ -112,15 +112,15 @@ df['PF']   = dal.data_dict['PF']
 df['PTS']  = dal.data_dict['PTS']
 df['+/-']  = dal.data_dict['+/-']
 
-df.to_csv(folder + 'half_stats_per_game_2017.csv', index=False)
+df.to_csv(folder + 'half_stats_per_game-2017.csv', index=False)
 
 Helper.split_stats_per_game(folder)
 
-df_new = pd.read_csv(folder + 'half_split_stats_per_game_2017.csv', index_col=False)
-df_old = pd.read_csv('past_data/merged_seasons/2018_to_2020_Stats.csv', index_col=False)
+df_new = pd.read_csv(folder + 'half_split_stats_per_game-2017.csv', index_col=False)
+df_old = pd.read_csv('src/past_data/merged_seasons/2018_to-2020_Stats.csv', index_col=False)
 
 df_new.drop('Date', axis=1, inplace=True)
 
 df = pd.concat([df_new, df_old], axis=0)
-df.to_csv('past_data/merged_seasons/2017_to_2020_Stats.csv', index=False)
+df.to_csv('src/past_data/merged_seasons/2017_to-2020_Stats.csv', index=False)
 

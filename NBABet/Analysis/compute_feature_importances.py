@@ -11,9 +11,9 @@ from sklearn.inspection import permutation_importance
 import matplotlib.pyplot as plt
 from Models import Models
 from Models.Models import features, target
-import Helper
+import src.Helper as Helper
 
-train_df = pd.read_csv('past_data/average_seasons/average_NSeasons_prod.csv')
+train_df = pd.read_csv('src/past_data/average_seasons/average_NSeasons_prod.csv')
 std_df, scaler = Helper.standardize_DataFrame(train_df)
 forest = Models.build_RF_classifier(std_df)
 

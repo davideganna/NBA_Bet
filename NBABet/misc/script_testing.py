@@ -6,9 +6,9 @@ import os, sys
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-import Helper
-import Elo
-import dicts_and_lists as dal
+import src.Helper as Helper
+import src.Elo as Elo
+import src.dicts_and_lists as dal
 import logging, coloredlogs
 from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import StandardScaler

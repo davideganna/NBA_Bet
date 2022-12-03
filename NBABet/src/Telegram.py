@@ -3,9 +3,9 @@
 # ------------------------------------------------------------------- #
 from numpy.core.fromnumeric import around, std
 import requests
-import Elo
+import src.Elo as Elo
 from Models import Models
-import Helper
+import src.Helper as Helper
 import pandas as pd
 import numpy as np
 
@@ -22,12 +22,12 @@ class TelegramBot():
     
 
     def send_message(self, d:dict):
-        df = pd.read_csv('past_data/2021_2022/split_stats_per_game.csv')
+        df = pd.read_csv('src/past_data/2021-2022/split_stats_per_game.csv')
         df = Helper.add_features_to_df(df)
 
         n = 3
         
-        train_df = pd.read_csv('past_data/average_seasons/average_NSeasons_prod.csv')
+        train_df = pd.read_csv('src/past_data/average_seasons/average_NSeasons_prod.csv')
         # Standardize the DataFrame
         std_df, scaler = Helper.standardize_DataFrame(train_df)
 
