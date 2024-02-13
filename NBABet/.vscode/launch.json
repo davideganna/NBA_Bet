@@ -8,12 +8,12 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "main.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "env": {
-                "years": "2022-2023",
-                "season": "2023",
+                "years": "2021-2022",
+                "season": "2022",
             }
         }
     ]

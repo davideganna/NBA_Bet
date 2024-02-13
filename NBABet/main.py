@@ -48,7 +48,7 @@ Transformation = DataTransformer.Transformation(folder)
 Loading = DataLoader.Loading(folder, years)
 
 try:
-    season_df = pd.read_csv(folder + os.environ.get('years') + '_season.csv')
+    season_df = pd.read_csv(folder + years + '_season.csv')
 except Exception as exc:
     logger.error(
         'The program could not access the .csv datasets. Be sure to run "Setup.py" before "main.py".\n'\

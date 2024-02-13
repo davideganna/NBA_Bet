@@ -129,7 +129,7 @@ def build_elo_csv(years):
     Re-Builds the Elo DataFrame starting from the first match in the season.
     Saves the DataFrame in a .csv file. 
     """
-    df = pd.read_csv(f'src/past_data/{years}/{years}_season.csv')
+    df = pd.read_csv(f'past_data/{years}/{years}_season.csv')
     elo_df = pd.DataFrame(dal.teams, columns=['Team'])
     elo_df['Elo'] = 1500
     for _, row in df.iterrows():
@@ -144,7 +144,7 @@ def build_elo_csv(years):
             winner = 0
         elo_df = Elo.update_DataFrame(elo_df, away_team, home_team, away_pts, home_pts, winner)
         
-    elo_df.sort_values(by='Elo', ascending=False).to_csv('src/past_data/2021-2022/elo.csv', index=False)
+    elo_df.sort_values(by='Elo', ascending=False).to_csv(f'past_data/{years}/elo.csv', index=False)
 
 
 def build_merged_seasons():

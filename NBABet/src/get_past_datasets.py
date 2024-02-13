@@ -1,3 +1,5 @@
+# Inside src: python get_past_datasets.py
+
 # External Libraries
 from datetime import date
 import pandas as pd
@@ -6,19 +8,20 @@ import os
 from pathlib import Path
 import logging, coloredlogs
 # Internal Libraries
-import src.dicts_and_lists as dal
-import src.Helper as Helper
+import dicts_and_lists as dal
+import Helper as Helper
 
 # ------ Logger ------- #
 logger = logging.getLogger('get_past_datasets.py')
 coloredlogs.install(level='DEBUG')
 
-folder = 'src/past_data/2017-2018/'
+year = '2023'
+folder = 'past_data/2022-2023/'
 
-months = ['october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june']
+months = ['october', 'november', 'december'] #'january', 'february', 'march', 'april', 'may', 'june']
 
 for month in months:
-    url = 'https://www.basketball-reference.com/leagues/NBA-2018_games-'+ month + '.html'
+    url = f'https://www.basketball-reference.com/leagues/NBA_{year}_games-{month}.html'
     df_url = pd.read_html(url)[0]
     df_url = df_url.rename(columns=
         {
@@ -28,7 +31,7 @@ for month in months:
             'PTS.1' : 'HomePoints'
         }
     )
-    df_url = df_url.drop(['Unnamed: 6', 'Unnamed: 7', 'Attend.', 'Notes'], axis=1) # Remove non interesting columns
+    df_url = df_url.drop(['Unnamed: 6', 'Unnamed: 7', 'Attend.', 'Arena', 'Notes'], axis=1) # Remove non interesting columns
     df_url = df_url.dropna(subset=['AwayPoints', 'HomePoints']) # Remove rows containing games not yet played
 
     my_file = Path(os.getcwd() + '/' + folder + month + '_data.csv')
@@ -43,17 +46,17 @@ for month in months:
 october_df = pd.read_csv(folder + 'october_data.csv')
 november_df = pd.read_csv(folder + 'november_data.csv')
 december_df = pd.read_csv(folder + 'december_data.csv')
-january_df = pd.read_csv(folder + 'january_data.csv')
-february_df = pd.read_csv(folder + 'february_data.csv')
-march_df = pd.read_csv(folder + 'march_data.csv')
-april_df = pd.read_csv(folder + 'april_data.csv')
-may_df = pd.read_csv(folder + 'may_data.csv')
-june_df = pd.read_csv(folder + 'june_data.csv')
+#january_df = pd.read_csv(folder + 'january_data.csv')
+#february_df = pd.read_csv(folder + 'february_data.csv')
+#march_df = pd.read_csv(folder + 'march_data.csv')
+#april_df = pd.read_csv(folder + 'april_data.csv')
+#may_df = pd.read_csv(folder + 'may_data.csv')
+#june_df = pd.read_csv(folder + 'june_data.csv')
 
-#season_df = pd.concat([october_df, november_df, december_df, january_df, february_df, march_df, april_df, may_df, june_df])
-season_df = pd.concat([april_df, may_df, june_df])
-season_df.to_csv(folder + 'half_season.csv', index=False)
+season_df = pd.concat([october_df, november_df, december_df])
+season_df.to_csv(folder + '2022-2023_season.csv', index=False)
 
+"""
 df = pd.DataFrame(columns = dal.columns_data_dict)
 
 for _, row in season_df.iterrows():
@@ -117,10 +120,11 @@ df.to_csv(folder + 'half_stats_per_game-2017.csv', index=False)
 Helper.split_stats_per_game(folder)
 
 df_new = pd.read_csv(folder + 'half_split_stats_per_game-2017.csv', index_col=False)
-df_old = pd.read_csv('src/past_data/merged_seasons/2018_to-2020_Stats.csv', index_col=False)
+df_old = pd.read_csv('past_data/merged_seasons/2018_to-2020_Stats.csv', index_col=False)
 
 df_new.drop('Date', axis=1, inplace=True)
 
 df = pd.concat([df_new, df_old], axis=0)
 df.to_csv('src/past_data/merged_seasons/2017_to-2020_Stats.csv', index=False)
+"""
 
