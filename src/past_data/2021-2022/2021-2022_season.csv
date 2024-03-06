@@ -290,20 +290,6 @@ Date,Start (ET),AwayTeam,AwayPoints,HomeTeam,HomePoints
 "Fri, Nov 26, 2021",9:00p,New Orleans Pelicans,98.0,Utah Jazz,97.0
 "Fri, Nov 26, 2021",10:00p,Portland Trail Blazers,103.0,Golden State Warriors,118.0
 "Fri, Nov 26, 2021",10:30p,Sacramento Kings,141.0,Los Angeles Lakers,137.0
-"Wed, Dec 1, 2021",7:00p,Atlanta Hawks,114.0,Indiana Pacers,111.0
-"Wed, Dec 1, 2021",7:00p,Denver Nuggets,103.0,Orlando Magic,108.0
-"Wed, Dec 1, 2021",7:00p,Minnesota Timberwolves,107.0,Washington Wizards,115.0
-"Wed, Dec 1, 2021",7:30p,Philadelphia 76ers,87.0,Boston Celtics,88.0
-"Wed, Dec 1, 2021",7:30p,Cleveland Cavaliers,111.0,Miami Heat,85.0
-"Wed, Dec 1, 2021",8:00p,Charlotte Hornets,125.0,Milwaukee Bucks,127.0
-"Wed, Dec 1, 2021",8:00p,Dallas Mavericks,139.0,New Orleans Pelicans,107.0
-"Wed, Dec 1, 2021",8:00p,Houston Rockets,114.0,Oklahoma City Thunder,110.0
-"Wed, Dec 1, 2021",10:30p,Sacramento Kings,124.0,Los Angeles Clippers,115.0
-"Thu, Dec 2, 2021",7:30p,Chicago Bulls,119.0,New York Knicks,115.0
-"Thu, Dec 2, 2021",7:30p,Milwaukee Bucks,93.0,Toronto Raptors,97.0
-"Thu, Dec 2, 2021",8:00p,Oklahoma City Thunder,79.0,Memphis Grizzlies,152.0
-"Thu, Dec 2, 2021",9:00p,Detroit Pistons,103.0,Phoenix Suns,114.0
-"Thu, Dec 2, 2021",10:00p,San Antonio Spurs,114.0,Portland Trail Blazers,83.0
 "Sat, Nov 27, 2021",6:00p,Minnesota Timberwolves,121.0,Philadelphia 76ers,120.0
 "Sat, Nov 27, 2021",7:30p,New York Knicks,99.0,Atlanta Hawks,90.0
 "Sat, Nov 27, 2021",7:30p,Phoenix Suns,113.0,Brooklyn Nets,107.0
@@ -331,6 +317,20 @@ Date,Start (ET),AwayTeam,AwayPoints,HomeTeam,HomePoints
 "Tue, Nov 30, 2021",10:00p,Golden State Warriors,96.0,Phoenix Suns,104.0
 "Tue, Nov 30, 2021",10:00p,Detroit Pistons,92.0,Portland Trail Blazers,110.0
 "Tue, Nov 30, 2021",10:00p,Los Angeles Lakers,117.0,Sacramento Kings,92.0
+"Wed, Dec 1, 2021",7:00p,Atlanta Hawks,114.0,Indiana Pacers,111.0
+"Wed, Dec 1, 2021",7:00p,Denver Nuggets,103.0,Orlando Magic,108.0
+"Wed, Dec 1, 2021",7:00p,Minnesota Timberwolves,107.0,Washington Wizards,115.0
+"Wed, Dec 1, 2021",7:30p,Philadelphia 76ers,87.0,Boston Celtics,88.0
+"Wed, Dec 1, 2021",7:30p,Cleveland Cavaliers,111.0,Miami Heat,85.0
+"Wed, Dec 1, 2021",8:00p,Charlotte Hornets,125.0,Milwaukee Bucks,127.0
+"Wed, Dec 1, 2021",8:00p,Dallas Mavericks,139.0,New Orleans Pelicans,107.0
+"Wed, Dec 1, 2021",8:00p,Houston Rockets,114.0,Oklahoma City Thunder,110.0
+"Wed, Dec 1, 2021",10:30p,Sacramento Kings,124.0,Los Angeles Clippers,115.0
+"Thu, Dec 2, 2021",7:30p,Chicago Bulls,119.0,New York Knicks,115.0
+"Thu, Dec 2, 2021",7:30p,Milwaukee Bucks,93.0,Toronto Raptors,97.0
+"Thu, Dec 2, 2021",8:00p,Oklahoma City Thunder,79.0,Memphis Grizzlies,152.0
+"Thu, Dec 2, 2021",9:00p,Detroit Pistons,103.0,Phoenix Suns,114.0
+"Thu, Dec 2, 2021",10:00p,San Antonio Spurs,114.0,Portland Trail Blazers,83.0
 "Fri, Dec 3, 2021",7:00p,Miami Heat,113.0,Indiana Pacers,104.0
 "Fri, Dec 3, 2021",7:00p,Cleveland Cavaliers,116.0,Washington Wizards,101.0
 "Fri, Dec 3, 2021",7:30p,Philadelphia 76ers,98.0,Atlanta Hawks,96.0
@@ -1133,3 +1133,461 @@ Date,Start (ET),AwayTeam,AwayPoints,HomeTeam,HomePoints
 "Tue, Mar 29, 2022",7:30p,Detroit Pistons,123.0,Brooklyn Nets,130.0
 "Tue, Mar 29, 2022",7:30p,Los Angeles Lakers,110.0,Dallas Mavericks,128.0
 "Tue, Mar 29, 2022",10:00p,Utah Jazz,115.0,Los Angeles Clippers,121.0
+"Thu, Apr 1, 2021",7:00p,Philadelphia 76ers,114.0,Cleveland Cavaliers,94.0
+"Thu, Apr 1, 2021",7:00p,Washington Wizards,91.0,Detroit Pistons,120.0
+"Thu, Apr 1, 2021",7:30p,Charlotte Hornets,89.0,Brooklyn Nets,111.0
+"Thu, Apr 1, 2021",8:00p,Golden State Warriors,109.0,Miami Heat,116.0
+"Thu, Apr 1, 2021",8:00p,Orlando Magic,115.0,New Orleans Pelicans,110.0
+"Thu, Apr 1, 2021",8:30p,Atlanta Hawks,134.0,San Antonio Spurs,129.0
+"Thu, Apr 1, 2021",10:00p,Denver Nuggets,101.0,Los Angeles Clippers,94.0
+"Fri, Apr 2, 2021",7:00p,Golden State Warriors,77.0,Toronto Raptors,130.0
+"Fri, Apr 2, 2021",7:30p,Houston Rockets,102.0,Boston Celtics,118.0
+"Fri, Apr 2, 2021",7:30p,Dallas Mavericks,99.0,New York Knicks,86.0
+"Fri, Apr 2, 2021",8:00p,Charlotte Hornets,114.0,Indiana Pacers,97.0
+"Fri, Apr 2, 2021",8:00p,Minnesota Timberwolves,108.0,Memphis Grizzlies,120.0
+"Fri, Apr 2, 2021",9:00p,Atlanta Hawks,126.0,New Orleans Pelicans,103.0
+"Fri, Apr 2, 2021",9:00p,Chicago Bulls,106.0,Utah Jazz,113.0
+"Fri, Apr 2, 2021",10:00p,Oklahoma City Thunder,103.0,Phoenix Suns,140.0
+"Fri, Apr 2, 2021",10:00p,Milwaukee Bucks,127.0,Portland Trail Blazers,109.0
+"Fri, Apr 2, 2021",10:00p,Los Angeles Lakers,115.0,Sacramento Kings,94.0
+"Sat, Apr 3, 2021",7:00p,Dallas Mavericks,109.0,Washington Wizards,87.0
+"Sat, Apr 3, 2021",8:00p,New York Knicks,125.0,Detroit Pistons,81.0
+"Sat, Apr 3, 2021",8:00p,Cleveland Cavaliers,101.0,Miami Heat,115.0
+"Sat, Apr 3, 2021",8:00p,Minnesota Timberwolves,113.0,Philadelphia 76ers,122.0
+"Sat, Apr 3, 2021",9:00p,Indiana Pacers,139.0,San Antonio Spurs,133.0
+"Sat, Apr 3, 2021",9:00p,Orlando Magic,91.0,Utah Jazz,137.0
+"Sat, Apr 3, 2021",10:00p,Oklahoma City Thunder,85.0,Portland Trail Blazers,133.0
+"Sat, Apr 3, 2021",10:00p,Milwaukee Bucks,129.0,Sacramento Kings,128.0
+"Sun, Apr 4, 2021",2:00p,Brooklyn Nets,107.0,Chicago Bulls,115.0
+"Sun, Apr 4, 2021",3:30p,Los Angeles Lakers,86.0,Los Angeles Clippers,104.0
+"Sun, Apr 4, 2021",6:00p,Charlotte Hornets,86.0,Boston Celtics,116.0
+"Sun, Apr 4, 2021",7:00p,Memphis Grizzlies,116.0,Philadelphia 76ers,100.0
+"Sun, Apr 4, 2021",7:30p,Golden State Warriors,111.0,Atlanta Hawks,117.0
+"Sun, Apr 4, 2021",8:00p,New Orleans Pelicans,122.0,Houston Rockets,115.0
+"Sun, Apr 4, 2021",10:00p,Orlando Magic,109.0,Denver Nuggets,119.0
+"Mon, Apr 5, 2021",7:00p,New York Knicks,112.0,Brooklyn Nets,114.0
+"Mon, Apr 5, 2021",7:00p,Utah Jazz,103.0,Dallas Mavericks,111.0
+"Mon, Apr 5, 2021",7:00p,Sacramento Kings,106.0,Minnesota Timberwolves,116.0
+"Mon, Apr 5, 2021",7:00p,Detroit Pistons,132.0,Oklahoma City Thunder,108.0
+"Mon, Apr 5, 2021",7:00p,Cleveland Cavaliers,125.0,San Antonio Spurs,101.0
+"Mon, Apr 5, 2021",7:00p,Washington Wizards,101.0,Toronto Raptors,103.0
+"Mon, Apr 5, 2021",8:00p,Phoenix Suns,133.0,Houston Rockets,130.0
+"Tue, Apr 6, 2021",7:00p,Chicago Bulls,113.0,Indiana Pacers,97.0
+"Tue, Apr 6, 2021",7:30p,New Orleans Pelicans,107.0,Atlanta Hawks,123.0
+"Tue, Apr 6, 2021",7:30p,Philadelphia 76ers,106.0,Boston Celtics,96.0
+"Tue, Apr 6, 2021",7:30p,Los Angeles Lakers,110.0,Toronto Raptors,101.0
+"Tue, Apr 6, 2021",8:00p,Memphis Grizzlies,124.0,Miami Heat,112.0
+"Tue, Apr 6, 2021",9:00p,Detroit Pistons,119.0,Denver Nuggets,134.0
+"Tue, Apr 6, 2021",10:00p,Milwaukee Bucks,121.0,Golden State Warriors,122.0
+"Tue, Apr 6, 2021",10:00p,Portland Trail Blazers,116.0,Los Angeles Clippers,133.0
+"Wed, Apr 7, 2021",7:00p,Minnesota Timberwolves,137.0,Indiana Pacers,141.0
+"Wed, Apr 7, 2021",7:00p,Washington Wizards,131.0,Orlando Magic,116.0
+"Wed, Apr 7, 2021",7:30p,New York Knicks,99.0,Boston Celtics,101.0
+"Wed, Apr 7, 2021",7:30p,New Orleans Pelicans,111.0,Brooklyn Nets,139.0
+"Wed, Apr 7, 2021",8:00p,Memphis Grizzlies,131.0,Atlanta Hawks,113.0
+"Wed, Apr 7, 2021",8:00p,Dallas Mavericks,93.0,Houston Rockets,102.0
+"Wed, Apr 7, 2021",8:00p,Charlotte Hornets,113.0,Oklahoma City Thunder,102.0
+"Wed, Apr 7, 2021",9:00p,San Antonio Spurs,96.0,Denver Nuggets,106.0
+"Wed, Apr 7, 2021",10:00p,Utah Jazz,113.0,Phoenix Suns,117.0
+"Thu, Apr 8, 2021",7:30p,Los Angeles Lakers,104.0,Miami Heat,110.0
+"Thu, Apr 8, 2021",7:30p,Chicago Bulls,122.0,Toronto Raptors,113.0
+"Thu, Apr 8, 2021",8:00p,Cleveland Cavaliers,129.0,Oklahoma City Thunder,102.0
+"Thu, Apr 8, 2021",9:00p,Milwaukee Bucks,101.0,Dallas Mavericks,116.0
+"Thu, Apr 8, 2021",10:00p,Phoenix Suns,103.0,Los Angeles Clippers,113.0
+"Thu, Apr 8, 2021",10:00p,Detroit Pistons,113.0,Sacramento Kings,101.0
+"Thu, Apr 8, 2021",10:00p,Portland Trail Blazers,103.0,Utah Jazz,122.0
+"Fri, Apr 9, 2021",7:00p,Indiana Pacers,111.0,Orlando Magic,106.0
+"Fri, Apr 9, 2021",7:30p,Minnesota Timberwolves,136.0,Boston Celtics,145.0
+"Fri, Apr 9, 2021",7:30p,Memphis Grizzlies,129.0,New York Knicks,133.0
+"Fri, Apr 9, 2021",8:00p,Chicago Bulls,108.0,Atlanta Hawks,120.0
+"Fri, Apr 9, 2021",8:00p,Philadelphia 76ers,94.0,New Orleans Pelicans,101.0
+"Fri, Apr 9, 2021",9:00p,San Antonio Spurs,119.0,Denver Nuggets,121.0
+"Fri, Apr 9, 2021",9:00p,Charlotte Hornets,127.0,Milwaukee Bucks,119.0
+"Fri, Apr 9, 2021",10:00p,Washington Wizards,110.0,Golden State Warriors,107.0
+"Fri, Apr 9, 2021",10:00p,Houston Rockets,109.0,Los Angeles Clippers,126.0
+"Sat, Apr 10, 2021",7:30p,Toronto Raptors,135.0,Cleveland Cavaliers,115.0
+"Sat, Apr 10, 2021",8:30p,Los Angeles Lakers,126.0,Brooklyn Nets,101.0
+"Sat, Apr 10, 2021",9:00p,Philadelphia 76ers,117.0,Oklahoma City Thunder,93.0
+"Sat, Apr 10, 2021",9:00p,Sacramento Kings,112.0,Utah Jazz,128.0
+"Sat, Apr 10, 2021",10:00p,Houston Rockets,109.0,Golden State Warriors,125.0
+"Sat, Apr 10, 2021",10:00p,Washington Wizards,106.0,Phoenix Suns,134.0
+"Sat, Apr 10, 2021",10:00p,Detroit Pistons,103.0,Portland Trail Blazers,118.0
+"Sun, Apr 11, 2021",1:00p,Atlanta Hawks,105.0,Charlotte Hornets,101.0
+"Sun, Apr 11, 2021",3:00p,Boston Celtics,105.0,Denver Nuggets,87.0
+"Sun, Apr 11, 2021",7:00p,New Orleans Pelicans,116.0,Cleveland Cavaliers,109.0
+"Sun, Apr 11, 2021",7:00p,Milwaukee Bucks,124.0,Orlando Magic,87.0
+"Sun, Apr 11, 2021",8:00p,San Antonio Spurs,119.0,Dallas Mavericks,117.0
+"Sun, Apr 11, 2021",8:00p,Indiana Pacers,132.0,Memphis Grizzlies,125.0
+"Sun, Apr 11, 2021",8:00p,Chicago Bulls,117.0,Minnesota Timberwolves,121.0
+"Sun, Apr 11, 2021",8:00p,Toronto Raptors,96.0,New York Knicks,102.0
+"Sun, Apr 11, 2021",10:00p,Detroit Pistons,124.0,Los Angeles Clippers,131.0
+"Sun, Apr 11, 2021",10:00p,Miami Heat,107.0,Portland Trail Blazers,98.0
+"Mon, Apr 12, 2021",7:30p,Philadelphia 76ers,113.0,Dallas Mavericks,95.0
+"Mon, Apr 12, 2021",7:30p,Los Angeles Lakers,96.0,New York Knicks,111.0
+"Mon, Apr 12, 2021",8:00p,San Antonio Spurs,120.0,Orlando Magic,97.0
+"Mon, Apr 12, 2021",9:00p,Chicago Bulls,90.0,Memphis Grizzlies,101.0
+"Mon, Apr 12, 2021",9:00p,Sacramento Kings,110.0,New Orleans Pelicans,117.0
+"Mon, Apr 12, 2021",9:00p,Washington Wizards,125.0,Utah Jazz,121.0
+"Mon, Apr 12, 2021",10:00p,Denver Nuggets,107.0,Golden State Warriors,116.0
+"Mon, Apr 12, 2021",10:00p,Houston Rockets,120.0,Phoenix Suns,126.0
+"Tue, Apr 13, 2021",4:00p,Brooklyn Nets,127.0,Minnesota Timberwolves,97.0
+"Tue, Apr 13, 2021",7:30p,Los Angeles Clippers,126.0,Indiana Pacers,115.0
+"Tue, Apr 13, 2021",7:30p,Atlanta Hawks,108.0,Toronto Raptors,103.0
+"Tue, Apr 13, 2021",8:00p,Los Angeles Lakers,101.0,Charlotte Hornets,93.0
+"Tue, Apr 13, 2021",9:00p,Oklahoma City Thunder,96.0,Utah Jazz,106.0
+"Tue, Apr 13, 2021",10:00p,Miami Heat,86.0,Phoenix Suns,106.0
+"Tue, Apr 13, 2021",10:00p,Boston Celtics,116.0,Portland Trail Blazers,115.0
+"Wed, Apr 14, 2021",4:30p,Milwaukee Bucks,130.0,Minnesota Timberwolves,105.0
+"Wed, Apr 14, 2021",7:00p,Cleveland Cavaliers,103.0,Charlotte Hornets,90.0
+"Wed, Apr 14, 2021",7:00p,Brooklyn Nets,117.0,Philadelphia 76ers,123.0
+"Wed, Apr 14, 2021",7:30p,San Antonio Spurs,112.0,Toronto Raptors,117.0
+"Wed, Apr 14, 2021",8:00p,Orlando Magic,115.0,Chicago Bulls,106.0
+"Wed, Apr 14, 2021",8:00p,Los Angeles Clippers,100.0,Detroit Pistons,98.0
+"Wed, Apr 14, 2021",8:00p,New York Knicks,116.0,New Orleans Pelicans,106.0
+"Wed, Apr 14, 2021",9:00p,Indiana Pacers,132.0,Houston Rockets,124.0
+"Wed, Apr 14, 2021",9:00p,Golden State Warriors,147.0,Oklahoma City Thunder,109.0
+"Wed, Apr 14, 2021",9:30p,Dallas Mavericks,114.0,Memphis Grizzlies,113.0
+"Wed, Apr 14, 2021",10:00p,Miami Heat,106.0,Denver Nuggets,123.0
+"Wed, Apr 14, 2021",10:00p,Washington Wizards,123.0,Sacramento Kings,111.0
+"Thu, Apr 15, 2021",7:30p,Milwaukee Bucks,120.0,Atlanta Hawks,109.0
+"Thu, Apr 15, 2021",8:00p,Golden State Warriors,119.0,Cleveland Cavaliers,101.0
+"Thu, Apr 15, 2021",10:00p,Boston Celtics,121.0,Los Angeles Lakers,113.0
+"Thu, Apr 15, 2021",10:00p,Sacramento Kings,114.0,Phoenix Suns,122.0
+"Fri, Apr 16, 2021",3:00p,Indiana Pacers,111.0,Utah Jazz,119.0
+"Fri, Apr 16, 2021",7:00p,Oklahoma City Thunder,104.0,Detroit Pistons,110.0
+"Fri, Apr 16, 2021",7:00p,Los Angeles Clippers,103.0,Philadelphia 76ers,106.0
+"Fri, Apr 16, 2021",7:00p,New Orleans Pelicans,115.0,Washington Wizards,117.0
+"Fri, Apr 16, 2021",7:30p,Charlotte Hornets,115.0,Brooklyn Nets,130.0
+"Fri, Apr 16, 2021",7:30p,Orlando Magic,102.0,Toronto Raptors,113.0
+"Fri, Apr 16, 2021",8:00p,Memphis Grizzlies,126.0,Chicago Bulls,115.0
+"Fri, Apr 16, 2021",8:00p,Denver Nuggets,128.0,Houston Rockets,99.0
+"Fri, Apr 16, 2021",8:00p,Miami Heat,111.0,Minnesota Timberwolves,119.0
+"Fri, Apr 16, 2021",8:30p,Portland Trail Blazers,107.0,San Antonio Spurs,106.0
+"Fri, Apr 16, 2021",9:30p,New York Knicks,117.0,Dallas Mavericks,109.0
+"Sat, Apr 17, 2021",4:30p,Utah Jazz,115.0,Los Angeles Lakers,127.0
+"Sat, Apr 17, 2021",8:00p,Cleveland Cavaliers,96.0,Chicago Bulls,106.0
+"Sat, Apr 17, 2021",8:00p,Detroit Pistons,100.0,Washington Wizards,121.0
+"Sat, Apr 17, 2021",8:30p,Golden State Warriors,114.0,Boston Celtics,119.0
+"Sat, Apr 17, 2021",9:00p,Memphis Grizzlies,128.0,Milwaukee Bucks,115.0
+"Sat, Apr 17, 2021",10:00p,San Antonio Spurs,111.0,Phoenix Suns,85.0
+"Sun, Apr 18, 2021",1:00p,Indiana Pacers,117.0,Atlanta Hawks,129.0
+"Sun, Apr 18, 2021",1:00p,New Orleans Pelicans,112.0,New York Knicks,122.0
+"Sun, Apr 18, 2021",3:30p,Brooklyn Nets,107.0,Miami Heat,109.0
+"Sun, Apr 18, 2021",7:00p,Portland Trail Blazers,101.0,Charlotte Hornets,109.0
+"Sun, Apr 18, 2021",7:00p,Houston Rockets,114.0,Orlando Magic,110.0
+"Sun, Apr 18, 2021",7:00p,Oklahoma City Thunder,106.0,Toronto Raptors,112.0
+"Sun, Apr 18, 2021",7:30p,Sacramento Kings,121.0,Dallas Mavericks,107.0
+"Sun, Apr 18, 2021",10:00p,Minnesota Timberwolves,105.0,Los Angeles Clippers,124.0
+"Mon, Apr 19, 2021",7:00p,Cleveland Cavaliers,105.0,Detroit Pistons,109.0
+"Mon, Apr 19, 2021",7:30p,Chicago Bulls,102.0,Boston Celtics,96.0
+"Mon, Apr 19, 2021",7:30p,Golden State Warriors,107.0,Philadelphia 76ers,96.0
+"Mon, Apr 19, 2021",8:00p,San Antonio Spurs,109.0,Indiana Pacers,94.0
+"Mon, Apr 19, 2021",8:00p,Houston Rockets,91.0,Miami Heat,113.0
+"Mon, Apr 19, 2021",8:00p,Phoenix Suns,128.0,Milwaukee Bucks,127.0
+"Mon, Apr 19, 2021",8:00p,Oklahoma City Thunder,107.0,Washington Wizards,119.0
+"Mon, Apr 19, 2021",9:00p,Memphis Grizzlies,137.0,Denver Nuggets,139.0
+"Mon, Apr 19, 2021",10:00p,Utah Jazz,111.0,Los Angeles Lakers,97.0
+"Tue, Apr 20, 2021",7:30p,Orlando Magic,96.0,Atlanta Hawks,112.0
+"Tue, Apr 20, 2021",7:30p,Brooklyn Nets,134.0,New Orleans Pelicans,129.0
+"Tue, Apr 20, 2021",7:30p,Charlotte Hornets,97.0,New York Knicks,109.0
+"Tue, Apr 20, 2021",10:00p,Los Angeles Clippers,113.0,Portland Trail Blazers,112.0
+"Tue, Apr 20, 2021",10:00p,Minnesota Timberwolves,134.0,Sacramento Kings,120.0
+"Wed, Apr 21, 2021",7:00p,Chicago Bulls,105.0,Cleveland Cavaliers,121.0
+"Wed, Apr 21, 2021",7:00p,Oklahoma City Thunder,116.0,Indiana Pacers,122.0
+"Wed, Apr 21, 2021",7:00p,Phoenix Suns,116.0,Philadelphia 76ers,113.0
+"Wed, Apr 21, 2021",7:00p,Brooklyn Nets,103.0,Toronto Raptors,114.0
+"Wed, Apr 21, 2021",7:00p,Golden State Warriors,114.0,Washington Wizards,118.0
+"Wed, Apr 21, 2021",8:00p,Utah Jazz,112.0,Houston Rockets,89.0
+"Wed, Apr 21, 2021",8:00p,Atlanta Hawks,127.0,New York Knicks,137.0
+"Wed, Apr 21, 2021",8:30p,Detroit Pistons,117.0,Dallas Mavericks,127.0
+"Wed, Apr 21, 2021",8:30p,Miami Heat,107.0,San Antonio Spurs,87.0
+"Wed, Apr 21, 2021",10:00p,Memphis Grizzlies,105.0,Los Angeles Clippers,117.0
+"Wed, Apr 21, 2021",10:00p,Denver Nuggets,106.0,Portland Trail Blazers,105.0
+"Wed, Apr 21, 2021",10:00p,Minnesota Timberwolves,125.0,Sacramento Kings,128.0
+"Thu, Apr 22, 2021",7:00p,Phoenix Suns,86.0,Boston Celtics,99.0
+"Thu, Apr 22, 2021",7:00p,Philadelphia 76ers,117.0,Milwaukee Bucks,124.0
+"Thu, Apr 22, 2021",7:00p,New Orleans Pelicans,135.0,Orlando Magic,100.0
+"Thu, Apr 22, 2021",8:30p,Detroit Pistons,91.0,San Antonio Spurs,106.0
+"Thu, Apr 22, 2021",9:00p,Charlotte Hornets,91.0,Chicago Bulls,108.0
+"Thu, Apr 22, 2021",9:30p,Los Angeles Lakers,110.0,Dallas Mavericks,115.0
+"Fri, Apr 23, 2021",7:30p,Miami Heat,103.0,Atlanta Hawks,118.0
+"Fri, Apr 23, 2021",7:30p,Boston Celtics,104.0,Brooklyn Nets,109.0
+"Fri, Apr 23, 2021",8:00p,Cleveland Cavaliers,102.0,Charlotte Hornets,108.0
+"Fri, Apr 23, 2021",8:00p,Los Angeles Clippers,109.0,Houston Rockets,104.0
+"Fri, Apr 23, 2021",8:00p,Washington Wizards,129.0,Oklahoma City Thunder,109.0
+"Fri, Apr 23, 2021",10:00p,Denver Nuggets,97.0,Golden State Warriors,118.0
+"Fri, Apr 23, 2021",10:00p,Memphis Grizzlies,130.0,Portland Trail Blazers,128.0
+"Sat, Apr 24, 2021",1:00p,Toronto Raptors,103.0,New York Knicks,120.0
+"Sat, Apr 24, 2021",3:30p,Philadelphia 76ers,94.0,Milwaukee Bucks,132.0
+"Sat, Apr 24, 2021",7:00p,Detroit Pistons,109.0,Indiana Pacers,115.0
+"Sat, Apr 24, 2021",8:00p,Chicago Bulls,101.0,Miami Heat,106.0
+"Sat, Apr 24, 2021",8:00p,San Antonio Spurs,110.0,New Orleans Pelicans,108.0
+"Sat, Apr 24, 2021",8:30p,Los Angeles Lakers,93.0,Dallas Mavericks,108.0
+"Sat, Apr 24, 2021",9:00p,Minnesota Timberwolves,101.0,Utah Jazz,96.0
+"Sat, Apr 24, 2021",10:00p,Houston Rockets,116.0,Denver Nuggets,129.0
+"Sun, Apr 25, 2021",1:00p,Boston Celtics,104.0,Charlotte Hornets,125.0
+"Sun, Apr 25, 2021",3:30p,Phoenix Suns,119.0,Brooklyn Nets,128.0
+"Sun, Apr 25, 2021",4:00p,Memphis Grizzlies,120.0,Portland Trail Blazers,113.0
+"Sun, Apr 25, 2021",7:00p,Cleveland Cavaliers,110.0,Washington Wizards,119.0
+"Sun, Apr 25, 2021",7:30p,Milwaukee Bucks,104.0,Atlanta Hawks,111.0
+"Sun, Apr 25, 2021",8:00p,Indiana Pacers,131.0,Orlando Magic,112.0
+"Sun, Apr 25, 2021",10:00p,Sacramento Kings,113.0,Golden State Warriors,117.0
+"Mon, Apr 26, 2021",7:00p,Atlanta Hawks,86.0,Detroit Pistons,100.0
+"Mon, Apr 26, 2021",7:00p,Los Angeles Lakers,114.0,Orlando Magic,103.0
+"Mon, Apr 26, 2021",7:00p,Oklahoma City Thunder,90.0,Philadelphia 76ers,121.0
+"Mon, Apr 26, 2021",7:00p,San Antonio Spurs,146.0,Washington Wizards,143.0
+"Mon, Apr 26, 2021",7:30p,Phoenix Suns,118.0,New York Knicks,110.0
+"Mon, Apr 26, 2021",7:30p,Cleveland Cavaliers,96.0,Toronto Raptors,112.0
+"Mon, Apr 26, 2021",8:00p,Chicago Bulls,110.0,Miami Heat,102.0
+"Mon, Apr 26, 2021",8:00p,Utah Jazz,104.0,Minnesota Timberwolves,105.0
+"Mon, Apr 26, 2021",8:00p,Los Angeles Clippers,103.0,New Orleans Pelicans,120.0
+"Mon, Apr 26, 2021",9:00p,Memphis Grizzlies,96.0,Denver Nuggets,120.0
+"Mon, Apr 26, 2021",10:00p,Dallas Mavericks,106.0,Sacramento Kings,113.0
+"Tue, Apr 27, 2021",7:00p,Oklahoma City Thunder,119.0,Boston Celtics,115.0
+"Tue, Apr 27, 2021",7:00p,Milwaukee Bucks,114.0,Charlotte Hornets,104.0
+"Tue, Apr 27, 2021",7:00p,Portland Trail Blazers,133.0,Indiana Pacers,112.0
+"Tue, Apr 27, 2021",7:30p,Brooklyn Nets,116.0,Toronto Raptors,103.0
+"Tue, Apr 27, 2021",9:00p,Minnesota Timberwolves,114.0,Houston Rockets,107.0
+"Tue, Apr 27, 2021",9:30p,Dallas Mavericks,133.0,Golden State Warriors,103.0
+"Wed, Apr 28, 2021",7:00p,Orlando Magic,109.0,Cleveland Cavaliers,104.0
+"Wed, Apr 28, 2021",7:00p,Atlanta Hawks,83.0,Philadelphia 76ers,127.0
+"Wed, Apr 28, 2021",7:30p,Charlotte Hornets,111.0,Boston Celtics,120.0
+"Wed, Apr 28, 2021",7:30p,Chicago Bulls,94.0,New York Knicks,113.0
+"Wed, Apr 28, 2021",7:30p,Los Angeles Lakers,107.0,Washington Wizards,116.0
+"Wed, Apr 28, 2021",8:00p,San Antonio Spurs,111.0,Miami Heat,116.0
+"Wed, Apr 28, 2021",9:00p,New Orleans Pelicans,112.0,Denver Nuggets,114.0
+"Wed, Apr 28, 2021",9:00p,Portland Trail Blazers,130.0,Memphis Grizzlies,109.0
+"Wed, Apr 28, 2021",10:00p,Los Angeles Clippers,101.0,Phoenix Suns,109.0
+"Wed, Apr 28, 2021",10:00p,Utah Jazz,154.0,Sacramento Kings,105.0
+"Thu, Apr 29, 2021",7:00p,Dallas Mavericks,115.0,Detroit Pistons,105.0
+"Thu, Apr 29, 2021",7:00p,Brooklyn Nets,130.0,Indiana Pacers,113.0
+"Thu, Apr 29, 2021",8:00p,Milwaukee Bucks,136.0,Houston Rockets,143.0
+"Thu, Apr 29, 2021",8:00p,Golden State Warriors,114.0,Minnesota Timberwolves,126.0
+"Thu, Apr 29, 2021",9:00p,Toronto Raptors,111.0,Denver Nuggets,121.0
+"Thu, Apr 29, 2021",9:00p,New Orleans Pelicans,109.0,Oklahoma City Thunder,95.0
+"Fri, Apr 30, 2021",7:00p,Atlanta Hawks,104.0,Philadelphia 76ers,126.0
+"Fri, Apr 30, 2021",7:30p,San Antonio Spurs,140.0,Boston Celtics,143.0
+"Fri, Apr 30, 2021",7:30p,Washington Wizards,122.0,Cleveland Cavaliers,93.0
+"Fri, Apr 30, 2021",8:00p,Portland Trail Blazers,128.0,Brooklyn Nets,109.0
+"Fri, Apr 30, 2021",8:00p,Orlando Magic,75.0,Memphis Grizzlies,92.0
+"Fri, Apr 30, 2021",9:00p,Milwaukee Bucks,108.0,Chicago Bulls,98.0
+"Fri, Apr 30, 2021",10:00p,Utah Jazz,100.0,Phoenix Suns,121.0
+"Fri, Apr 30, 2021",10:30p,Sacramento Kings,110.0,Los Angeles Lakers,106.0
+"Sat, May 1, 2021",7:00p,Detroit Pistons,94.0,Charlotte Hornets,107.0
+"Sat, May 1, 2021",7:30p,Golden State Warriors,113.0,Houston Rockets,87.0
+"Sat, May 1, 2021",8:00p,Chicago Bulls,97.0,Atlanta Hawks,108.0
+"Sat, May 1, 2021",8:00p,Miami Heat,124.0,Cleveland Cavaliers,107.0
+"Sat, May 1, 2021",8:00p,New Orleans Pelicans,140.0,Minnesota Timberwolves,136.0
+"Sat, May 1, 2021",8:00p,Indiana Pacers,152.0,Oklahoma City Thunder,95.0
+"Sat, May 1, 2021",8:00p,Memphis Grizzlies,111.0,Orlando Magic,112.0
+"Sat, May 1, 2021",9:00p,Washington Wizards,124.0,Dallas Mavericks,125.0
+"Sat, May 1, 2021",10:00p,Denver Nuggets,110.0,Los Angeles Clippers,104.0
+"Sat, May 1, 2021",10:00p,Toronto Raptors,102.0,Utah Jazz,106.0
+"Sun, May 2, 2021",3:30p,Brooklyn Nets,114.0,Milwaukee Bucks,117.0
+"Sun, May 2, 2021",7:30p,Portland Trail Blazers,129.0,Boston Celtics,119.0
+"Sun, May 2, 2021",8:00p,Miami Heat,121.0,Charlotte Hornets,111.0
+"Sun, May 2, 2021",8:00p,Sacramento Kings,111.0,Dallas Mavericks,99.0
+"Sun, May 2, 2021",8:00p,New York Knicks,122.0,Houston Rockets,97.0
+"Sun, May 2, 2021",8:00p,Phoenix Suns,123.0,Oklahoma City Thunder,120.0
+"Sun, May 2, 2021",8:00p,Philadelphia 76ers,113.0,San Antonio Spurs,111.0
+"Sun, May 2, 2021",10:00p,Toronto Raptors,121.0,Los Angeles Lakers,114.0
+"Mon, May 3, 2021",7:00p,Orlando Magic,119.0,Detroit Pistons,112.0
+"Mon, May 3, 2021",7:00p,Indiana Pacers,141.0,Washington Wizards,154.0
+"Mon, May 3, 2021",7:30p,Golden State Warriors,123.0,New Orleans Pelicans,108.0
+"Mon, May 3, 2021",8:00p,Portland Trail Blazers,114.0,Atlanta Hawks,123.0
+"Mon, May 3, 2021",9:00p,Philadelphia 76ers,106.0,Chicago Bulls,94.0
+"Mon, May 3, 2021",9:00p,New York Knicks,118.0,Memphis Grizzlies,104.0
+"Mon, May 3, 2021",10:00p,Denver Nuggets,89.0,Los Angeles Lakers,93.0
+"Mon, May 3, 2021",10:00p,San Antonio Spurs,99.0,Utah Jazz,110.0
+"Tue, May 4, 2021",7:00p,Phoenix Suns,134.0,Cleveland Cavaliers,118.0
+"Tue, May 4, 2021",7:00p,Charlotte Hornets,102.0,Detroit Pistons,99.0
+"Tue, May 4, 2021",7:30p,Brooklyn Nets,118.0,Milwaukee Bucks,124.0
+"Tue, May 4, 2021",8:00p,Dallas Mavericks,127.0,Miami Heat,113.0
+"Tue, May 4, 2021",8:00p,Golden State Warriors,103.0,New Orleans Pelicans,108.0
+"Tue, May 4, 2021",8:00p,Sacramento Kings,103.0,Oklahoma City Thunder,99.0
+"Tue, May 4, 2021",10:00p,Toronto Raptors,100.0,Los Angeles Clippers,105.0
+"Wed, May 5, 2021",7:00p,Boston Celtics,132.0,Orlando Magic,96.0
+"Wed, May 5, 2021",7:30p,Portland Trail Blazers,141.0,Cleveland Cavaliers,105.0
+"Wed, May 5, 2021",8:00p,Phoenix Suns,103.0,Atlanta Hawks,135.0
+"Wed, May 5, 2021",8:00p,Philadelphia 76ers,135.0,Houston Rockets,115.0
+"Wed, May 5, 2021",8:00p,Sacramento Kings,104.0,Indiana Pacers,93.0
+"Wed, May 5, 2021",8:00p,Washington Wizards,134.0,Milwaukee Bucks,135.0
+"Wed, May 5, 2021",8:00p,Memphis Grizzlies,139.0,Minnesota Timberwolves,135.0
+"Wed, May 5, 2021",9:00p,New York Knicks,97.0,Denver Nuggets,113.0
+"Wed, May 5, 2021",9:00p,San Antonio Spurs,94.0,Utah Jazz,126.0
+"Thu, May 6, 2021",7:00p,Chicago Bulls,120.0,Charlotte Hornets,99.0
+"Thu, May 6, 2021",7:30p,Brooklyn Nets,109.0,Dallas Mavericks,113.0
+"Thu, May 6, 2021",7:30p,Washington Wizards,131.0,Toronto Raptors,129.0
+"Thu, May 6, 2021",8:00p,Memphis Grizzlies,97.0,Detroit Pistons,111.0
+"Thu, May 6, 2021",8:00p,Atlanta Hawks,126.0,Indiana Pacers,133.0
+"Thu, May 6, 2021",10:00p,Oklahoma City Thunder,97.0,Golden State Warriors,118.0
+"Thu, May 6, 2021",10:00p,Los Angeles Lakers,94.0,Los Angeles Clippers,118.0
+"Fri, May 7, 2021",7:00p,New Orleans Pelicans,107.0,Philadelphia 76ers,109.0
+"Fri, May 7, 2021",7:30p,Boston Celtics,99.0,Chicago Bulls,121.0
+"Fri, May 7, 2021",8:00p,Orlando Magic,112.0,Charlotte Hornets,122.0
+"Fri, May 7, 2021",8:00p,Minnesota Timberwolves,112.0,Miami Heat,121.0
+"Fri, May 7, 2021",8:00p,Houston Rockets,133.0,Milwaukee Bucks,141.0
+"Fri, May 7, 2021",8:30p,Cleveland Cavaliers,90.0,Dallas Mavericks,110.0
+"Fri, May 7, 2021",9:00p,Denver Nuggets,120.0,Utah Jazz,127.0
+"Fri, May 7, 2021",10:00p,New York Knicks,105.0,Phoenix Suns,128.0
+"Fri, May 7, 2021",10:00p,Los Angeles Lakers,101.0,Portland Trail Blazers,106.0
+"Fri, May 7, 2021",10:00p,San Antonio Spurs,113.0,Sacramento Kings,104.0
+"Sat, May 8, 2021",7:00p,Washington Wizards,133.0,Indiana Pacers,132.0
+"Sat, May 8, 2021",7:00p,Detroit Pistons,104.0,Philadelphia 76ers,118.0
+"Sat, May 8, 2021",7:30p,Memphis Grizzlies,109.0,Toronto Raptors,99.0
+"Sat, May 8, 2021",10:00p,Brooklyn Nets,125.0,Denver Nuggets,119.0
+"Sat, May 8, 2021",10:00p,Oklahoma City Thunder,97.0,Golden State Warriors,136.0
+"Sat, May 8, 2021",10:00p,San Antonio Spurs,102.0,Portland Trail Blazers,124.0
+"Sat, May 8, 2021",10:00p,Houston Rockets,116.0,Utah Jazz,124.0
+"Sun, May 9, 2021",1:00p,Miami Heat,130.0,Boston Celtics,124.0
+"Sun, May 9, 2021",3:30p,New York Knicks,106.0,Los Angeles Clippers,100.0
+"Sun, May 9, 2021",7:00p,New Orleans Pelicans,112.0,Charlotte Hornets,110.0
+"Sun, May 9, 2021",7:00p,Dallas Mavericks,124.0,Cleveland Cavaliers,97.0
+"Sun, May 9, 2021",7:00p,Minnesota Timberwolves,128.0,Orlando Magic,96.0
+"Sun, May 9, 2021",8:00p,Chicago Bulls,108.0,Detroit Pistons,96.0
+"Sun, May 9, 2021",10:00p,Phoenix Suns,110.0,Los Angeles Lakers,123.0
+"Sun, May 9, 2021",10:00p,Oklahoma City Thunder,98.0,Sacramento Kings,126.0
+"Mon, May 10, 2021",7:30p,Washington Wizards,124.0,Atlanta Hawks,125.0
+"Mon, May 10, 2021",7:30p,Indiana Pacers,111.0,Cleveland Cavaliers,102.0
+"Mon, May 10, 2021",8:00p,New Orleans Pelicans,110.0,Memphis Grizzlies,115.0
+"Mon, May 10, 2021",8:30p,Milwaukee Bucks,125.0,San Antonio Spurs,146.0
+"Mon, May 10, 2021",10:00p,Utah Jazz,116.0,Golden State Warriors,119.0
+"Mon, May 10, 2021",10:00p,Houston Rockets,129.0,Portland Trail Blazers,140.0
+"Tue, May 11, 2021",7:00p,Denver Nuggets,117.0,Charlotte Hornets,112.0
+"Tue, May 11, 2021",7:00p,Minnesota Timberwolves,119.0,Detroit Pistons,100.0
+"Tue, May 11, 2021",7:30p,Miami Heat,129.0,Boston Celtics,121.0
+"Tue, May 11, 2021",7:30p,Los Angeles Clippers,115.0,Toronto Raptors,96.0
+"Tue, May 11, 2021",8:00p,Brooklyn Nets,115.0,Chicago Bulls,107.0
+"Tue, May 11, 2021",8:00p,Philadelphia 76ers,94.0,Indiana Pacers,103.0
+"Tue, May 11, 2021",8:00p,Dallas Mavericks,104.0,Memphis Grizzlies,133.0
+"Tue, May 11, 2021",9:00p,Orlando Magic,102.0,Milwaukee Bucks,114.0
+"Tue, May 11, 2021",10:00p,Phoenix Suns,116.0,Golden State Warriors,122.0
+"Tue, May 11, 2021",10:00p,New York Knicks,99.0,Los Angeles Lakers,101.0
+"Tue, May 11, 2021",10:00p,Oklahoma City Thunder,106.0,Sacramento Kings,122.0
+"Wed, May 12, 2021",7:00p,Washington Wizards,116.0,Atlanta Hawks,120.0
+"Wed, May 12, 2021",8:00p,San Antonio Spurs,116.0,Brooklyn Nets,128.0
+"Wed, May 12, 2021",8:00p,Boston Celtics,94.0,Cleveland Cavaliers,102.0
+"Wed, May 12, 2021",9:00p,New Orleans Pelicans,107.0,Dallas Mavericks,125.0
+"Wed, May 12, 2021",9:30p,Portland Trail Blazers,105.0,Utah Jazz,98.0
+"Wed, May 12, 2021",10:30p,Houston Rockets,122.0,Los Angeles Lakers,124.0
+"Thu, May 13, 2021",7:00p,Los Angeles Clippers,113.0,Charlotte Hornets,90.0
+"Thu, May 13, 2021",7:00p,Milwaukee Bucks,142.0,Indiana Pacers,133.0
+"Thu, May 13, 2021",7:30p,Orlando Magic,93.0,Atlanta Hawks,116.0
+"Thu, May 13, 2021",7:30p,Philadelphia 76ers,94.0,Miami Heat,106.0
+"Thu, May 13, 2021",7:30p,San Antonio Spurs,98.0,New York Knicks,102.0
+"Thu, May 13, 2021",8:00p,Toronto Raptors,102.0,Chicago Bulls,114.0
+"Thu, May 13, 2021",8:00p,Sacramento Kings,110.0,Memphis Grizzlies,116.0
+"Thu, May 13, 2021",8:00p,Denver Nuggets,114.0,Minnesota Timberwolves,103.0
+"Thu, May 13, 2021",10:00p,Portland Trail Blazers,117.0,Phoenix Suns,118.0
+"Fri, May 14, 2021",7:00p,Cleveland Cavaliers,105.0,Washington Wizards,120.0
+"Fri, May 14, 2021",8:00p,Denver Nuggets,104.0,Detroit Pistons,91.0
+"Fri, May 14, 2021",8:00p,Utah Jazz,109.0,Oklahoma City Thunder,93.0
+"Fri, May 14, 2021",8:00p,Orlando Magic,97.0,Philadelphia 76ers,122.0
+"Fri, May 14, 2021",9:00p,Toronto Raptors,110.0,Dallas Mavericks,114.0
+"Fri, May 14, 2021",9:00p,Los Angeles Clippers,115.0,Houston Rockets,122.0
+"Fri, May 14, 2021",9:00p,Sacramento Kings,106.0,Memphis Grizzlies,107.0
+"Fri, May 14, 2021",9:30p,New Orleans Pelicans,122.0,Golden State Warriors,125.0
+"Sat, May 15, 2021",1:00p,Chicago Bulls,91.0,Brooklyn Nets,105.0
+"Sat, May 15, 2021",1:00p,Los Angeles Lakers,122.0,Indiana Pacers,115.0
+"Sat, May 15, 2021",1:00p,Charlotte Hornets,109.0,New York Knicks,118.0
+"Sat, May 15, 2021",2:00p,Boston Celtics,124.0,Minnesota Timberwolves,108.0
+"Sat, May 15, 2021",2:00p,Phoenix Suns,140.0,San Antonio Spurs,103.0
+"Sat, May 15, 2021",8:00p,Miami Heat,108.0,Milwaukee Bucks,122.0
+"Sun, May 16, 2021",1:00p,Boston Celtics,92.0,New York Knicks,96.0
+"Sun, May 16, 2021",1:00p,Indiana Pacers,125.0,Toronto Raptors,113.0
+"Sun, May 16, 2021",1:00p,Charlotte Hornets,110.0,Washington Wizards,115.0
+"Sun, May 16, 2021",2:00p,Phoenix Suns,123.0,San Antonio Spurs,121.0
+"Sun, May 16, 2021",3:30p,Memphis Grizzlies,101.0,Golden State Warriors,113.0
+"Sun, May 16, 2021",7:00p,Houston Rockets,95.0,Atlanta Hawks,124.0
+"Sun, May 16, 2021",7:00p,Cleveland Cavaliers,109.0,Brooklyn Nets,123.0
+"Sun, May 16, 2021",7:00p,Orlando Magic,117.0,Philadelphia 76ers,128.0
+"Sun, May 16, 2021",8:00p,Miami Heat,120.0,Detroit Pistons,107.0
+"Sun, May 16, 2021",9:00p,Milwaukee Bucks,112.0,Chicago Bulls,118.0
+"Sun, May 16, 2021",9:00p,Dallas Mavericks,121.0,Minnesota Timberwolves,136.0
+"Sun, May 16, 2021",9:00p,Los Angeles Lakers,110.0,New Orleans Pelicans,98.0
+"Sun, May 16, 2021",9:00p,Los Angeles Clippers,112.0,Oklahoma City Thunder,117.0
+"Sun, May 16, 2021",9:00p,Denver Nuggets,116.0,Portland Trail Blazers,132.0
+"Sun, May 16, 2021",9:00p,Utah Jazz,121.0,Sacramento Kings,99.0
+"Tue, May 18, 2021",6:30p,Charlotte Hornets,117.0,Indiana Pacers,144.0
+"Tue, May 18, 2021",9:00p,Washington Wizards,100.0,Boston Celtics,118.0
+"Wed, May 19, 2021",7:30p,San Antonio Spurs,96.0,Memphis Grizzlies,100.0
+"Wed, May 19, 2021",10:00p,Golden State Warriors,100.0,Los Angeles Lakers,103.0
+"Thu, May 20, 2021",8:00p,Indiana Pacers,115.0,Washington Wizards,142.0
+"Fri, May 21, 2021",9:00p,Memphis Grizzlies,117.0,Golden State Warriors,112.0
+"Sat, May 22, 2021",2:00p,Miami Heat,107.0,Milwaukee Bucks,109.0
+"Sat, May 22, 2021",4:30p,Dallas Mavericks,113.0,Los Angeles Clippers,103.0
+"Sat, May 22, 2021",8:00p,Boston Celtics,93.0,Brooklyn Nets,104.0
+"Sat, May 22, 2021",10:30p,Portland Trail Blazers,123.0,Denver Nuggets,109.0
+"Sun, May 23, 2021",1:00p,Washington Wizards,118.0,Philadelphia 76ers,125.0
+"Sun, May 23, 2021",3:30p,Los Angeles Lakers,90.0,Phoenix Suns,99.0
+"Sun, May 23, 2021",7:00p,Atlanta Hawks,107.0,New York Knicks,105.0
+"Sun, May 23, 2021",9:30p,Memphis Grizzlies,112.0,Utah Jazz,109.0
+"Mon, May 24, 2021",7:30p,Miami Heat,98.0,Milwaukee Bucks,132.0
+"Mon, May 24, 2021",10:00p,Portland Trail Blazers,109.0,Denver Nuggets,128.0
+"Tue, May 25, 2021",7:30p,Boston Celtics,108.0,Brooklyn Nets,130.0
+"Tue, May 25, 2021",10:00p,Los Angeles Lakers,109.0,Phoenix Suns,102.0
+"Tue, May 25, 2021",10:30p,Dallas Mavericks,127.0,Los Angeles Clippers,121.0
+"Wed, May 26, 2021",7:00p,Washington Wizards,95.0,Philadelphia 76ers,120.0
+"Wed, May 26, 2021",7:30p,Atlanta Hawks,92.0,New York Knicks,101.0
+"Wed, May 26, 2021",10:00p,Memphis Grizzlies,129.0,Utah Jazz,141.0
+"Thu, May 27, 2021",7:30p,Milwaukee Bucks,113.0,Miami Heat,84.0
+"Thu, May 27, 2021",10:00p,Phoenix Suns,95.0,Los Angeles Lakers,109.0
+"Thu, May 27, 2021",10:30p,Denver Nuggets,120.0,Portland Trail Blazers,115.0
+"Fri, May 28, 2021",7:00p,New York Knicks,94.0,Atlanta Hawks,105.0
+"Fri, May 28, 2021",8:30p,Brooklyn Nets,119.0,Boston Celtics,125.0
+"Fri, May 28, 2021",9:30p,Los Angeles Clippers,118.0,Dallas Mavericks,108.0
+"Sat, May 29, 2021",1:30p,Milwaukee Bucks,120.0,Miami Heat,103.0
+"Sat, May 29, 2021",4:00p,Denver Nuggets,95.0,Portland Trail Blazers,115.0
+"Sat, May 29, 2021",7:00p,Philadelphia 76ers,132.0,Washington Wizards,103.0
+"Sat, May 29, 2021",9:30p,Utah Jazz,121.0,Memphis Grizzlies,111.0
+"Sun, May 30, 2021",1:00p,New York Knicks,96.0,Atlanta Hawks,113.0
+"Sun, May 30, 2021",3:30p,Phoenix Suns,100.0,Los Angeles Lakers,92.0
+"Sun, May 30, 2021",7:00p,Brooklyn Nets,141.0,Boston Celtics,126.0
+"Sun, May 30, 2021",9:30p,Los Angeles Clippers,106.0,Dallas Mavericks,81.0
+"Mon, May 31, 2021",7:00p,Philadelphia 76ers,114.0,Washington Wizards,122.0
+"Mon, May 31, 2021",9:30p,Utah Jazz,120.0,Memphis Grizzlies,113.0
+"Tue, Jun 1, 2021",7:30p,Boston Celtics,109.0,Brooklyn Nets,123.0
+"Tue, Jun 1, 2021",9:00p,Portland Trail Blazers,140.0,Denver Nuggets,147.0
+"Tue, Jun 1, 2021",10:00p,Los Angeles Lakers,85.0,Phoenix Suns,115.0
+"Wed, Jun 2, 2021",7:00p,Washington Wizards,112.0,Philadelphia 76ers,129.0
+"Wed, Jun 2, 2021",7:30p,Atlanta Hawks,103.0,New York Knicks,89.0
+"Wed, Jun 2, 2021",9:30p,Memphis Grizzlies,110.0,Utah Jazz,126.0
+"Wed, Jun 2, 2021",10:00p,Dallas Mavericks,105.0,Los Angeles Clippers,100.0
+"Thu, Jun 3, 2021",8:00p,Denver Nuggets,126.0,Portland Trail Blazers,115.0
+"Thu, Jun 3, 2021",10:30p,Phoenix Suns,113.0,Los Angeles Lakers,100.0
+"Fri, Jun 4, 2021",9:00p,Los Angeles Clippers,104.0,Dallas Mavericks,97.0
+"Sat, Jun 5, 2021",7:30p,Milwaukee Bucks,107.0,Brooklyn Nets,115.0
+"Sun, Jun 6, 2021",1:00p,Atlanta Hawks,128.0,Philadelphia 76ers,124.0
+"Sun, Jun 6, 2021",3:30p,Dallas Mavericks,111.0,Los Angeles Clippers,126.0
+"Mon, Jun 7, 2021",7:30p,Milwaukee Bucks,86.0,Brooklyn Nets,125.0
+"Mon, Jun 7, 2021",10:00p,Denver Nuggets,105.0,Phoenix Suns,122.0
+"Tue, Jun 8, 2021",7:30p,Atlanta Hawks,102.0,Philadelphia 76ers,118.0
+"Tue, Jun 8, 2021",10:00p,Los Angeles Clippers,109.0,Utah Jazz,112.0
+"Wed, Jun 9, 2021",9:30p,Denver Nuggets,98.0,Phoenix Suns,123.0
+"Thu, Jun 10, 2021",7:30p,Brooklyn Nets,83.0,Milwaukee Bucks,86.0
+"Thu, Jun 10, 2021",10:00p,Los Angeles Clippers,111.0,Utah Jazz,117.0
+"Fri, Jun 11, 2021",7:30p,Philadelphia 76ers,127.0,Atlanta Hawks,111.0
+"Fri, Jun 11, 2021",10:00p,Phoenix Suns,116.0,Denver Nuggets,102.0
+"Sat, Jun 12, 2021",8:30p,Utah Jazz,106.0,Los Angeles Clippers,132.0
+"Sun, Jun 13, 2021",3:00p,Brooklyn Nets,96.0,Milwaukee Bucks,107.0
+"Sun, Jun 13, 2021",8:00p,Phoenix Suns,125.0,Denver Nuggets,118.0
+"Mon, Jun 14, 2021",7:30p,Philadelphia 76ers,100.0,Atlanta Hawks,103.0
+"Mon, Jun 14, 2021",10:00p,Utah Jazz,104.0,Los Angeles Clippers,118.0
+"Tue, Jun 15, 2021",8:30p,Milwaukee Bucks,108.0,Brooklyn Nets,114.0
+"Wed, Jun 16, 2021",7:30p,Atlanta Hawks,109.0,Philadelphia 76ers,106.0
+"Wed, Jun 16, 2021",10:00p,Los Angeles Clippers,119.0,Utah Jazz,111.0
+"Thu, Jun 17, 2021",8:30p,Brooklyn Nets,89.0,Milwaukee Bucks,104.0
+"Fri, Jun 18, 2021",7:30p,Philadelphia 76ers,104.0,Atlanta Hawks,99.0
+"Fri, Jun 18, 2021",10:00p,Utah Jazz,119.0,Los Angeles Clippers,131.0
+"Sat, Jun 19, 2021",8:30p,Milwaukee Bucks,115.0,Brooklyn Nets,111.0
+"Sun, Jun 20, 2021",3:30p,Los Angeles Clippers,114.0,Phoenix Suns,120.0
+"Sun, Jun 20, 2021",8:00p,Atlanta Hawks,103.0,Philadelphia 76ers,96.0
+"Tue, Jun 22, 2021",9:00p,Los Angeles Clippers,103.0,Phoenix Suns,104.0
+"Wed, Jun 23, 2021",8:30p,Atlanta Hawks,116.0,Milwaukee Bucks,113.0
+"Thu, Jun 24, 2021",9:00p,Phoenix Suns,92.0,Los Angeles Clippers,106.0
+"Fri, Jun 25, 2021",8:30p,Atlanta Hawks,91.0,Milwaukee Bucks,125.0
+"Sat, Jun 26, 2021",9:00p,Phoenix Suns,84.0,Los Angeles Clippers,80.0
+"Sun, Jun 27, 2021",8:30p,Milwaukee Bucks,113.0,Atlanta Hawks,102.0
+"Mon, Jun 28, 2021",9:00p,Los Angeles Clippers,116.0,Phoenix Suns,102.0
+"Tue, Jun 29, 2021",8:30p,Milwaukee Bucks,88.0,Atlanta Hawks,110.0
+"Wed, Jun 30, 2021",9:00p,Phoenix Suns,130.0,Los Angeles Clippers,103.0

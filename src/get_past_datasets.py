@@ -1,4 +1,4 @@
-# Inside src: python get_past_datasets.py
+# python src/get_past_datasets.py
 
 # External Libraries
 from datetime import date
@@ -10,54 +10,66 @@ import logging, coloredlogs
 # Internal Libraries
 import dicts_and_lists as dal
 import Helper as Helper
+import yaml
+
+from ETL import DataTransformer
 
 # ------ Logger ------- #
 logger = logging.getLogger('get_past_datasets.py')
 coloredlogs.install(level='DEBUG')
 
-year = '2023'
-folder = 'past_data/2022-2023/'
+with open("src/configs/main_conf.yaml") as f:
+    config = yaml.safe_load(f)
 
-months = ['october', 'november', 'december'] #'january', 'february', 'march', 'april', 'may', 'june']
+year = config['years']
+folder = f'src/past_data/{year}/'
+season = config['season']
+
+months = ['october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june']
 
 for month in months:
-    url = f'https://www.basketball-reference.com/leagues/NBA_{year}_games-{month}.html'
-    df_url = pd.read_html(url)[0]
-    df_url = df_url.rename(columns=
-        {
-            'Visitor/Neutral' : 'AwayTeam',
-            'Home/Neutral' : 'HomeTeam',
-            'PTS' : 'AwayPoints',
-            'PTS.1' : 'HomePoints'
-        }
-    )
-    df_url = df_url.drop(['Unnamed: 6', 'Unnamed: 7', 'Attend.', 'Arena', 'Notes'], axis=1) # Remove non interesting columns
-    df_url = df_url.dropna(subset=['AwayPoints', 'HomePoints']) # Remove rows containing games not yet played
+    url = f'https://www.basketball-reference.com/leagues/NBA_{season}_games-{month}.html'
+    try:
+        df_url = pd.read_html(url)[0]
+        df_url = df_url.rename(columns=
+            {
+                'Visitor/Neutral' : 'AwayTeam',
+                'Home/Neutral' : 'HomeTeam',
+                'PTS' : 'AwayPoints',
+                'PTS.1' : 'HomePoints'
+            }
+        )
+        df_url = df_url.drop(['Unnamed: 6', 'Unnamed: 7', 'Attend.', 'Arena', 'Notes'], axis=1) # Remove non interesting columns
+        df_url = df_url.dropna(subset=['AwayPoints', 'HomePoints']) # Remove rows containing games not yet played
 
-    my_file = Path(os.getcwd() + '/' + folder + month + '_data.csv')
+        my_file = Path(os.getcwd() + '/' + folder + month + '_data.csv')
 
-    if not my_file.exists(): # If current data is not present in past_data folder, add it
-        df_url.to_csv(my_file, index=False) # Save the df as .csv
-        logger.info(f'An update has been made: {month}_data.csv has been created.')
-    
-    logger.info(f'{month}_data.csv is up to date.')
+        if not my_file.exists(): # If current data is not present in past_data folder, add it
+            df_url.to_csv(my_file, index=False)
+            logger.info(f'An update has been made: {month}_data.csv has been created.')
+        
+        logger.info(f'{month}_data.csv is up to date.')
+    except Exception as exc:
+        logger.info(
+            f'An exception occured while reading {month}.\nURL: {url}'
+        )
 
-# Create a big dataset
-october_df = pd.read_csv(folder + 'october_data.csv')
-november_df = pd.read_csv(folder + 'november_data.csv')
-december_df = pd.read_csv(folder + 'december_data.csv')
-#january_df = pd.read_csv(folder + 'january_data.csv')
-#february_df = pd.read_csv(folder + 'february_data.csv')
-#march_df = pd.read_csv(folder + 'march_data.csv')
-#april_df = pd.read_csv(folder + 'april_data.csv')
-#may_df = pd.read_csv(folder + 'may_data.csv')
-#june_df = pd.read_csv(folder + 'june_data.csv')
+month_dfs = []
+for month in months:
+    try:
+        month_df = pd.read_csv(f"{folder}{month}_data.csv")
+        month_dfs.append(month_df)
+    except Exception as exc:
+        logger.info(f'An exception occured while reading {month}.')
+        raise Exception
 
-season_df = pd.concat([october_df, november_df, december_df])
-season_df.to_csv(folder + '2022-2023_season.csv', index=False)
 
-"""
+season_df = pd.concat(month_dfs, ignore_index=True)
+season_df.to_csv(f"{folder}{config['years']}_season.csv", index=False)
+
 df = pd.DataFrame(columns = dal.columns_data_dict)
+
+trans = DataTransformer.Transformation(folder)
 
 for _, row in season_df.iterrows():
     print(row['HomeTeam'])
@@ -85,9 +97,9 @@ for _, row in season_df.iterrows():
             try:
                 if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'MP')])) >= 240: # Get only the full game tables
                     if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'PTS')])) == int(row['HomePoints']):
-                        Helper.append_stats_per_game(df=table, team=row['HomeTeam'])
+                        trans.append_stats_per_game(df=table, team=row['HomeTeam'])
                     else:
-                        Helper.append_stats_per_game(df=table, team=row['AwayTeam'])
+                        trans.append_stats_per_game(df=table, team=row['AwayTeam'])
             except Exception as e:
                 logger.error(e)
     except Exception as e:
@@ -115,16 +127,15 @@ df['PF']   = dal.data_dict['PF']
 df['PTS']  = dal.data_dict['PTS']
 df['+/-']  = dal.data_dict['+/-']
 
-df.to_csv(folder + 'half_stats_per_game-2017.csv', index=False)
+df.to_csv(f"{folder}half_stats_per_game-{season}.csv", index=False)
 
-Helper.split_stats_per_game(folder)
 
-df_new = pd.read_csv(folder + 'half_split_stats_per_game-2017.csv', index_col=False)
-df_old = pd.read_csv('past_data/merged_seasons/2018_to-2020_Stats.csv', index_col=False)
+trans.split_stats_per_game(f'half_stats_per_game-{season}.csv')
+
+df_new = pd.read_csv(f'{folder}half_split_stats_per_game-{season}.csv', index_col=False)
+df_old = pd.read_csv(f"src/past_data/merged_seasons/{config['available_merged_data']}_Stats.csv", index_col=False)
 
 df_new.drop('Date', axis=1, inplace=True)
 
 df = pd.concat([df_new, df_old], axis=0)
-df.to_csv('src/past_data/merged_seasons/2017_to-2020_Stats.csv', index=False)
-"""
-
+df.to_csv(f'src/past_data/merged_seasons/2017_to_{season}_Stats.csv', index=False)

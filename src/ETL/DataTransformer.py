@@ -43,8 +43,8 @@ class Transformation():
 
         return df_month, csv_path
     
-    
-    def append_stats_per_game(self, df:DataFrame, team:str):
+    @staticmethod
+    def append_stats_per_game(df:DataFrame, team:str):
         dal.data_dict['Team'].append(team)
         dal.data_dict['MP'].append(int(df.loc[df.index[-1], ('Basic Box Score Stats', 'MP')]))
         dal.data_dict['FG'].append(int(df.loc[df.index[-1], ('Basic Box Score Stats', 'FG')]))
@@ -67,8 +67,8 @@ class Transformation():
         dal.data_dict['PTS'].append(int(df.loc[df.index[-1], ('Basic Box Score Stats', 'PTS')]))
         dal.data_dict['+/-'].append(df.loc[df.index[-1], ('Basic Box Score Stats', '+/-')])
 
-
-    def assign_teams_data_to_df(self, df:DataFrame):
+    @staticmethod
+    def assign_teams_data_to_df(df:DataFrame):
         df['Team'] = dal.data_dict['Team']
         df['MP']   = dal.data_dict['MP']
         df['FG']   = dal.data_dict['FG']
@@ -92,11 +92,11 @@ class Transformation():
         df['+/-']  = dal.data_dict['+/-']
 
 
-    def split_stats_per_game(self):
+    def split_stats_per_game(self, filename='stats_per_game.csv'):
         """
         Starting from stats_per_game.csv, create a file containing on each row the stats from the two teams.
         """
-        df = pd.read_csv(self.folder + 'stats_per_game.csv', index_col=False)
+        df = pd.read_csv(self.folder + filename, index_col=False)
         
         spg_away:DataFrame = df.iloc[::2]
         spg_home:DataFrame = df.iloc[1::2]
