@@ -11,6 +11,7 @@ import logging, coloredlogs
 import dicts_and_lists as dal
 import Helper as Helper
 import yaml
+import time
 
 from ETL import DataTransformer
 
@@ -93,6 +94,7 @@ for _, row in season_df.iterrows():
 
     try:
         tables = pd.read_html(url, match='Basic')
+        time.sleep(10)
         for table in tables:
             try:
                 if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'MP')])) >= 240: # Get only the full game tables
@@ -128,7 +130,6 @@ df['PTS']  = dal.data_dict['PTS']
 df['+/-']  = dal.data_dict['+/-']
 
 df.to_csv(f"{folder}half_stats_per_game-{season}.csv", index=False)
-
 
 trans.split_stats_per_game(f'half_stats_per_game-{season}.csv')
 

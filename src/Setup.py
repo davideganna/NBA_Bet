@@ -4,12 +4,16 @@
 # ------------------------------------------------------------------------ #
 import Helper as Helper
 import logging, coloredlogs
+import yaml
 
 # ------ Logger ------- #
 logger = logging.getLogger('Setup.py')
 coloredlogs.install(level='DEBUG')
 
-years = '2022-2023'
+with open("src/configs/main_conf.yaml") as f:
+    config = yaml.safe_load(f)
+
+years = config['years']
 
 folder = f'past_data/{years}/' # Specify the current NBA season to save the .csv datasets.
 # Elo Setup

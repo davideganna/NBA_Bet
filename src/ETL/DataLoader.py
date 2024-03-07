@@ -8,6 +8,7 @@ from pathlib import Path
 from pandas.core.frame import DataFrame
 from ETL import DataExtractor
 import logging, coloredlogs
+import yaml
 pd.options.mode.chained_assignment = None
 
 # ------ Logger ------- #
@@ -20,8 +21,10 @@ class Loading():
     Data passed to this class is saved in dedicated .csv files.
     """
     def __init__(self, folder: str, years: str) -> None:
+        with open("src/configs/main_conf.yaml") as f:
+            self.config = yaml.safe_load(f)
         self.folder = folder
-        self.years = years
+        self.years = self.config['years']
 
 
     def save_df_month(self, df_month:DataFrame, current_month:str, csv_path:Path):
@@ -39,8 +42,8 @@ class Loading():
                 DataExtractor.Extraction(self.folder).get_stats_per_game(df_month)
                 season_df = pd.concat([season_df, df_month])
                 season_df = season_df.drop_duplicates().reset_index(drop=True)
-                season_df.to_csv(self.folder + '2021-2022_season.csv', index=False)
-                logger.info(f'An update has been made: rows from {current_month}_data.csv have been added to the 2021-2022_season.csv file.')
+                season_df.to_csv(self.folder + f'{self.years}_season.csv', index=False)
+                logger.info(f'An update has been made: rows from {current_month}_data.csv have been added to the {self.years}_season.csv file.')
         
         self.add_df_month_to_season_df(df_month, current_month)
                 
@@ -60,7 +63,7 @@ class Loading():
             diff = df_old.merge(df_month, how='right', indicator=True).query('_merge == "right_only"').drop('_merge', 1)
 
             # Compute the intersection between the old and the new DataFrame
-            season_df = pd.read_csv(self.folder + '2021-2022_season.csv')
+            season_df = pd.read_csv(self.folder + f'{self.years}_season.csv')
             season_df = season_df.drop_duplicates().reset_index(drop=True)
             inner_merged = pd.merge(season_df, df_month, how='inner')
 
@@ -70,8 +73,8 @@ class Loading():
                 # Update rows in the Season DataFrame
                 season_df = pd.concat([season_df, diff])
                 season_df = season_df.drop_duplicates().reset_index(drop=True)
-                season_df.to_csv(self.folder + '2021-2022_season.csv', index=False)
-                logger.info(f'An update has been made: new rows have been added to the 2021-2022_season.csv file.')
+                season_df.to_csv(self.folder + f'{self.years}_season.csv', index=False)
+                logger.info(f'An update has been made: new rows have been added to the {self.years}_season.csv file.')
                 logger.info(f'Added rows:\n {diff}')
                 
                 # Following is a pipeline of actions to be performed every time new rows are added.
@@ -90,7 +93,7 @@ class Loading():
         """
         Updates the elo.csv dataset based on the rows contained in df. 
         """
-        elo_df = pd.read_csv('src/past_data/2021-2022/elo.csv')
+        elo_df = pd.read_csv(f'src/past_data/{self.years}/elo.csv')
 
         for _, row in df.iterrows():
             away_team = row['AwayTeam']
@@ -109,9 +112,6 @@ class Loading():
         # Refactor
         elo_df = pd.read_csv('src/past_data/' + self.folder + '/elo.csv')
 
-
-
-    
 
     def save_split_stats_per_game(self, df:DataFrame):
         """

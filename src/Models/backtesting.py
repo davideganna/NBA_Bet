@@ -1,5 +1,5 @@
 # ----------------------------------- backtesting.py ----------------------------------- #
-# Allows the user to backtest a model, by iterating over the 2020-2021 Season dataset.
+# Allows the user to backtest a model, by iterating over a defined Season dataset.
 # -------------------------------------------------------------------------------------- #
 import sys
 import os

@@ -8,6 +8,7 @@ from Models import Models
 import src.Helper as Helper
 import pandas as pd
 import numpy as np
+import yaml
 
 class TelegramBot():
     """
@@ -19,10 +20,12 @@ class TelegramBot():
             lines = f.readlines()
             self.bot_token = lines[0].strip()
             self.chat_id = lines[1].strip()
+        with open("src/configs/main_conf.yaml") as f:
+            self.config = yaml.safe_load(f)
     
 
     def send_message(self, d:dict):
-        df = pd.read_csv('src/past_data/2021-2022/split_stats_per_game.csv')
+        df = pd.read_csv(f'src/past_data/{self.config['years']}/split_stats_per_game.csv')
         df = Helper.add_features_to_df(df)
 
         n = 3

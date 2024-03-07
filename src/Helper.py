@@ -14,6 +14,8 @@ from src.Models.Models import target, features
 import src.dicts_and_lists as dal
 from sklearn.preprocessing import StandardScaler
 
+import yaml
+
 pd.options.mode.chained_assignment = None
 
 # ------ Logger ------- #
@@ -42,7 +44,10 @@ def add_features_to_df(df: pd.DataFrame):
 
 
 def add_odds_to_split_df():
-    odds_df = pd.read_csv('src/past_data/2020-2021/historical_odds-2020-2021.csv', sep=';', index_col=False)
+    with open("src/configs/main_conf.yaml") as f:
+        config = yaml.safe_load(f)
+    years = config['years']
+    odds_df = pd.read_csv(f'src/past_data/{years}/historical_odds-{years}.csv', sep=';', index_col=False)
     # Compute European Odds
     odds_df = odds_df.assign(Odds = 1 + odds_df['ML']/100) # Set the winner as the Home Team
     odds_df['Odds'].loc[odds_df['ML'] < 0] = (1 + 100/(-odds_df['ML']))
@@ -68,7 +73,7 @@ def add_odds_to_split_df():
     odds_df.insert(loc=0, column='Date', value=dates_list)
     
     # Read stats_per_game.csv
-    split_stats_df = pd.read_csv('src/past_data/2020-2021/split_stats_per_game.csv')
+    split_stats_df = pd.read_csv(f'src/past_data/{years}/split_stats_per_game.csv')
     
     # Add column with odds
     split_stats_df = split_stats_df.assign(OddsAway = np.nan)
@@ -121,7 +126,7 @@ def add_odds_to_split_df():
         split_stats_df['OddsHome'].iloc[n] = round(row['OddsHome'].values[0], 2)
         split_stats_df['OddsAway'].iloc[n] = round(row['OddsAway'].values[0], 2)
 
-    split_stats_df.to_csv('src/past_data/2020-2021/split_stats_per_game.csv', index=False)
+    split_stats_df.to_csv(f'src/past_data/{years}/split_stats_per_game.csv', index=False)
 
 
 def build_elo_csv(years):

@@ -6,6 +6,7 @@ from pandas.core.frame import DataFrame
 from ETL import DataLoader
 import logging, coloredlogs
 import src.dicts_and_lists as dal
+import yaml
 pd.options.mode.chained_assignment = None
 
 # ------ Logger ------- #
@@ -20,6 +21,9 @@ class Transformation():
 
     def __init__(self, folder: str) -> None:
         self.folder = folder
+        with open("src/configs/main_conf.yaml") as f:
+            self.config = yaml.safe_load(f)
+        self.years = self.config['years']
 
 
     def polish_df_month(self, df_month: pd.DataFrame, current_month: str) -> Tuple[pd.DataFrame, str]:
@@ -117,7 +121,7 @@ class Transformation():
         df['Winner'].loc[df['PTS_away'] > df['PTS_home']] = 1 # Change to Away if PTS_away > PTS_home
 
         # Assign the date per single game based on past season DataFrame
-        season_df = pd.read_csv(self.folder + '2021-2022_season.csv', index_col=False)
+        season_df = pd.read_csv(self.folder + f'{self.years}_season.csv', index_col=False)
         df.insert(loc=0, column='Date', value=season_df['Date'])
 
         Loading = DataLoader.Loading(self.folder)

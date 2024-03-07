@@ -1,5 +1,6 @@
 from datetime import datetime, time, timedelta
 import requests
+import yaml
 
 class Api:
     """
@@ -9,8 +10,10 @@ class Api:
         self.url = 'https://v1.basketball.api-sports.io/'
         with open('secrets/api_key') as f:
             self.api_key = f.readline()
+        with open("src/configs/main_conf.yaml") as f:
+            config = yaml.safe_load(f)
         self.league = '12' # NBA League
-        self.season = '2021-2022'
+        self.season = config['years']
         self.headers = {
             'x-rapidapi-key'  : self.api_key,
             'x-rapidapi-host' : self.url
