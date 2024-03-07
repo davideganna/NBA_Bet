@@ -26,8 +26,8 @@ year = config['years']
 folder = f'src/past_data/{year}/'
 season = config['season']
 
-months = ['october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june']
-
+months = ['october']#, 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june']
+""" 
 for month in months:
     url = f'https://www.basketball-reference.com/leagues/NBA_{season}_games-{month}.html'
     try:
@@ -50,10 +50,13 @@ for month in months:
             logger.info(f'An update has been made: {month}_data.csv has been created.')
         
         logger.info(f'{month}_data.csv is up to date.')
+        # Avoid multiple requests error
+        time.sleep(10)
     except Exception as exc:
         logger.info(
             f'An exception occured while reading {month}.\nURL: {url}'
         )
+         """
 
 month_dfs = []
 for month in months:
@@ -63,7 +66,6 @@ for month in months:
     except Exception as exc:
         logger.info(f'An exception occured while reading {month}.')
         raise Exception
-
 
 season_df = pd.concat(month_dfs, ignore_index=True)
 season_df.to_csv(f"{folder}{config['years']}_season.csv", index=False)
@@ -94,7 +96,8 @@ for _, row in season_df.iterrows():
 
     try:
         tables = pd.read_html(url, match='Basic')
-        time.sleep(10)
+        # Avoid multiple requests error
+        time.sleep(3)
         for table in tables:
             try:
                 if (int(table.loc[table.index[-1], ('Basic Box Score Stats', 'MP')])) >= 240: # Get only the full game tables

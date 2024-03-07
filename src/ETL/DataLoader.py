@@ -20,7 +20,7 @@ class Loading():
     Loading represents the third and final module in the ETL pipeline.
     Data passed to this class is saved in dedicated .csv files.
     """
-    def __init__(self, folder: str, years: str) -> None:
+    def __init__(self, folder: str) -> None:
         with open("src/configs/main_conf.yaml") as f:
             self.config = yaml.safe_load(f)
         self.folder = folder

@@ -118,7 +118,7 @@ class Transformation():
         
         # Assign a column containing the winner: 0 = Home, 1 = Away
         df = df.assign(Winner = 0) # Set the winner as the Home Team
-        df['Winner'].loc[df['PTS_away'] > df['PTS_home']] = 1 # Change to Away if PTS_away > PTS_home
+        df.loc[df['PTS_away'] > df['PTS_home'], 'Winner'] = 1 # Change to Away if PTS_away > PTS_home
 
         # Assign the date per single game based on past season DataFrame
         season_df = pd.read_csv(self.folder + f'{self.years}_season.csv', index_col=False)
