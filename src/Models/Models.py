@@ -20,6 +20,7 @@ def build_RF_classifier(df: DataFrame):
     rf_clf.fit(X_train, y_train.values.ravel())
     return rf_clf
 
+
 # Define the target
 target = "Winner"
 
@@ -62,6 +63,3 @@ away_features = [
 ]
 
 features = away_features + home_features
-
-
-

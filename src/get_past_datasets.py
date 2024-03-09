@@ -29,7 +29,9 @@ years = config["years"]
 folder = f"src/past_data/{years}/"
 season = config["season"]
 
-""" months = [
+trans = DataTransformer.Transformation(folder)
+
+months = [
     "october",
     "november",
     "december",
@@ -47,27 +49,13 @@ for month in months:
     )
     try:
         df_url = pd.read_html(url)[0]
-        df_url = df_url.rename(
-            columns={
-                "Visitor/Neutral": "AwayTeam",
-                "Home/Neutral": "HomeTeam",
-                "PTS": "AwayPoints",
-                "PTS.1": "HomePoints",
-            }
-        )
-        df_url = df_url.drop(
-            ["Unnamed: 6", "Unnamed: 7", "Attend.", "Arena", "Notes"], axis=1
-        )  # Remove non interesting columns
-        df_url = df_url.dropna(
-            subset=["AwayPoints", "HomePoints"]
-        )  # Remove rows containing games not yet played
-
-        my_file = Path(os.getcwd() + "/" + folder + month + "_data.csv")
+        csv_path: Path
+        df_month, csv_path = trans.polish_df_month(df_url, current_month=month)
 
         if (
-            not my_file.exists()
+            not csv_path.exists()
         ):  # If current data is not present in past_data folder, add it
-            df_url.to_csv(my_file, index=False)
+            df_month.to_csv(csv_path, index=False)
             logger.info(f"An update has been made: {month}_data.csv has been created.")
 
         logger.info(f"{month}_data.csv is up to date.")
@@ -89,8 +77,6 @@ season_df = pd.concat(month_dfs, ignore_index=True)
 season_df.to_csv(f"{folder}{config['years']}_season.csv", index=False)
 
 df = pd.DataFrame(columns=dal.columns_data_dict)
-
-trans = DataTransformer.Transformation(folder)
 
 for _, row in season_df.iterrows():
     logger.info(row["HomeTeam"])
@@ -170,7 +156,7 @@ df["+/-"] = data_dict["+/-"]
 
 df.to_csv(f"{folder}half_stats_per_game-{season}.csv", index=False)
 
-trans.split_stats_per_game(f"half_stats_per_game-{season}.csv") """
+trans.split_stats_per_game(f"half_stats_per_game-{season}.csv")
 
 split_df = pd.read_csv(f"{folder}split_stats_per_game.csv")
 
