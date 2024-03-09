@@ -4,14 +4,14 @@ from pandas.core.frame import DataFrame
 import src.dicts_and_lists as dal
 
 # Functions
-def update(row):
+def update_row(row):
     """
     Used in backtesting. Updates the Elo rating for team_A and team_B for a single row.
     Returns the updated row.
     """
-    away_team = row["AwayTeam"]
-    home_team = row["HomeTeam"]
-    winner = 0 if row["HomePoints"] > row["AwayPoints"] else 1
+    away_team = row["Team_away"]
+    home_team = row["Team_home"]
+    winner = 0 if row["PTS_home"] > row["PTS_away"] else 1
     # Current Elo ratings for away_team and home_team
     elo_away_team = dal.current_team_Elo[away_team]
     elo_home_team = dal.current_team_Elo[home_team]
@@ -21,11 +21,11 @@ def update(row):
     exp_win_home_team = 1 / (1 + 10 ** ((elo_away_team - elo_home_team) / 400))
 
     # Define the K-Factor as K: the maximum possible adjustment per game.
-    if abs(row["HomePoints"] - row["AwayPoints"]) > 15:
+    if abs(row["PTS_home"] - row["PTS_away"]) > 15:
         K = 30
-    elif abs(row["HomePoints"] - row["AwayPoints"]) > 9:
+    elif abs(row["PTS_home"] - row["PTS_away"]) > 9:
         K = 15
-    elif abs(row["HomePoints"] - row["AwayPoints"]) > 5:
+    elif abs(row["PTS_home"] - row["PTS_away"]) > 5:
         K = 7
     else:
         K = 0
@@ -71,6 +71,23 @@ def update_DataFrame(
     elo_df.loc[elo_df["Team"] == away_team, "Elo"] = elo_away_team_updated
     elo_df.loc[elo_df["Team"] == home_team, "Elo"] = elo_home_team_updated
     return elo_df
+
+
+def add_elo_to_df(folder):
+    """
+    Iteratively adds the Elo for each match.
+    Saves the 
+    """
+    df = pd.read_csv(f'{folder}split_stats_per_game.csv')
+    # TODO put in config
+    df['Elo_home'] = None
+    df['Elo_away'] = None
+    for ix, row in df.iterrows():
+        df.iloc[ix] = update_row(row)
+
+    df.to_csv(
+        f"{folder}split_stats_per_game.csv", index=False
+    )
 
 
 def get_probas(away_team, home_team, years):

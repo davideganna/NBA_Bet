@@ -14,6 +14,7 @@ import dicts_and_lists as dal
 import Helper as Helper
 import yaml
 import time
+import elo
 
 from ETL import DataTransformer
 
@@ -24,11 +25,11 @@ coloredlogs.install(level="DEBUG")
 with open("src/configs/main_conf.yaml") as f:
     config = yaml.safe_load(f)
 
-year = config["years"]
-folder = f"src/past_data/{year}/"
+years = config["years"]
+folder = f"src/past_data/{years}/"
 season = config["season"]
 
-months = [
+""" months = [
     "october",
     "november",
     "december",
@@ -92,8 +93,8 @@ df = pd.DataFrame(columns=dal.columns_data_dict)
 trans = DataTransformer.Transformation(folder)
 
 for _, row in season_df.iterrows():
-    print(row["HomeTeam"])
-    print(row["AwayTeam"])
+    logger.info(row["HomeTeam"])
+    logger.info(row["AwayTeam"])
     try:
         date = row["Date"].partition(", ")[2]
         month = dal.months_dict[date[:3]]
@@ -169,9 +170,19 @@ df["+/-"] = data_dict["+/-"]
 
 df.to_csv(f"{folder}half_stats_per_game-{season}.csv", index=False)
 
-trans.split_stats_per_game(f"half_stats_per_game-{season}.csv")
+trans.split_stats_per_game(f"half_stats_per_game-{season}.csv") """
 
-# TODO read split stats per game and construct a bigger dataset
+split_df = pd.read_csv(f'{folder}split_stats_per_game.csv')
+
+df = Helper.add_features_to_df(split_df)
+
+df.to_csv(f'{folder}split_stats_per_game.csv', index=False)
+
+elo.add_elo_to_df(folder)
+
+# TODO add merged data up to season just processed
+# TODO look at build_merged_seasons():
+
 """
 df_new = pd.read_csv(f'{folder}split_stats_per_game-{season}.csv', index_col=False)
 df_old = pd.read_csv(f"src/past_data/merged_seasons/{config['available_merged_data']}_Stats.csv", index_col=False)

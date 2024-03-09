@@ -86,19 +86,19 @@ def extract_and_insert(
 
 
 def build_moving_average_dataset(average_N, skip_n, leave_out=None):
-    df_2017 = pd.read_csv("src/past_data/2017-2018/split_stats_per_game-2017.csv")
-    df_2018 = pd.read_csv("src/past_data/2018-2019/split_stats_per_game-2018.csv")
-    if leave_out != "2019":
-        df_2019 = pd.read_csv("src/past_data/2019-2020/split_stats_per_game_2019.csv")
-    if leave_out != "2020":
-        df_2020 = pd.read_csv("src/past_data/2020-2021/split_stats_per_game.csv")
+    df_2017 = pd.read_csv("src/past_data/2017-2018/split_stats_per_game.csv")
+    df_2018 = pd.read_csv("src/past_data/2018-2019/split_stats_per_game.csv")
+    df_2019 = pd.read_csv("src/past_data/2019-2020/split_stats_per_game.csv")
+    df_2020 = pd.read_csv("src/past_data/2020-2021/split_stats_per_game.csv")
     df_2021 = pd.read_csv("src/past_data/2021-2022/split_stats_per_game.csv")
+
     df_2021 = add_features_to_df(df_2021)
 
-    print(
+    logger.info(
         f"Averaging the datasets. MA: {average_N} games, first {skip_n} games are skipped."
     )
 
+    # FIXME Improve using config
     if leave_out == "2019":
         df_list = [df_2017, df_2018, df_2020, df_2021]
     elif leave_out == "2020":

@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime, date, timedelta
 import numpy as np
 import os
-import src.Elo as Elo
+import src.elo as elo
 import src.dicts_and_lists as dal
 from pathlib import Path
 from pandas.core.frame import DataFrame
@@ -129,7 +129,7 @@ class Loading:
                 winner = 1
             elif home_pts > away_pts:
                 winner = 0
-            elo_df = Elo.update_DataFrame(
+            elo_df = elo.update_DataFrame(
                 elo_df, away_team, home_team, away_pts, home_pts, winner
             )
 

@@ -8,7 +8,6 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 # External Libraries
 import pandas as pd
 import numpy as np
-import src.Elo as Elo
 import logging, coloredlogs
 from src.Models.Models import target, features
 import src.dicts_and_lists as dal
@@ -38,7 +37,7 @@ def add_features_to_df(df: pd.DataFrame):
     df["TS%_away"] = df["PTS_away"] / (2 * df["FGA_away"] + (0.44 * df["FTA_away"]))
     # Team at home won the match
     df = df.assign(HomeTeamWon=1)
-    df["HomeTeamWon"].loc[(df["PTS_away"] > df["PTS_home"])] = 0
+    df.loc[(df["PTS_away"] > df["PTS_home"]), "HomeTeamWon"] = 0
 
     return df
 
@@ -129,8 +128,8 @@ def add_odds_to_split_df():
                 & (odds_df["Final_away"] == row["PTS_away"])
                 & (odds_df["Date"] == int(month + day))
             ]
-        print(row["Date"])
-        print(row["Team_away"], row["Team_home"])
+        logger.info(row["Date"])
+        logger.info(row["Team_away"], row["Team_home"])
         split_stats_df["OddsHome"].iloc[n] = round(row["OddsHome"].values[0], 2)
         split_stats_df["OddsAway"].iloc[n] = round(row["OddsAway"].values[0], 2)
 
@@ -139,31 +138,7 @@ def add_odds_to_split_df():
     )
 
 
-def build_elo_csv(years):
-    """
-    Re-Builds the Elo DataFrame starting from the first match in the season.
-    Saves the DataFrame in a .csv file.
-    """
-    df = pd.read_csv(f"past_data/{years}/{years}_season.csv")
-    elo_df = pd.DataFrame(dal.teams, columns=["Team"])
-    elo_df["Elo"] = 1500
-    for _, row in df.iterrows():
-        away_team = row["AwayTeam"]
-        home_team = row["HomeTeam"]
-        away_pts = row["AwayPoints"]
-        home_pts = row["HomePoints"]
 
-        if away_pts > home_pts:
-            winner = 1
-        elif home_pts > away_pts:
-            winner = 0
-        elo_df = Elo.update_DataFrame(
-            elo_df, away_team, home_team, away_pts, home_pts, winner
-        )
-
-    elo_df.sort_values(by="Elo", ascending=False).to_csv(
-        f"past_data/{years}/elo.csv", index=False
-    )
 
 
 def build_merged_seasons():
@@ -183,6 +158,7 @@ def build_merged_seasons():
 
 
 def build_season_df(folder, years):
+    # TODO make it dynamic
     october_df = pd.read_csv(folder + "october_data.csv")
     november_df = pd.read_csv(folder + "november_data.csv")
 
@@ -193,7 +169,6 @@ def build_season_df(folder, years):
 def standardize_DataFrame(df: pd.DataFrame) -> Tuple[pd.DataFrame, StandardScaler]:
     # Standardize the DataFrame
     x = df.loc[:, features].values
-    y = df.loc[:, [target]].values
 
     scaler = StandardScaler()
     x = scaler.fit_transform(x)

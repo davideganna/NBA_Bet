@@ -1,9 +1,3 @@
-import sys
-import os
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
-
 import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
@@ -13,9 +7,7 @@ from Models.Models import (
     away_features,
     home_features,
     features,
-    build_DT_classifier,
     build_RF_classifier,
-    build_XGBoostClassifier,
 )
 import src.Helper as Helper
 import Models.moving_average_dataset
@@ -156,7 +148,7 @@ else:
     logger.error("Specify a valid year to backtest. [2019 or 2020]")
     sys.exit()
 
-print(f"Stats averaged from {average_N} games, first {skip_n} games are skipped.")
+logger.info(f"Stats averaged from {average_N} games, first {skip_n} games are skipped.")
 
 for skip_n_games in range(skip_n, 50 - average_N):
     last_N_games_away, last_N_games_home = backtesting.get_first_N_games(
@@ -210,7 +202,7 @@ for skip_n_games in range(skip_n, 50 - average_N):
             if next_game_index in next_games_away_indexes[skip_n + average_N :]:
                 extract_and_predict(next_game)
 
-    print(f"Evaluated samples: {len(predictions)}")
+    logger.info(f"Evaluated samples: {len(predictions)}")
 
 # Evaluate the predictions
 data = {
@@ -381,7 +373,7 @@ merged_df["Bankroll"] = bankroll
 bet_df = merged_df.copy()
 bet_df = bet_df.loc[bet_df["BetAmount"] > 0]
 bet_df.reset_index(drop=True, inplace=True)
-print(
+logger.info(
     bet_df[
         [
             "index",
@@ -401,8 +393,8 @@ print(
         ]
     ]
 )
-print(f"Net return: {current_bankroll-starting_bankroll:.2f} €")
-print(f"Net return per €: {(current_bankroll/starting_bankroll):.2f}")
+logger.info(f"Net return: {current_bankroll-starting_bankroll:.2f} €")
+logger.info(f"Net return per €: {(current_bankroll/starting_bankroll):.2f}")
 
 
 # Calculate accuracy of predicted teams, when they were the favorite by a margin
@@ -419,7 +411,7 @@ else:
 
 # Confusion Matrix
 conf_matrix = confusion_matrix(bet_df["Predictions"], bet_df["Winner"])
-print(conf_matrix)
+logger.info(conf_matrix)
 
 # Plot the results
 ax = bet_df["Bankroll"].plot(grid=True)

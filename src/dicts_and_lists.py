@@ -1,7 +1,6 @@
 # ------------------------------- dicts_and_lists.py ------------------------------- #
 # Contains a collection of Lists and Dictionaries used throughout the program.
 # ---------------------------------------------------------------------------------- #
-import numpy as np
 
 ##### Teams list #####
 teams = [
@@ -121,36 +120,36 @@ teams_to_int = {
 }
 
 current_team_Elo = {
-    "Atlanta Hawks": np.nan,
-    "Boston Celtics": np.nan,
-    "Brooklyn Nets": np.nan,
-    "Charlotte Hornets": np.nan,
-    "Chicago Bulls": np.nan,
-    "Cleveland Cavaliers": np.nan,
-    "Dallas Mavericks": np.nan,
-    "Denver Nuggets": np.nan,
-    "Detroit Pistons": np.nan,
-    "Golden State Warriors": np.nan,
-    "Houston Rockets": np.nan,
-    "Indiana Pacers": np.nan,
-    "Los Angeles Clippers": np.nan,
-    "Los Angeles Lakers": np.nan,
-    "Memphis Grizzlies": np.nan,
-    "Miami Heat": np.nan,
-    "Milwaukee Bucks": np.nan,
-    "Minnesota Timberwolves": np.nan,
-    "New Orleans Pelicans": np.nan,
-    "New York Knicks": np.nan,
-    "Oklahoma City Thunder": np.nan,
-    "Orlando Magic": np.nan,
-    "Philadelphia 76ers": np.nan,
-    "Phoenix Suns": np.nan,
-    "Portland Trail Blazers": np.nan,
-    "Sacramento Kings": np.nan,
-    "San Antonio Spurs": np.nan,
-    "Toronto Raptors": np.nan,
-    "Utah Jazz": np.nan,
-    "Washington Wizards": np.nan,
+    "Atlanta Hawks": 1500,
+    "Boston Celtics": 1500,
+    "Brooklyn Nets": 1500,
+    "Charlotte Hornets": 1500,
+    "Chicago Bulls": 1500,
+    "Cleveland Cavaliers": 1500,
+    "Dallas Mavericks": 1500,
+    "Denver Nuggets": 1500,
+    "Detroit Pistons": 1500,
+    "Golden State Warriors": 1500,
+    "Houston Rockets": 1500,
+    "Indiana Pacers": 1500,
+    "Los Angeles Clippers": 1500,
+    "Los Angeles Lakers": 1500,
+    "Memphis Grizzlies": 1500,
+    "Miami Heat": 1500,
+    "Milwaukee Bucks": 1500,
+    "Minnesota Timberwolves": 1500,
+    "New Orleans Pelicans": 1500,
+    "New York Knicks": 1500,
+    "Oklahoma City Thunder": 1500,
+    "Orlando Magic": 1500,
+    "Philadelphia 76ers": 1500,
+    "Phoenix Suns": 1500,
+    "Portland Trail Blazers": 1500,
+    "Sacramento Kings": 1500,
+    "San Antonio Spurs": 1500,
+    "Toronto Raptors": 1500,
+    "Utah Jazz": 1500,
+    "Washington Wizards": 1500,
 }
 
 # Last away and home game indexes.

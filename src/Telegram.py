@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------- #
 from numpy.core.fromnumeric import around, std
 import requests
-import src.Elo as Elo
+import src.elo as elo
 from Models import Models
 import src.Helper as Helper
 import pandas as pd
@@ -58,7 +58,7 @@ class TelegramBot:
                 scaler.transform(to_predict.values.reshape(1, -1))
             )[0]
 
-            prob_away_elo, prob_home_elo = Elo.get_probas(away, home)
+            prob_away_elo, prob_home_elo = elo.get_probas(away, home)
 
             if (prob_home_rf > 0.5) and (prob_home_elo > 0.5):
                 prob_home = str(around((prob_home_rf + prob_home_elo) / 2, decimals=3))
