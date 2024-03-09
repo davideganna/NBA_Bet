@@ -4,6 +4,22 @@ from sklearn.ensemble import RandomForestClassifier
 
 pd.options.mode.chained_assignment = None
 
+# TODO write a class
+def build_RF_classifier(df: DataFrame):
+    """
+    Builds a Random Forest Classifier.
+    """
+    # Split into train and test
+    X_train, y_train = df[features], df[[target]]
+    # Define a Random Forest Classifier
+    rf_clf = RandomForestClassifier(
+        n_estimators=500,
+        n_jobs=-1,
+        random_state=42,
+    )
+    rf_clf.fit(X_train, y_train.values.ravel())
+    return rf_clf
+
 # Define the target
 target = "Winner"
 
@@ -48,17 +64,4 @@ away_features = [
 features = away_features + home_features
 
 
-def build_RF_classifier(df: DataFrame):
-    """
-    Builds a Random Forest Classifier.
-    """
-    # Split into train and test
-    X_train, y_train = df[features], df[[target]]
-    # Define a Random Forest Classifier
-    rf_clf = RandomForestClassifier(
-        n_estimators=500,
-        n_jobs=-1,
-        random_state=42,
-    )
-    rf_clf.fit(X_train, y_train.values.ravel())
-    return rf_clf
+

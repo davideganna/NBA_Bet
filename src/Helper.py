@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 import pandas as pd
 import numpy as np
 import logging, coloredlogs
-from src.Models.Models import target, features
+from src.models.models import target, features
 import src.dicts_and_lists as dal
 from sklearn.preprocessing import StandardScaler
 
@@ -18,7 +18,7 @@ import yaml
 pd.options.mode.chained_assignment = None
 
 # ------ Logger ------- #
-logger = logging.getLogger("Helper.py")
+logger = logging.getLogger("helper.py")
 coloredlogs.install(level="DEBUG")
 
 # Functions
@@ -136,9 +136,6 @@ def add_odds_to_split_df():
     split_stats_df.to_csv(
         f"src/past_data/{years}/split_stats_per_game.csv", index=False
     )
-
-
-
 
 
 def build_merged_seasons():

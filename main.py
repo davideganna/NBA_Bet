@@ -11,9 +11,9 @@
 import logging, coloredlogs
 import pandas as pd
 import yaml
-from src.Api import Api
-from src.Models.moving_average_dataset import build_moving_average_dataset
-from src.Telegram import TelegramBot
+from src.api import Api
+from src.models.moving_average_dataset import build_moving_average_dataset
+from src.telegram import telegramBot
 from src.ETL import DataExtractor, DataTransformer, DataLoader
 
 
@@ -47,7 +47,7 @@ try:
     season_df = pd.read_csv(path)
 except Exception as exc:
     logger.error(
-        'The program could not access the .csv datasets. Be sure to run "Setup.py" before "main.py".\n'
+        'The program could not access the .csv datasets. Be sure to run "setup.py" before "main.py".\n'
         "Alternatively, check that the path to the folder where the .csv files are located is correct.\n"
         f'Exception: "{exc}"\n'
         f"Path: {path}"
@@ -56,5 +56,5 @@ else:
     # Full ETL Pipeline
     etl_pipeline()
 
-    # Telegram integration
-    TelegramBot().send_message(Api().get_tonights_games())
+    # telegram integration
+    telegramBot().send_message(Api().get_tonights_games())

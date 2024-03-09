@@ -11,7 +11,7 @@ import logging, coloredlogs
 
 # Internal Libraries
 import dicts_and_lists as dal
-import Helper as Helper
+import helper as helper
 import yaml
 import time
 import elo
@@ -172,11 +172,11 @@ df.to_csv(f"{folder}half_stats_per_game-{season}.csv", index=False)
 
 trans.split_stats_per_game(f"half_stats_per_game-{season}.csv") """
 
-split_df = pd.read_csv(f'{folder}split_stats_per_game.csv')
+split_df = pd.read_csv(f"{folder}split_stats_per_game.csv")
 
-df = Helper.add_features_to_df(split_df)
+df = helper.add_features_to_df(split_df)
 
-df.to_csv(f'{folder}split_stats_per_game.csv', index=False)
+df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
 
 elo.add_elo_to_df(folder)
 

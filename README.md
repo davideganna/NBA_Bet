@@ -3,7 +3,7 @@
 NBA Bet is an experimental software which aims at predicting the outcome probability of NBA games by the utilization of ML (and non-ML) models.
 After a result has been predicted, NBA Bet reaches a bookmaker of choice (currently testing with *SkyBet*) to get the odds for the predicted match.
 
-The software is suitable for running continuously (e.g., by running it on a Raspberry Pi) and features a [telegram integration module](https://github.com/davideganna/NBA_Bet/blob/435dd874b8ccd60744a2b51cdb09f1aa9bfe320e/NBABet/Telegram.py) which can be used to get notified if a particular match is profitable.
+The software is suitable for running continuously (e.g., by running it on a Raspberry Pi) and features a [telegram integration module](https://github.com/davideganna/NBA_Bet/blob/435dd874b8ccd60744a2b51cdb09f1aa9bfe320e/NBABet/telegram.py) which can be used to get notified if a particular match is profitable.
 
 But what does _profitable_ mean?
 

@@ -76,18 +76,16 @@ def update_DataFrame(
 def add_elo_to_df(folder):
     """
     Iteratively adds the Elo for each match.
-    Saves the 
+    Saves the
     """
-    df = pd.read_csv(f'{folder}split_stats_per_game.csv')
+    df = pd.read_csv(f"{folder}split_stats_per_game.csv")
     # TODO put in config
-    df['Elo_home'] = None
-    df['Elo_away'] = None
+    df["Elo_home"] = None
+    df["Elo_away"] = None
     for ix, row in df.iterrows():
         df.iloc[ix] = update_row(row)
 
-    df.to_csv(
-        f"{folder}split_stats_per_game.csv", index=False
-    )
+    df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
 
 
 def get_probas(away_team, home_team, years):

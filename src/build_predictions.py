@@ -2,17 +2,17 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
-import Models
-from Models.Models import (
+import models
+from models.models import (
     away_features,
     home_features,
     features,
     build_RF_classifier,
 )
-import src.Helper as Helper
-import Models.moving_average_dataset
-import Models.backtesting as backtesting
-import Models.elo_model as elo_model
+import src.helper as helper
+import models.moving_average_dataset
+import models.backtesting as backtesting
+import models.elo_model as elo_model
 import src.dicts_and_lists as dal
 import logging, coloredlogs
 
@@ -94,7 +94,7 @@ home_features = home_features
 train_df = pd.read_csv("src/past_data/average_seasons/average_N_4Seasons.csv")
 
 # Standardize the DataFrame
-std_df, scaler = Helper.standardize_DataFrame(train_df)
+std_df, scaler = helper.standardize_DataFrame(train_df)
 
 ### Test the Classification model based on the mean of the last average_N games ###
 logger.info(
@@ -112,13 +112,13 @@ elif inp == "2":
     logger.info("Building a Random Forest Classifier...")
     clf = build_RF_classifier(std_df)
 elif inp == "3":
-    Models.moving_average_dataset.build_moving_average_dataset(
+    models.moving_average_dataset.build_moving_average_dataset(
         average_N, skip_n, leave_out=leave_out
     )
     train_df = pd.read_csv("src/past_data/average_seasons/average_N_4Seasons.csv")
 
     # Standardize the DataFrame
-    std_df, scaler = Helper.standardize_DataFrame(train_df)
+    std_df, scaler = helper.standardize_DataFrame(train_df)
 
     logger.info("Building a Random Forest Classifier...")
     clf = build_RF_classifier(std_df)

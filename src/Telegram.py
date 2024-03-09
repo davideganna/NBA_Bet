@@ -1,19 +1,19 @@
-# --------------------- Telegram.py --------------------------------- #
-# Allows the integration with Telegram Bot.
+# --------------------- telegram.py --------------------------------- #
+# Allows the integration with telegram Bot.
 # ------------------------------------------------------------------- #
 from numpy.core.fromnumeric import around, std
 import requests
 import src.elo as elo
-from Models import Models
-import src.Helper as Helper
+from models import models
+import src.helper as helper
 import pandas as pd
 import numpy as np
 import yaml
 
 
-class TelegramBot:
+class telegramBot:
     """
-    Allows integration with the Telegram Bot.
+    Allows integration with the telegram Bot.
     """
 
     def __init__(self):
@@ -29,7 +29,7 @@ class TelegramBot:
         # Read up-to-date data
         _path = f"src/past_data/{self.config['years']}/split_stats_per_game.csv"
         df = pd.read_csv(_path)
-        df = Helper.add_features_to_df(df)
+        df = helper.add_features_to_df(df)
 
         n = 3
 
@@ -37,9 +37,9 @@ class TelegramBot:
             "src/past_data/average_seasons/average_NSeasons_prod.csv"
         )
         # Standardize the DataFrame
-        std_df, scaler = Helper.standardize_DataFrame(train_df)
+        std_df, scaler = helper.standardize_DataFrame(train_df)
 
-        clf = Models.build_RF_classifier(std_df)
+        clf = models.build_RF_classifier(std_df)
 
         text = "🏀 Tonight's Games: Home vs. Away 🏀\n\n"
         for home, away in d.items():
@@ -48,11 +48,11 @@ class TelegramBot:
 
             to_predict = pd.concat(
                 [
-                    last_N_games_away[Models.away_features].mean(),
-                    last_N_games_home[Models.home_features].mean(),
+                    last_N_games_away[models.away_features].mean(),
+                    last_N_games_home[models.home_features].mean(),
                 ],
                 axis=0,
-            )[Models.features]
+            )[models.features]
 
             prob_home_rf, prob_away_rf = clf.predict_proba(
                 scaler.transform(to_predict.values.reshape(1, -1))

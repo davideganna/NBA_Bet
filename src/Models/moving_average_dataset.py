@@ -3,14 +3,14 @@ import os
 
 from pandas.core.frame import DataFrame
 
-from src.Helper import add_features_to_df
+from src.helper import add_features_to_df
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 import pandas as pd
-from Models.Models import away_features, home_features, features
-import Models.backtesting as backtesting
+from models.models import away_features, home_features, features
+import models.backtesting as backtesting
 import src.dicts_and_lists as dal
 import logging, coloredlogs
 
