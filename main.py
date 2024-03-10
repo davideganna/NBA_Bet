@@ -18,12 +18,12 @@ from src.ETL import DataExtractor, DataTransformer, DataLoader
 
 
 # --------------- ETL Pipeline --------------- #
-def etl_pipeline():
+def etl_pipeline(config, logger):
     df_month, current_month = Extraction.get_current_month_data()
     df_month, csv_path = Transformation.polish_df_month(df_month, current_month)
     Loading.save_df_month(df_month, current_month, csv_path)
     # Update the training dataset
-    build_moving_average_dataset(3, 0)
+    build_moving_average_dataset(config, logger, 2)
 
 
 # --------------- Logger --------------- #
@@ -40,7 +40,7 @@ folder = (
 
 Extraction = DataExtractor.Extraction(folder, config["season"])
 Transformation = DataTransformer.Transformation(folder)
-Loading = DataLoader.Loading(folder, config["years"])
+Loading = DataLoader.Loading(folder)
 
 try:
     path = folder + config["years"] + "_season.csv"
@@ -54,9 +54,9 @@ except Exception as exc:
     )
 else:
     # Full ETL Pipeline
-    etl_pipeline()
+    etl_pipeline(config, logger)
 
     # TODO predict winner
 
-    # telegram integration
-    telegramBot().send_message(Api().get_tonights_games())
+    # TODO fix telegram integration
+    # telegramBot().send_message(Api().get_tonights_games())

@@ -22,7 +22,9 @@ logger = logging.getLogger("helper.py")
 coloredlogs.install(level="DEBUG")
 
 # Functions
-def add_features_to_df(df: pd.DataFrame):
+def add_features_to_df(df: pd.DataFrame, season: str):
+    # TODO put in pandas pipeline
+    df["season"] = season
     # Log Ratio
     df["LogRatio_home"] = np.log2(df["PTS_home"] / df["PTS_away"])
     df["LogRatio_away"] = np.log2(df["PTS_away"] / df["PTS_home"])

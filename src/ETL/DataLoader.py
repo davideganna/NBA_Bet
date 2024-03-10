@@ -6,7 +6,7 @@ import src.elo as elo
 import src.dicts_and_lists as dal
 from pathlib import Path
 from pandas.core.frame import DataFrame
-from ETL import DataExtractor
+from src.ETL import DataExtractor
 import logging, coloredlogs
 import yaml
 

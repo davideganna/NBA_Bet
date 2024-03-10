@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from pathlib import Path
 from pandas.core.frame import DataFrame
-from ETL import DataLoader
+from src.ETL import DataLoader
 import logging, coloredlogs
 import src.dicts_and_lists as dal
 import yaml

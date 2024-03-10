@@ -160,7 +160,7 @@ trans.split_stats_per_game(f"half_stats_per_game-{season}.csv")
 
 split_df = pd.read_csv(f"{folder}split_stats_per_game.csv")
 
-df = helper.add_features_to_df(split_df)
+df = helper.add_features_to_df(split_df, season)
 
 df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
 

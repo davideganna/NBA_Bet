@@ -4,7 +4,7 @@
 from numpy.core.fromnumeric import around, std
 import requests
 import src.elo as elo
-from models import models
+from src.models import models
 import src.helper as helper
 import pandas as pd
 import numpy as np

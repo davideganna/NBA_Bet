@@ -12,7 +12,7 @@ def update_row(row, teams_seen: list):
     away_team = row["Team_away"]
     home_team = row["Team_home"]
     winner = 0 if row["PTS_home"] > row["PTS_away"] else 1
-    
+
     # Current Elo ratings for away_team and home_team
     elo_away_team = dal.current_team_Elo[away_team]
     elo_home_team = dal.current_team_Elo[home_team]
@@ -89,7 +89,7 @@ def add_elo_to_df(folder):
     df = pd.read_csv(f"{folder}split_stats_per_game.csv")
     df["Elo_pregame_away"] = None
     df["Elo_pregame_home"] = None
-    # Define a list of teams already seen: on the first occurrence Elo doesn't need to be calculated 
+    # Define a list of teams already seen: on the first occurrence Elo doesn't need to be calculated
     teams_seen = []
     for ix, row in df.iterrows():
         df.iloc[ix], teams_seen = update_row(row, teams_seen)
