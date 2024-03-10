@@ -4,7 +4,7 @@ from pandas.core.frame import DataFrame
 import src.dicts_and_lists as dal
 
 # Functions
-def update_row(row):
+def update_row(row, teams_seen: list):
     """
     Used in backtesting. Updates the Elo rating for team_A and team_B for a single row.
     Returns the updated row.
@@ -12,6 +12,7 @@ def update_row(row):
     away_team = row["Team_away"]
     home_team = row["Team_home"]
     winner = 0 if row["PTS_home"] > row["PTS_away"] else 1
+    
     # Current Elo ratings for away_team and home_team
     elo_away_team = dal.current_team_Elo[away_team]
     elo_home_team = dal.current_team_Elo[home_team]
@@ -32,15 +33,22 @@ def update_row(row):
     elo_away_team_updated = elo_away_team + K * (winner - exp_win_away_team)
     elo_home_team_updated = elo_home_team + K * ((1 - winner) - exp_win_home_team)
 
-    # Update the Dictionary
-    dal.current_team_Elo[away_team] = elo_away_team_updated
-    dal.current_team_Elo[home_team] = elo_home_team_updated
+    # If this is the first time the algorithm sees the team, fix its Elo to 1500 and return
+    if away_team in teams_seen:
+        dal.current_team_Elo[away_team] = elo_away_team_updated
+        row["Elo_pregame_away"] = elo_away_team_updated
+    else:
+        row["Elo_pregame_away"] = 1500
+        teams_seen.append(away_team)
 
-    # Update the DataFrame
-    row["Elo_away"] = elo_away_team_updated
-    row["Elo_home"] = elo_home_team_updated
+    if home_team in teams_seen:
+        dal.current_team_Elo[home_team] = elo_home_team_updated
+        row["Elo_pregame_home"] = elo_home_team_updated
+    else:
+        row["Elo_pregame_home"] = 1500
+        teams_seen.append(home_team)
 
-    return row
+    return row, teams_seen
 
 
 def update_DataFrame(
@@ -76,14 +84,15 @@ def update_DataFrame(
 def add_elo_to_df(folder):
     """
     Iteratively adds the Elo for each match.
-    Saves the
+    Saves the updated DataFrame as a .csv file.
     """
     df = pd.read_csv(f"{folder}split_stats_per_game.csv")
-    # TODO put in config
-    df["Elo_home"] = None
-    df["Elo_away"] = None
+    df["Elo_pregame_away"] = None
+    df["Elo_pregame_home"] = None
+    # Define a list of teams already seen: on the first occurrence Elo doesn't need to be calculated 
+    teams_seen = []
     for ix, row in df.iterrows():
-        df.iloc[ix] = update_row(row)
+        df.iloc[ix], teams_seen = update_row(row, teams_seen)
 
     df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
 

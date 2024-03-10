@@ -56,5 +56,7 @@ else:
     # Full ETL Pipeline
     etl_pipeline()
 
+    # TODO predict winner
+
     # telegram integration
     telegramBot().send_message(Api().get_tonights_games())
