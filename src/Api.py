@@ -15,12 +15,12 @@ class Api:
         with open("src/configs/main_conf.yaml") as f:
             config = yaml.safe_load(f)
         self.league = "12"  # NBA League
-        self.season = config["years"]
+        self.years = config["years"]
         self.headers = {"x-rapidapi-key": self.api_key, "x-rapidapi-host": self.url}
 
     def get_tonights_games(self):
         date = "date=" + (datetime.today() + timedelta(1)).strftime("%Y-%m-%d")
-        endpoint = "games?" + date + "&league=" + self.league + "&season=" + self.season
+        endpoint = "games?" + date + "&league=" + self.league + "&season=" + self.years
         query = self.url + endpoint
         payload = {}
         response = requests.request(

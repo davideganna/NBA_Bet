@@ -97,23 +97,12 @@ def add_elo_to_df(folder):
     df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
 
 
-def get_probas(away_team, home_team, years):
-    # Current Elo ratings for away_team and home_team
-    elo_df = pd.read_csv("src/past_data/" + years + "/elo.csv")
-    elo_away_team = elo_df.loc[elo_df["Team"] == away_team, "Elo"].values[0]
-    elo_home_team = elo_df.loc[elo_df["Team"] == home_team, "Elo"].values[0]
-    # Expected Win probability for away_team and home_team
-    prob_away_wins = 1 / (1 + 10 ** ((elo_home_team - elo_away_team) / 400))
-    prob_home_wins = 1 / (1 + 10 ** ((elo_away_team - elo_home_team) / 400))
-
-    return prob_away_wins, prob_home_wins
-
-
-def get_odds(away_team, home_team, years):
+def get_odds(elo_away_team, elo_home_team):
     """
     Get probabilities based on the Team's Elo value.
     """
-    prob_away_wins, prob_home_wins = get_probas(away_team, home_team, years)
+    prob_away_wins = 1 / (1 + 10 ** ((elo_home_team - elo_away_team) / 400))
+    prob_home_wins = 1 / (1 + 10 ** ((elo_away_team - elo_home_team) / 400))
     odds_away_wins, odds_home_wins = 1 / prob_away_wins, 1 / prob_home_wins
 
     return odds_away_wins, odds_home_wins

@@ -18,30 +18,33 @@ import elo
 
 from ETL import DataTransformer
 
+from config_reader import config
+
 # ------ Logger ------- #
 logger = logging.getLogger("get_past_datasets.py")
 coloredlogs.install(level="DEBUG")
 
-with open("src/configs/main_conf.yaml") as f:
-    config = yaml.safe_load(f)
-
 years = config["years"]
 folder = f"src/past_data/{years}/"
-season = config["season"]
+season = config["years"][:4]
 
 trans = DataTransformer.Transformation(folder)
 
 months = [
     "october",
-    "november",
-    "december",
-    "january",
-    "february",
-    "march",
-    "april",
-    "may",
-    "june",
+    #"november",
+    #"december",
+    #"january",
+    #"february",
+    #"march",
+    #"april",
+    #"may",
+    #"june",
 ]
+
+# Create current season folder if it doesn't exist
+if not os.path.isdir(folder):
+    os.mkdir(folder)
 
 for month in months:
     url = (

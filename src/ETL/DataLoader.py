@@ -48,10 +48,6 @@ class Loading:
                 .reset_index(drop=True)
                 .equals(df_month)
             ):
-                self.update_elo_csv(df_month)
-                logger.info(
-                    f"An update has been made: elo.csv has been updated based on {current_month}_data.csv."
-                )
                 DataExtractor.Extraction(self.folder).get_stats_per_game(df_month)
                 season_df = pd.concat([season_df, df_month])
                 season_df = season_df.drop_duplicates().reset_index(drop=True)
@@ -99,7 +95,6 @@ class Loading:
                 logger.info(f"Added rows:\n {diff}")
 
                 # Following is a pipeline of actions to be performed every time new rows are added.
-                self.update_elo_csv(diff)
                 Extraction = DataExtractor.Extraction(self.folder)
                 Extraction.get_stats_per_game(diff)
 
@@ -112,33 +107,6 @@ class Loading:
             )
 
         logger.info(f"\n----- Dataset {self.years}_season.csv is up to date. -----\n")
-
-    def update_elo_csv(self, df: DataFrame):
-        """
-        Updates the elo.csv dataset based on the rows contained in df.
-        """
-        elo_df = pd.read_csv(f"src/past_data/{self.years}/elo.csv")
-
-        for _, row in df.iterrows():
-            away_team = row["AwayTeam"]
-            home_team = row["HomeTeam"]
-            away_pts = row["AwayPoints"]
-            home_pts = row["HomePoints"]
-
-            if away_pts > home_pts:
-                winner = 1
-            elif home_pts > away_pts:
-                winner = 0
-            elo_df = elo.update_DataFrame(
-                elo_df, away_team, home_team, away_pts, home_pts, winner
-            )
-
-        elo_df.sort_values(by="Elo", ascending=False).to_csv(
-            "src/past_data/" + self.folder + "/elo.csv", index=False
-        )
-
-        # Refactor
-        elo_df = pd.read_csv("src/past_data/" + self.folder + "/elo.csv")
 
     def save_split_stats_per_game(self, df: DataFrame):
         """

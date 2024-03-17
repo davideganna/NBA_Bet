@@ -14,36 +14,33 @@ import yaml
 from src.api import Api
 from src.models.moving_average_dataset import build_moving_average_dataset
 from src.telegram import telegramBot
-from src.ETL import DataExtractor, DataTransformer, DataLoader
+from src.ETL.DataExtractor import Extraction
+from src.ETL.DataTransformer import Transformation
+from src.ETL.DataLoader import Loading
+from src.config_reader import config
 
 
+# TODO move to another folder
 # --------------- ETL Pipeline --------------- #
-def etl_pipeline(config, logger):
+def etl_pipeline(logger):
     df_month, current_month = Extraction.get_current_month_data()
     df_month, csv_path = Transformation.polish_df_month(df_month, current_month)
     Loading.save_df_month(df_month, current_month, csv_path)
     # Update the training dataset
-    build_moving_average_dataset(config, logger, 2)
+    avg_df = build_moving_average_dataset(logger, 2)
+    return avg_df
 
 
 # --------------- Logger --------------- #
 logger = logging.getLogger(__name__)
 coloredlogs.install(level="INFO")
 
-
-# --------------- Main --------------- #
-with open("src/configs/main_conf.yaml") as f:
-    config = yaml.safe_load(f)
 folder = (
-    "src/past_data/" + config["years"] + "/"
-)  # Specify the current NBA season to save the .csv datasets.
-
-Extraction = DataExtractor.Extraction(folder, config["season"])
-Transformation = DataTransformer.Transformation(folder)
-Loading = DataLoader.Loading(folder)
+    f"src/past_data/{config['years']}/"
+)
 
 try:
-    path = folder + config["years"] + "_season.csv"
+    path = f"{folder}{config['years']}_season.csv"
     season_df = pd.read_csv(path)
 except Exception as exc:
     logger.error(
@@ -53,8 +50,15 @@ except Exception as exc:
         f"Path: {path}"
     )
 else:
+    Extraction = Extraction(folder, config["years"][:4])
+    Transformation = Transformation(folder)
+    Loading = Loading(folder)
+
     # Full ETL Pipeline
-    etl_pipeline(config, logger)
+    avg_df = etl_pipeline(logger)
+
+    # Get tonight's games
+    Api().get_tonights_games()
 
     # TODO predict winner
 

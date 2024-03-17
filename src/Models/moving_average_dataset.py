@@ -2,9 +2,10 @@ import pandas as pd
 from src.models.models import away_features, home_features, features
 import src.dicts_and_lists as dal
 import coloredlogs
+from src.config_reader import config
 
 
-def build_moving_average_dataset(config, logger, average_n: int):
+def build_moving_average_dataset(logger, average_n: int):
     """
     The idea is to build a DataFrame that is team-agnostic, meaning that the team will not influence
         how the average dataset is created. When building such dataset, only the team features are
@@ -46,13 +47,16 @@ def build_moving_average_dataset(config, logger, average_n: int):
         away_rolling_df, home_rolling_df, on=["season", "index_sspg"]
     ).dropna()
 
-    # Add target to average dataset
+    # Add Elo pre-game updated at the most recent game (Elo is not averaged)
+    # Add target (Winner)
     average_df = pd.merge(
         average_df,
-        dfs[["season", "index", "Winner"]],
+        dfs[["season", "index", "Elo_pregame_away", "Elo_pregame_home", "Winner"]],
         left_on=["season", "index_sspg"],
         right_on=["season", "index"],
     )
 
     file_name = f"average_{config['moving_average_dataset'][0][:4]}-{config['moving_average_dataset'][-1][-4:]}"
     average_df.to_csv(f"src/past_data/average_seasons/{file_name}.csv")
+
+    return average_df
