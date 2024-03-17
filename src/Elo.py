@@ -50,6 +50,20 @@ def update_row(row, teams_seen: list):
 
     return row, teams_seen
 
+def add_elo_to_df(folder):
+    """
+    Iteratively adds the Elo for each match.
+    Saves the updated DataFrame as a .csv file.
+    """
+    df = pd.read_csv(f"{folder}split_stats_per_game.csv")
+    df["Elo_pregame_away"] = None
+    df["Elo_pregame_home"] = None
+    # Define a list of teams already seen: on the first occurrence Elo doesn't need to be calculated
+    teams_seen = []
+    for ix, row in df.iterrows():
+        df.iloc[ix], teams_seen = update_row(row, teams_seen)
+
+    df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
 
 def update_DataFrame(
     elo_df: DataFrame, away_team, home_team, away_pts, home_pts, winner
@@ -79,22 +93,6 @@ def update_DataFrame(
     elo_df.loc[elo_df["Team"] == away_team, "Elo"] = elo_away_team_updated
     elo_df.loc[elo_df["Team"] == home_team, "Elo"] = elo_home_team_updated
     return elo_df
-
-
-def add_elo_to_df(folder):
-    """
-    Iteratively adds the Elo for each match.
-    Saves the updated DataFrame as a .csv file.
-    """
-    df = pd.read_csv(f"{folder}split_stats_per_game.csv")
-    df["Elo_pregame_away"] = None
-    df["Elo_pregame_home"] = None
-    # Define a list of teams already seen: on the first occurrence Elo doesn't need to be calculated
-    teams_seen = []
-    for ix, row in df.iterrows():
-        df.iloc[ix], teams_seen = update_row(row, teams_seen)
-
-    df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
 
 
 def get_odds(elo_away_team, elo_home_team):
