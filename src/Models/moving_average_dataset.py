@@ -47,11 +47,21 @@ def build_moving_average_dataset(logger, average_n: int):
         away_rolling_df, home_rolling_df, on=["season", "index_sspg"]
     ).dropna()
 
-    # Add Elo pre-game updated at the most recent game (Elo is not averaged)
+    # Add Elo pre and post game updated at the most recent game (Elo is not averaged)
     # Add target (Winner)
     average_df = pd.merge(
         average_df,
-        dfs[["season", "index", "Elo_pregame_away", "Elo_pregame_home", "Winner"]],
+        dfs[
+            [
+                "season", 
+                "index", 
+                "Elo_pregame_away", 
+                "Elo_pregame_home", 
+                "Elo_postgame_away", 
+                "Elo_postgame_home",
+                "Winner"
+            ]
+        ],
         left_on=["season", "index_sspg"],
         right_on=["season", "index"],
     )

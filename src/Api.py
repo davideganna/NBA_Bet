@@ -27,10 +27,10 @@ class Api:
             "GET", query, headers=self.headers, data=payload
         ).json()
 
-        # Next games organized as a dictionary with keys = HomeTeam --> values: AwayTeam
+        # Next games organized as a dictionary with keys = AwayTeam --> values: HomeTeam
         next_games = {}
         for match in response["response"]:
             home_team = match["teams"]["home"]["name"]
             away_team = match["teams"]["away"]["name"]
-            next_games[home_team] = away_team
+            next_games[away_team] = home_team
         return next_games

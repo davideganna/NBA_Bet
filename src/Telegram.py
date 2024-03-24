@@ -109,3 +109,7 @@ class telegramBot:
             self.url + self.bot_token + "/sendMessage?" + self.chat_id + "&text=" + text
         )
         requests.request("POST", query)
+
+
+    def send_message(self, d: dict):
+        

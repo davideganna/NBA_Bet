@@ -4,9 +4,14 @@ from pandas.core.frame import DataFrame
 import src.dicts_and_lists as dal
 
 # Functions
+def get_elo_probs(elo_away_team: float, elo_home_team: float):
+    exp_win_away_team = 1 / (1 + 10 ** ((elo_home_team - elo_away_team) / 400))
+    exp_win_home_team = 1 / (1 + 10 ** ((elo_away_team - elo_home_team) / 400))
+    return exp_win_away_team, exp_win_home_team
+
 def update_row(row, teams_seen: list):
     """
-    Used in backtesting. Updates the Elo rating for team_A and team_B for a single row.
+    Updates the Elo rating for team_A and team_B for a single row.
     Returns the updated row.
     """
     away_team = row["Team_away"]
@@ -18,8 +23,7 @@ def update_row(row, teams_seen: list):
     elo_home_team = dal.current_team_Elo[home_team]
 
     # Expected Win probability for away_team and home_team
-    exp_win_away_team = 1 / (1 + 10 ** ((elo_home_team - elo_away_team) / 400))
-    exp_win_home_team = 1 / (1 + 10 ** ((elo_away_team - elo_home_team) / 400))
+    exp_win_away_team, exp_win_home_team = get_elo_probs(elo_away_team, elo_home_team)
 
     # Define the K-Factor as K: the maximum possible adjustment per game.
     if abs(row["PTS_home"] - row["PTS_away"]) > 15:
@@ -30,40 +34,49 @@ def update_row(row, teams_seen: list):
         K = 7
     else:
         K = 0
+    
+    # Calculate Elo after the match
     elo_away_team_updated = elo_away_team + K * (winner - exp_win_away_team)
     elo_home_team_updated = elo_home_team + K * ((1 - winner) - exp_win_home_team)
 
-    # If this is the first time the algorithm sees the team, fix its Elo to 1500 and return
+    row["Elo_postgame_away"] = elo_away_team_updated
+    row["Elo_postgame_home"] = elo_home_team_updated
+
+    dal.current_team_Elo[away_team] = elo_away_team_updated
+    dal.current_team_Elo[home_team] = elo_home_team_updated
+
+    # If this is the first time the algorithm sees the team, fix its pregame Elo to 1500 and return
     if away_team in teams_seen:
-        dal.current_team_Elo[away_team] = elo_away_team_updated
-        row["Elo_pregame_away"] = elo_away_team_updated
+        row["Elo_pregame_away"] = elo_away_team
     else:
         row["Elo_pregame_away"] = 1500
         teams_seen.append(away_team)
 
     if home_team in teams_seen:
-        dal.current_team_Elo[home_team] = elo_home_team_updated
-        row["Elo_pregame_home"] = elo_home_team_updated
+        row["Elo_pregame_home"] = elo_home_team
     else:
         row["Elo_pregame_home"] = 1500
         teams_seen.append(home_team)
 
     return row, teams_seen
 
-def add_elo_to_df(folder):
+def add_elo_to_df(folder, logger):
     """
-    Iteratively adds the Elo for each match.
+    Iteratively adds the Elo before and after each match.
     Saves the updated DataFrame as a .csv file.
     """
     df = pd.read_csv(f"{folder}split_stats_per_game.csv")
     df["Elo_pregame_away"] = None
     df["Elo_pregame_home"] = None
+    df["Elo_postgame_away"] = None
+    df["Elo_postgame_home"] = None
     # Define a list of teams already seen: on the first occurrence Elo doesn't need to be calculated
     teams_seen = []
     for ix, row in df.iterrows():
         df.iloc[ix], teams_seen = update_row(row, teams_seen)
 
     df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
+    logger.info("Elo pre and post game has been added to split_stats_per_game.csv")
 
 def update_DataFrame(
     elo_df: DataFrame, away_team, home_team, away_pts, home_pts, winner

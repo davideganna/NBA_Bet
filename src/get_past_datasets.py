@@ -167,7 +167,7 @@ df = helper.add_features_to_df(split_df, season)
 
 df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
 
-elo.add_elo_to_df(folder)
+elo.add_elo_to_df(folder, logger)
 
 # TODO add merged data up to season just processed
 # TODO look at build_merged_seasons():
