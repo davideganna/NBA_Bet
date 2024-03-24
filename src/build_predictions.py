@@ -1,4 +1,5 @@
 import pandas as pd
+from src.elo import get_elo_probs
 
 def predict_on_elo(avg_df: pd.DataFrame, next_games: dict) -> dict:
     avg_df_last_away = avg_df.groupby('Team_away', as_index=False).last()
@@ -19,7 +20,7 @@ def predict_on_elo(avg_df: pd.DataFrame, next_games: dict) -> dict:
 
     team_to_prob = dict()
     for away, home in zip(away_team_to_elo.items(), home_team_to_elo.items()):
-        exp_win_away_team, exp_win_home_team = elo.get_elo_probs(away[1], home[1])
+        exp_win_away_team, exp_win_home_team = get_elo_probs(away[1], home[1])
         team_to_prob[away[0]] = exp_win_away_team
         team_to_prob[home[0]] = exp_win_home_team
 
