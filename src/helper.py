@@ -11,7 +11,6 @@ import numpy as np
 import logging, coloredlogs
 from src.models.models import target, features
 import src.dicts_and_lists as dal
-from sklearn.preprocessing import StandardScaler
 
 import yaml
 
@@ -163,15 +162,3 @@ def build_season_df(folder, years):
 
     season_df = pd.concat([october_df, november_df])
     season_df.to_csv(f"{folder}{years}_season.csv", index=False)
-
-
-def standardize_DataFrame(df: pd.DataFrame) -> Tuple[pd.DataFrame, StandardScaler]:
-    # Standardize the DataFrame
-    x = df.loc[:, features].values
-
-    scaler = StandardScaler()
-    x = scaler.fit_transform(x)
-
-    std_df = pd.DataFrame(x, columns=features)
-    std_df = pd.concat([std_df, df["Winner"].reset_index(drop=True)], axis=1)
-    return std_df, scaler
