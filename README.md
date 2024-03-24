@@ -1,9 +1,9 @@
 # NBA Bet 🏀
 
-NBA Bet is an experimental software which aims at predicting the outcome probability of NBA games by the utilization of ML (and non-ML) models. 
+NBA Bet is an experimental software which aims at predicting the outcome probability of NBA games by the utilization of ML (and non-ML) models.
 After a result has been predicted, NBA Bet reaches a bookmaker of choice (currently testing with *SkyBet*) to get the odds for the predicted match.
 
-The software is suitable for running continuously (e.g., by running it on a Raspberry Pi) and features a [telegram integration module](https://github.com/davideganna/NBA_Bet/blob/435dd874b8ccd60744a2b51cdb09f1aa9bfe320e/NBABet/Telegram.py) which can be used to get notified if a particular match is profitable. 
+The software is suitable for running continuously (e.g., by running it on a Raspberry Pi) and features a [telegram integration module](https://github.com/davideganna/NBA_Bet/blob/435dd874b8ccd60744a2b51cdb09f1aa9bfe320e/NBABet/telegram.py) which can be used to get notified if a particular match is profitable.
 
 But what does _profitable_ mean?
 
@@ -30,14 +30,14 @@ EV = 0.75 &middot; (100$ &middot; 0.38) - 0.25 &middot; 100$
 
 EV = 3.5$
 
-Thus making the bet +EV, or _profitable_.  
+Thus making the bet +EV, or _profitable_.
 
 ### A shortcut for calculating EV
 
-It can be shown that the EV of a bet can be quickly calculated as the reciprocal of the probability of an event being lower than the odds offered by the bookmaker. Any bet that satisfies this criterion, has a positive EV. In the example above, 1/0.75 = 1.333 is less than 1.38, therefore fulfilling the criterion. 
+It can be shown that the EV of a bet can be quickly calculated as the reciprocal of the probability of an event being lower than the odds offered by the bookmaker. Any bet that satisfies this criterion, has a positive EV. In the example above, 1/0.75 = 1.333 is less than 1.38, therefore fulfilling the criterion.
 
 ## How much should I bet?
-The optimal bet amount is a function of the probability of the event occurring, the odds of the event and the available bankroll. It takes the name of _Kelly's criterion_, and can be found [here](https://en.wikipedia.org/wiki/Kelly_criterion). 
+The optimal bet amount is a function of the probability of the event occurring, the odds of the event and the available bankroll. It takes the name of _Kelly's criterion_, and can be found [here](https://en.wikipedia.org/wiki/Kelly_criterion).
 
 ## Main structure
 The diagram below shows the execution flow of NBA Bet:
@@ -46,7 +46,7 @@ The diagram below shows the execution flow of NBA Bet:
 
 ### Best Hyperparameters Selection (latest software version)
 The simulated results from NBA Season 2020 can be found below:
-``` 
+```
 Random Forest (500 trees) + Elo
 
 leave_out = '2020'
@@ -68,5 +68,5 @@ The simulation combines a 500-tree RF model stacked with an Elo model to bet onl
 
 ## Disclaimer
 
-Gambling involves risk. The author does not encourage or promote gambling in any way, nor the author takes any responsibilities for losses associated with the utilization of the software. 
-The utilization NBA Bet is only intended for legal age people. 
+Gambling involves risk. The author does not encourage or promote gambling in any way, nor the author takes any responsibilities for losses associated with the utilization of the software.
+The utilization NBA Bet is only intended for legal age people.

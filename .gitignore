@@ -1,0 +1,7 @@
+secrets
+__pycache__
+models/__pycache__
+documentation/
+Analysis/
+.vscode/
+venv/

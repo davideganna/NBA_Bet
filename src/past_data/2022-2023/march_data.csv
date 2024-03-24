@@ -1,0 +1,230 @@
+Date,Start (ET),AwayTeam,AwayPoints,HomeTeam,HomePoints
+"Wed, Mar 1, 2023",7:00p,Phoenix Suns,105,Charlotte Hornets,91
+"Wed, Mar 1, 2023",7:00p,Chicago Bulls,117,Detroit Pistons,115
+"Wed, Mar 1, 2023",7:30p,Cleveland Cavaliers,113,Boston Celtics,117
+"Wed, Mar 1, 2023",7:30p,Philadelphia 76ers,119,Miami Heat,96
+"Wed, Mar 1, 2023",7:30p,Brooklyn Nets,118,New York Knicks,142
+"Wed, Mar 1, 2023",8:00p,Memphis Grizzlies,113,Houston Rockets,99
+"Wed, Mar 1, 2023",8:00p,Orlando Magic,117,Milwaukee Bucks,139
+"Wed, Mar 1, 2023",8:00p,Los Angeles Lakers,123,Oklahoma City Thunder,117
+"Wed, Mar 1, 2023",10:00p,New Orleans Pelicans,121,Portland Trail Blazers,110
+"Thu, Mar 2, 2023",7:00p,Toronto Raptors,108,Washington Wizards,119
+"Thu, Mar 2, 2023",7:30p,Philadelphia 76ers,126,Dallas Mavericks,133
+"Thu, Mar 2, 2023",8:30p,Indiana Pacers,99,San Antonio Spurs,110
+"Thu, Mar 2, 2023",10:00p,Los Angeles Clippers,91,Golden State Warriors,115
+"Fri, Mar 3, 2023",7:00p,Orlando Magic,117,Charlotte Hornets,106
+"Fri, Mar 3, 2023",7:30p,Portland Trail Blazers,111,Atlanta Hawks,129
+"Fri, Mar 3, 2023",7:30p,Brooklyn Nets,115,Boston Celtics,105
+"Fri, Mar 3, 2023",8:00p,Phoenix Suns,125,Chicago Bulls,104
+"Fri, Mar 3, 2023",8:00p,New York Knicks,122,Miami Heat,120
+"Fri, Mar 3, 2023",8:00p,Utah Jazz,103,Oklahoma City Thunder,130
+"Fri, Mar 3, 2023",10:00p,Memphis Grizzlies,97,Denver Nuggets,113
+"Fri, Mar 3, 2023",10:00p,New Orleans Pelicans,99,Golden State Warriors,108
+"Fri, Mar 3, 2023",10:00p,Los Angeles Clippers,127,Sacramento Kings,128
+"Fri, Mar 3, 2023",10:30p,Minnesota Timberwolves,110,Los Angeles Lakers,102
+"Sat, Mar 4, 2023",5:00p,Toronto Raptors,116,Washington Wizards,109
+"Sat, Mar 4, 2023",7:30p,Detroit Pistons,90,Cleveland Cavaliers,114
+"Sat, Mar 4, 2023",8:00p,Atlanta Hawks,109,Miami Heat,117
+"Sat, Mar 4, 2023",8:00p,Houston Rockets,122,San Antonio Spurs,110
+"Sat, Mar 4, 2023",8:30p,Philadelphia 76ers,133,Milwaukee Bucks,130
+"Sat, Mar 4, 2023",10:00p,Minnesota Timberwolves,138,Sacramento Kings,134
+"Sun, Mar 5, 2023",1:00p,Phoenix Suns,130,Dallas Mavericks,126
+"Sun, Mar 5, 2023",3:30p,Indiana Pacers,125,Chicago Bulls,122
+"Sun, Mar 5, 2023",3:30p,Golden State Warriors,105,Los Angeles Lakers,113
+"Sun, Mar 5, 2023",6:00p,Charlotte Hornets,86,Brooklyn Nets,102
+"Sun, Mar 5, 2023",6:00p,Portland Trail Blazers,122,Orlando Magic,119
+"Sun, Mar 5, 2023",7:00p,San Antonio Spurs,110,Houston Rockets,142
+"Sun, Mar 5, 2023",7:00p,Utah Jazz,119,Oklahoma City Thunder,129
+"Sun, Mar 5, 2023",7:30p,New York Knicks,131,Boston Celtics,129
+"Sun, Mar 5, 2023",7:30p,Milwaukee Bucks,117,Washington Wizards,111
+"Sun, Mar 5, 2023",10:00p,Memphis Grizzlies,129,Los Angeles Clippers,135
+"Mon, Mar 6, 2023",7:00p,Boston Celtics,114,Cleveland Cavaliers,118
+"Mon, Mar 6, 2023",7:00p,Portland Trail Blazers,110,Detroit Pistons,104
+"Mon, Mar 6, 2023",7:00p,Philadelphia 76ers,147,Indiana Pacers,143
+"Mon, Mar 6, 2023",7:30p,Atlanta Hawks,128,Miami Heat,130
+"Mon, Mar 6, 2023",9:00p,Toronto Raptors,113,Denver Nuggets,118
+"Mon, Mar 6, 2023",10:00p,New Orleans Pelicans,108,Sacramento Kings,123
+"Tue, Mar 7, 2023",7:00p,Washington Wizards,119,Detroit Pistons,117
+"Tue, Mar 7, 2023",7:00p,Milwaukee Bucks,134,Orlando Magic,123
+"Tue, Mar 7, 2023",7:30p,Philadelphia 76ers,117,Minnesota Timberwolves,94
+"Tue, Mar 7, 2023",7:30p,Charlotte Hornets,112,New York Knicks,105
+"Tue, Mar 7, 2023",8:00p,Brooklyn Nets,118,Houston Rockets,96
+"Tue, Mar 7, 2023",8:00p,Golden State Warriors,128,Oklahoma City Thunder,137
+"Tue, Mar 7, 2023",8:30p,Utah Jazz,116,Dallas Mavericks,120
+"Tue, Mar 7, 2023",10:00p,Memphis Grizzlies,103,Los Angeles Lakers,112
+"Wed, Mar 8, 2023",7:00p,Atlanta Hawks,122,Washington Wizards,120
+"Wed, Mar 8, 2023",7:30p,Portland Trail Blazers,93,Boston Celtics,115
+"Wed, Mar 8, 2023",7:30p,Cleveland Cavaliers,104,Miami Heat,100
+"Wed, Mar 8, 2023",7:30p,Dallas Mavericks,106,New Orleans Pelicans,113
+"Wed, Mar 8, 2023",9:00p,Chicago Bulls,117,Denver Nuggets,96
+"Wed, Mar 8, 2023",9:00p,Oklahoma City Thunder,101,Phoenix Suns,132
+"Wed, Mar 8, 2023",10:00p,Toronto Raptors,100,Los Angeles Clippers,108
+"Thu, Mar 9, 2023",7:00p,Charlotte Hornets,113,Detroit Pistons,103
+"Thu, Mar 9, 2023",7:00p,Houston Rockets,125,Indiana Pacers,134
+"Thu, Mar 9, 2023",7:00p,Utah Jazz,131,Orlando Magic,124
+"Thu, Mar 9, 2023",7:30p,Golden State Warriors,110,Memphis Grizzlies,131
+"Thu, Mar 9, 2023",8:00p,Brooklyn Nets,113,Milwaukee Bucks,118
+"Thu, Mar 9, 2023",10:00p,New York Knicks,117,Sacramento Kings,122
+"Fri, Mar 10, 2023",7:00p,Portland Trail Blazers,119,Philadelphia 76ers,120
+"Fri, Mar 10, 2023",7:00p,Atlanta Hawks,114,Washington Wizards,107
+"Fri, Mar 10, 2023",8:00p,Cleveland Cavaliers,115,Miami Heat,119
+"Fri, Mar 10, 2023",8:00p,Brooklyn Nets,124,Minnesota Timberwolves,123
+"Fri, Mar 10, 2023",8:00p,Denver Nuggets,120,San Antonio Spurs,128
+"Fri, Mar 10, 2023",10:30p,Toronto Raptors,112,Los Angeles Lakers,122
+"Sat, Mar 11, 2023",4:00p,New York Knicks,95,Los Angeles Clippers,106
+"Sat, Mar 11, 2023",7:00p,Utah Jazz,119,Charlotte Hornets,111
+"Sat, Mar 11, 2023",7:00p,Indiana Pacers,121,Detroit Pistons,115
+"Sat, Mar 11, 2023",7:00p,Miami Heat,114,Orlando Magic,126
+"Sat, Mar 11, 2023",7:30p,Boston Celtics,134,Atlanta Hawks,125
+"Sat, Mar 11, 2023",8:00p,Chicago Bulls,119,Houston Rockets,111
+"Sat, Mar 11, 2023",8:00p,Dallas Mavericks,108,Memphis Grizzlies,112
+"Sat, Mar 11, 2023",8:30p,Milwaukee Bucks,116,Golden State Warriors,125
+"Sat, Mar 11, 2023",8:30p,Oklahoma City Thunder,110,New Orleans Pelicans,96
+"Sat, Mar 11, 2023",9:00p,Sacramento Kings,128,Phoenix Suns,119
+"Sun, Mar 12, 2023",3:30p,Brooklyn Nets,122,Denver Nuggets,120
+"Sun, Mar 12, 2023",5:00p,Cleveland Cavaliers,114,Charlotte Hornets,108
+"Sun, Mar 12, 2023",6:00p,Washington Wizards,93,Philadelphia 76ers,112
+"Sun, Mar 12, 2023",7:00p,Portland Trail Blazers,110,New Orleans Pelicans,127
+"Sun, Mar 12, 2023",7:00p,Oklahoma City Thunder,102,San Antonio Spurs,90
+"Sun, Mar 12, 2023",9:00p,New York Knicks,112,Los Angeles Lakers,108
+"Mon, Mar 13, 2023",7:00p,Indiana Pacers,97,Detroit Pistons,117
+"Mon, Mar 13, 2023",7:30p,Minnesota Timberwolves,136,Atlanta Hawks,115
+"Mon, Mar 13, 2023",7:30p,Memphis Grizzlies,104,Dallas Mavericks,88
+"Mon, Mar 13, 2023",7:30p,Utah Jazz,115,Miami Heat,119
+"Mon, Mar 13, 2023",8:00p,Boston Celtics,109,Houston Rockets,111
+"Mon, Mar 13, 2023",10:00p,Phoenix Suns,112,Golden State Warriors,123
+"Mon, Mar 13, 2023",10:00p,Milwaukee Bucks,133,Sacramento Kings,124
+"Tue, Mar 14, 2023",7:00p,Cleveland Cavaliers,120,Charlotte Hornets,104
+"Tue, Mar 14, 2023",7:00p,Detroit Pistons,97,Washington Wizards,117
+"Tue, Mar 14, 2023",7:30p,Denver Nuggets,110,Toronto Raptors,125
+"Tue, Mar 14, 2023",8:00p,Los Angeles Lakers,123,New Orleans Pelicans,108
+"Tue, Mar 14, 2023",8:00p,Brooklyn Nets,107,Oklahoma City Thunder,121
+"Tue, Mar 14, 2023",8:00p,Orlando Magic,114,San Antonio Spurs,132
+"Tue, Mar 14, 2023",10:00p,Milwaukee Bucks,116,Phoenix Suns,104
+"Tue, Mar 14, 2023",10:00p,New York Knicks,123,Portland Trail Blazers,107
+"Wed, Mar 15, 2023",7:30p,Philadelphia 76ers,118,Cleveland Cavaliers,109
+"Wed, Mar 15, 2023",7:30p,Memphis Grizzlies,119,Miami Heat,138
+"Wed, Mar 15, 2023",8:00p,Sacramento Kings,117,Chicago Bulls,114
+"Wed, Mar 15, 2023",8:00p,Los Angeles Lakers,110,Houston Rockets,114
+"Wed, Mar 15, 2023",8:00p,Boston Celtics,104,Minnesota Timberwolves,102
+"Wed, Mar 15, 2023",8:30p,Dallas Mavericks,137,San Antonio Spurs,128
+"Wed, Mar 15, 2023",10:00p,Golden State Warriors,126,Los Angeles Clippers,134
+"Thu, Mar 16, 2023",7:00p,Denver Nuggets,119,Detroit Pistons,100
+"Thu, Mar 16, 2023",7:30p,Sacramento Kings,101,Brooklyn Nets,96
+"Thu, Mar 16, 2023",7:30p,Oklahoma City Thunder,111,Toronto Raptors,128
+"Thu, Mar 16, 2023",8:00p,Indiana Pacers,139,Milwaukee Bucks,123
+"Thu, Mar 16, 2023",10:00p,Orlando Magic,113,Phoenix Suns,116
+"Fri, Mar 17, 2023",7:00p,Philadelphia 76ers,121,Charlotte Hornets,82
+"Fri, Mar 17, 2023",7:30p,Golden State Warriors,119,Atlanta Hawks,127
+"Fri, Mar 17, 2023",7:30p,Washington Wizards,94,Cleveland Cavaliers,117
+"Fri, Mar 17, 2023",8:00p,Minnesota Timberwolves,131,Chicago Bulls,139
+"Fri, Mar 17, 2023",8:00p,New Orleans Pelicans,112,Houston Rockets,114
+"Fri, Mar 17, 2023",8:00p,Memphis Grizzlies,126,San Antonio Spurs,120
+"Fri, Mar 17, 2023",10:00p,Boston Celtics,126,Portland Trail Blazers,112
+"Fri, Mar 17, 2023",10:30p,Dallas Mavericks,111,Los Angeles Lakers,110
+"Sat, Mar 18, 2023",1:00p,Denver Nuggets,110,New York Knicks,116
+"Sat, Mar 18, 2023",3:00p,Orlando Magic,113,Los Angeles Clippers,108
+"Sat, Mar 18, 2023",7:00p,Philadelphia 76ers,141,Indiana Pacers,121
+"Sat, Mar 18, 2023",7:00p,Minnesota Timberwolves,107,Toronto Raptors,122
+"Sat, Mar 18, 2023",8:00p,Miami Heat,99,Chicago Bulls,113
+"Sat, Mar 18, 2023",8:00p,Golden State Warriors,119,Memphis Grizzlies,133
+"Sat, Mar 18, 2023",8:00p,Sacramento Kings,132,Washington Wizards,118
+"Sat, Mar 18, 2023",9:00p,Boston Celtics,117,Utah Jazz,118
+"Sun, Mar 19, 2023",3:30p,Denver Nuggets,108,Brooklyn Nets,102
+"Sun, Mar 19, 2023",3:30p,Phoenix Suns,120,Oklahoma City Thunder,124
+"Sun, Mar 19, 2023",4:00p,Atlanta Hawks,118,San Antonio Spurs,126
+"Sun, Mar 19, 2023",6:00p,Miami Heat,112,Detroit Pistons,100
+"Sun, Mar 19, 2023",7:00p,New Orleans Pelicans,117,Houston Rockets,107
+"Sun, Mar 19, 2023",8:00p,Toronto Raptors,111,Milwaukee Bucks,118
+"Sun, Mar 19, 2023",9:00p,Los Angeles Clippers,117,Portland Trail Blazers,102
+"Sun, Mar 19, 2023",9:30p,Orlando Magic,105,Los Angeles Lakers,111
+"Mon, Mar 20, 2023",7:00p,Indiana Pacers,109,Charlotte Hornets,115
+"Mon, Mar 20, 2023",7:00p,Chicago Bulls,109,Philadelphia 76ers,105
+"Mon, Mar 20, 2023",7:30p,Minnesota Timberwolves,140,New York Knicks,134
+"Mon, Mar 20, 2023",8:00p,Golden State Warriors,121,Houston Rockets,108
+"Mon, Mar 20, 2023",8:00p,Dallas Mavericks,108,Memphis Grizzlies,112
+"Mon, Mar 20, 2023",9:00p,Sacramento Kings,120,Utah Jazz,128
+"Tue, Mar 21, 2023",7:00p,Washington Wizards,112,Orlando Magic,122
+"Tue, Mar 21, 2023",7:30p,Detroit Pistons,107,Atlanta Hawks,129
+"Tue, Mar 21, 2023",7:30p,Cleveland Cavaliers,115,Brooklyn Nets,109
+"Tue, Mar 21, 2023",8:00p,San Antonio Spurs,84,New Orleans Pelicans,119
+"Tue, Mar 21, 2023",10:00p,Boston Celtics,132,Sacramento Kings,109
+"Tue, Mar 21, 2023",10:30p,Oklahoma City Thunder,101,Los Angeles Clippers,100
+"Wed, Mar 22, 2023",7:00p,Denver Nuggets,118,Washington Wizards,104
+"Wed, Mar 22, 2023",7:30p,Golden State Warriors,127,Dallas Mavericks,125
+"Wed, Mar 22, 2023",7:30p,New York Knicks,120,Miami Heat,127
+"Wed, Mar 22, 2023",7:30p,Indiana Pacers,118,Toronto Raptors,114
+"Wed, Mar 22, 2023",8:00p,Philadelphia 76ers,116,Chicago Bulls,91
+"Wed, Mar 22, 2023",8:00p,Houston Rockets,125,Memphis Grizzlies,130
+"Wed, Mar 22, 2023",8:00p,San Antonio Spurs,94,Milwaukee Bucks,130
+"Wed, Mar 22, 2023",8:00p,Atlanta Hawks,124,Minnesota Timberwolves,125
+"Wed, Mar 22, 2023",9:00p,Portland Trail Blazers,127,Utah Jazz,115
+"Wed, Mar 22, 2023",10:00p,Phoenix Suns,111,Los Angeles Lakers,122
+"Thu, Mar 23, 2023",7:00p,New York Knicks,106,Orlando Magic,111
+"Thu, Mar 23, 2023",7:30p,Cleveland Cavaliers,116,Brooklyn Nets,114
+"Thu, Mar 23, 2023",8:00p,Charlotte Hornets,96,New Orleans Pelicans,115
+"Thu, Mar 23, 2023",10:30p,Oklahoma City Thunder,105,Los Angeles Clippers,127
+"Fri, Mar 24, 2023",7:00p,Indiana Pacers,95,Boston Celtics,120
+"Fri, Mar 24, 2023",7:00p,San Antonio Spurs,124,Washington Wizards,136
+"Fri, Mar 24, 2023",7:30p,Detroit Pistons,97,Toronto Raptors,118
+"Fri, Mar 24, 2023",8:00p,Houston Rockets,114,Memphis Grizzlies,151
+"Fri, Mar 24, 2023",8:30p,Charlotte Hornets,117,Dallas Mavericks,109
+"Fri, Mar 24, 2023",9:00p,Milwaukee Bucks,144,Utah Jazz,116
+"Fri, Mar 24, 2023",10:00p,Philadelphia 76ers,112,Golden State Warriors,120
+"Fri, Mar 24, 2023",10:00p,Chicago Bulls,124,Portland Trail Blazers,96
+"Fri, Mar 24, 2023",10:00p,Phoenix Suns,127,Sacramento Kings,135
+"Fri, Mar 24, 2023",10:30p,Oklahoma City Thunder,111,Los Angeles Lakers,116
+"Sat, Mar 25, 2023",5:00p,Indiana Pacers,130,Atlanta Hawks,143
+"Sat, Mar 25, 2023",8:00p,Brooklyn Nets,129,Miami Heat,100
+"Sat, Mar 25, 2023",9:00p,Milwaukee Bucks,106,Denver Nuggets,129
+"Sat, Mar 25, 2023",10:00p,Philadelphia 76ers,105,Phoenix Suns,125
+"Sat, Mar 25, 2023",10:00p,Utah Jazz,113,Sacramento Kings,121
+"Sat, Mar 25, 2023",10:30p,New Orleans Pelicans,131,Los Angeles Clippers,110
+"Sun, Mar 26, 2023",1:00p,Dallas Mavericks,104,Charlotte Hornets,110
+"Sun, Mar 26, 2023",3:30p,Chicago Bulls,118,Los Angeles Lakers,108
+"Sun, Mar 26, 2023",6:00p,Memphis Grizzlies,123,Atlanta Hawks,119
+"Sun, Mar 26, 2023",6:00p,San Antonio Spurs,93,Boston Celtics,137
+"Sun, Mar 26, 2023",6:00p,Houston Rockets,91,Cleveland Cavaliers,108
+"Sun, Mar 26, 2023",6:00p,Brooklyn Nets,106,Orlando Magic,119
+"Sun, Mar 26, 2023",6:00p,Washington Wizards,104,Toronto Raptors,114
+"Sun, Mar 26, 2023",7:00p,Oklahoma City Thunder,118,Portland Trail Blazers,112
+"Sun, Mar 26, 2023",8:30p,Minnesota Timberwolves,99,Golden State Warriors,96
+"Mon, Mar 27, 2023",7:00p,Milwaukee Bucks,126,Detroit Pistons,117
+"Mon, Mar 27, 2023",7:00p,Dallas Mavericks,127,Indiana Pacers,104
+"Mon, Mar 27, 2023",7:30p,Houston Rockets,115,New York Knicks,137
+"Mon, Mar 27, 2023",9:00p,Phoenix Suns,117,Utah Jazz,103
+"Mon, Mar 27, 2023",9:30p,Philadelphia 76ers,111,Denver Nuggets,116
+"Mon, Mar 27, 2023",10:00p,New Orleans Pelicans,124,Portland Trail Blazers,90
+"Mon, Mar 27, 2023",10:00p,Minnesota Timberwolves,119,Sacramento Kings,115
+"Mon, Mar 27, 2023",10:30p,Chicago Bulls,112,Los Angeles Clippers,124
+"Tue, Mar 28, 2023",7:00p,Boston Celtics,111,Washington Wizards,130
+"Tue, Mar 28, 2023",7:30p,Cleveland Cavaliers,118,Atlanta Hawks,120
+"Tue, Mar 28, 2023",7:30p,Miami Heat,92,Toronto Raptors,106
+"Tue, Mar 28, 2023",8:00p,Orlando Magic,108,Memphis Grizzlies,113
+"Tue, Mar 28, 2023",8:00p,Charlotte Hornets,137,Oklahoma City Thunder,134
+"Tue, Mar 28, 2023",10:00p,New Orleans Pelicans,109,Golden State Warriors,120
+"Wed, Mar 29, 2023",7:00p,Milwaukee Bucks,149,Indiana Pacers,136
+"Wed, Mar 29, 2023",7:30p,Houston Rockets,114,Brooklyn Nets,123
+"Wed, Mar 29, 2023",7:30p,Miami Heat,92,New York Knicks,101
+"Wed, Mar 29, 2023",7:30p,Dallas Mavericks,108,Philadelphia 76ers,116
+"Wed, Mar 29, 2023",8:00p,Los Angeles Lakers,121,Chicago Bulls,110
+"Wed, Mar 29, 2023",8:00p,Los Angeles Clippers,141,Memphis Grizzlies,132
+"Wed, Mar 29, 2023",8:00p,Detroit Pistons,106,Oklahoma City Thunder,107
+"Wed, Mar 29, 2023",8:00p,Utah Jazz,128,San Antonio Spurs,117
+"Wed, Mar 29, 2023",10:00p,Minnesota Timberwolves,100,Phoenix Suns,107
+"Wed, Mar 29, 2023",10:00p,Sacramento Kings,120,Portland Trail Blazers,80
+"Thu, Mar 30, 2023",7:30p,Boston Celtics,140,Milwaukee Bucks,99
+"Thu, Mar 30, 2023",10:00p,New Orleans Pelicans,107,Denver Nuggets,88
+"Fri, Mar 31, 2023",7:00p,Chicago Bulls,121,Charlotte Hornets,91
+"Fri, Mar 31, 2023",7:00p,Oklahoma City Thunder,117,Indiana Pacers,121
+"Fri, Mar 31, 2023",7:00p,Toronto Raptors,110,Philadelphia 76ers,117
+"Fri, Mar 31, 2023",7:00p,Orlando Magic,116,Washington Wizards,109
+"Fri, Mar 31, 2023",7:30p,Utah Jazz,114,Boston Celtics,122
+"Fri, Mar 31, 2023",7:30p,Atlanta Hawks,107,Brooklyn Nets,124
+"Fri, Mar 31, 2023",7:30p,New York Knicks,130,Cleveland Cavaliers,116
+"Fri, Mar 31, 2023",8:00p,Detroit Pistons,115,Houston Rockets,121
+"Fri, Mar 31, 2023",8:00p,Los Angeles Clippers,94,Memphis Grizzlies,108
+"Fri, Mar 31, 2023",8:00p,Los Angeles Lakers,123,Minnesota Timberwolves,111
+"Fri, Mar 31, 2023",10:00p,San Antonio Spurs,115,Golden State Warriors,130
+"Fri, Mar 31, 2023",10:00p,Sacramento Kings,138,Portland Trail Blazers,114
+"Fri, Mar 31, 2023",10:30p,Denver Nuggets,93,Phoenix Suns,100

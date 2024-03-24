@@ -1,0 +1,6 @@
+# Season to evaluate
+years: 2023-2024
+
+# Years to consider when building the average dataset 
+moving_average_dataset:
+  - 2023-2024
