@@ -5,7 +5,6 @@ from src.config_reader import config
 
 from src.models.moving_average_dataset import build_moving_average_dataset
 
-# --------------- ETL Pipeline --------------- #
 def etl_pipeline(folder, logger):
     extraction = Extraction(folder, config["season"])
     transformation = Transformation(folder)

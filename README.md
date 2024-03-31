@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/davideganna/NBA_Bet/graph/badge.svg?token=DHDLX2UXH0)](https://codecov.io/gh/davideganna/NBA_Bet)
+
 # NBA Bet 🏀
 
 NBA Bet is an experimental software which aims at predicting the outcome probability of NBA games by the utilization of ML (and non-ML) models.
