@@ -3,7 +3,7 @@ name: NBA Bet - CI/CD
 on:
   push:
     branches:
-      - '*'
+      - 'main'
 
 jobs:
   test:
