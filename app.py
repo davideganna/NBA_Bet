@@ -11,57 +11,51 @@
 import logging, coloredlogs
 import pandas as pd
 import yaml
+from flask import Flask, jsonify
+
 from src.api import Api
-from src.models.moving_average_dataset import build_moving_average_dataset
 from src.telegram import telegramBot
-from src.ETL.DataExtractor import Extraction
-from src.ETL.DataTransformer import Transformation
-from src.ETL.DataLoader import Loading
 from src.config_reader import config
 from src.build_predictions import predict_on_elo
+from src.ETL.etl_pipeline import etl_pipeline
+
+app = Flask(__name__)
 
 
-# TODO move to another folder
-# --------------- ETL Pipeline --------------- #
-def etl_pipeline(logger):
-    df_month, current_month = Extraction.get_current_month_data()
-    df_month, csv_path = Transformation.polish_df_month(df_month, current_month)
-    Loading.save_df_month(df_month, current_month, csv_path)
-    # Update the training dataset
-    avg_df = build_moving_average_dataset(logger, 2)
-    return avg_df
+@app.route("/routine/")
+def routine():
+    # --------------- Logger --------------- #
+    logger = logging.getLogger(__name__)
+    coloredlogs.install(level="INFO")
+    logger.info("----- routine() -----")
+
+    folder = f"src/past_data/{config['years']}/"
+
+    try:
+        path = f"{folder}{config['years']}_season.csv"
+        season_df = pd.read_csv(path)
+    except Exception as exc:
+        logger.error(
+            'The program could not access the .csv datasets. Be sure to run "setup.py" before "main.py".\n'
+            "Alternatively, check that the path to the folder where the .csv files are located is correct.\n"
+            f'Exception: "{exc}"\n'
+            f"Path: {path}"
+        )
+    else:
+        # Full ETL Pipeline
+        avg_df = etl_pipeline(folder, logger)
+
+        # Get tonight's games
+        next_games = Api().get_tonights_games()
+
+        # Predict winner
+        team_to_prob = predict_on_elo(avg_df, next_games)
+
+        # Send Telegram notification
+        telegramBot().send_message(next_games, team_to_prob)
+
+        return jsonify({"message": "Routine executed successfully."}), 204
 
 
-# --------------- Logger --------------- #
-logger = logging.getLogger(__name__)
-coloredlogs.install(level="INFO")
-
-folder = (
-    f"src/past_data/{config['years']}/"
-)
-
-try:
-    path = f"{folder}{config['years']}_season.csv"
-    season_df = pd.read_csv(path)
-except Exception as exc:
-    logger.error(
-        'The program could not access the .csv datasets. Be sure to run "setup.py" before "main.py".\n'
-        "Alternatively, check that the path to the folder where the .csv files are located is correct.\n"
-        f'Exception: "{exc}"\n'
-        f"Path: {path}"
-    )
-else:
-    Extraction = Extraction(folder, config["years"][:4])
-    Transformation = Transformation(folder)
-    Loading = Loading(folder)
-
-    # Full ETL Pipeline
-    avg_df = etl_pipeline(logger)
-
-    # Get tonight's games
-    next_games = Api().get_tonights_games()
-    
-    # Predict winner
-    team_to_prob = predict_on_elo(avg_df, next_games)
-
-    telegramBot().send_message(next_games, team_to_prob)
+if __name__ == "__main__":
+    app.run(debug=True)

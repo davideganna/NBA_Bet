@@ -53,13 +53,13 @@ def build_moving_average_dataset(logger, average_n: int):
         average_df,
         dfs[
             [
-                "season", 
-                "index", 
-                "Elo_pregame_away", 
-                "Elo_pregame_home", 
-                "Elo_postgame_away", 
+                "season",
+                "index",
+                "Elo_pregame_away",
+                "Elo_pregame_home",
+                "Elo_postgame_away",
                 "Elo_postgame_home",
-                "Winner"
+                "Winner",
             ]
         ],
         left_on=["season", "index_sspg"],

@@ -9,6 +9,7 @@ def get_elo_probs(elo_away_team: float, elo_home_team: float):
     exp_win_home_team = 1 / (1 + 10 ** ((elo_away_team - elo_home_team) / 400))
     return exp_win_away_team, exp_win_home_team
 
+
 def update_row(row, teams_seen: list):
     """
     Updates the Elo rating for team_A and team_B for a single row.
@@ -34,7 +35,7 @@ def update_row(row, teams_seen: list):
         K = 7
     else:
         K = 0
-    
+
     # Calculate Elo after the match
     elo_away_team_updated = elo_away_team + K * (winner - exp_win_away_team)
     elo_home_team_updated = elo_home_team + K * ((1 - winner) - exp_win_home_team)
@@ -60,6 +61,7 @@ def update_row(row, teams_seen: list):
 
     return row, teams_seen
 
+
 def add_elo_to_df(folder, logger):
     """
     Iteratively adds the Elo before and after each match.
@@ -77,6 +79,7 @@ def add_elo_to_df(folder, logger):
 
     df.to_csv(f"{folder}split_stats_per_game.csv", index=False)
     logger.info("Elo pre and post game has been added to split_stats_per_game.csv")
+
 
 def update_DataFrame(
     elo_df: DataFrame, away_team, home_team, away_pts, home_pts, winner
