@@ -53,7 +53,7 @@ class Extraction:
         For each game in the diff DataFrame, get in-game stats (e.g., Steals, Assists, etc.).
         """
 
-        Transformation = DataTransformer.Transformation(self.folder)
+        transformation = DataTransformer.Transformation(self.folder)
 
         df = pd.DataFrame(columns=dal.columns_data_dict)
 
@@ -89,15 +89,15 @@ class Extraction:
                             table.loc[table.index[-1], ("Basic Box Score Stats", "PTS")]
                         )
                     ) == row["HomePoints"]:
-                        Transformation.append_stats_per_game(
+                        transformation.append_stats_per_game(
                             df=table, team=row["HomeTeam"]
                         )
                     else:
-                        Transformation.append_stats_per_game(
+                        transformation.append_stats_per_game(
                             df=table, team=row["AwayTeam"]
                         )
 
-        Transformation.assign_teams_data_to_df(df)
+        transformation.assign_teams_data_to_df(df)
 
         # Concatenate new data
         stats_per_game_df = pd.read_csv(self.folder + "stats_per_game.csv")
@@ -105,4 +105,4 @@ class Extraction:
         stats_per_game_df = stats_per_game_df.drop_duplicates().reset_index(drop=True)
         stats_per_game_df.to_csv(self.folder + "stats_per_game.csv", index=False)
 
-        Transformation.split_stats_per_game()
+        transformation.split_stats_per_game()
