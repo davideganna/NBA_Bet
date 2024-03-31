@@ -24,26 +24,21 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pip install coverage
-          coverage run -m unittest discover -s tests
+          python -m unittest discover -s tests
 
       - name: Generate coverage report
         run: |
-          coverage report
-          coverage html
-
-      - name: Debug
-        run: |
-          ls -l ./htmlcov  # List contents of the HTML coverage report directory
-          ls -l ./htmlcov/*.html  # List HTML coverage report files
-          cat ./htmlcov/index.html  # Output content of the index.html file
+          pip install pytest
+          pip install pytest-cov
+          pytest --cov=./ --cov-report=xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
-          file: ./htmlcov/index.html
+          directory: ./coverage/reports/
           env_vars: OS,PYTHON
           fail_ci_if_error: true
+          files: ./coverage1.xml,./coverage2.xml,!./cache
           flags: unittests
           name: codecov-umbrella
           token: ${{ secrets.CODECOV_TOKEN }}
