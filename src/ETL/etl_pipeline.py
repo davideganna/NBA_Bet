@@ -7,7 +7,7 @@ from src.models.moving_average_dataset import build_moving_average_dataset
 
 # --------------- ETL Pipeline --------------- #
 def etl_pipeline(folder, logger):
-    extraction = Extraction(folder, config["years"][:4])
+    extraction = Extraction(folder, config["season"])
     transformation = Transformation(folder)
     loading = Loading(folder)
 
