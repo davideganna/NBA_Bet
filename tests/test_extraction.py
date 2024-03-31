@@ -11,6 +11,7 @@ import unittest
 from src.config_reader import config
 from src.ETL.DataExtractor import Extraction
 
+
 class TestExtraction(unittest.TestCase):
     """Unit tests regarding the Extraction module."""
 
@@ -26,18 +27,18 @@ class TestExtraction(unittest.TestCase):
 
         # Ensure all columns are present
         self.assertEqual(
-            cols, 
+            cols,
             [
-                'Date', 
-                'Start (ET)', 
-                'Visitor/Neutral', 
-                'PTS', 
-                'Home/Neutral', 
-                'PTS.1', 
-                'Unnamed: 6', 
-                'Unnamed: 7', 
-                'Attend.', 
-                'Arena', 
-                'Notes'
-            ]
+                "Date",
+                "Start (ET)",
+                "Visitor/Neutral",
+                "PTS",
+                "Home/Neutral",
+                "PTS.1",
+                "Unnamed: 6",
+                "Unnamed: 7",
+                "Attend.",
+                "Arena",
+                "Notes",
+            ],
         )

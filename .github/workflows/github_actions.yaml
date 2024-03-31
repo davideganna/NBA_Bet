@@ -3,7 +3,7 @@ name: NBA Bet - CI/CD
 on:
   push:
     branches:
-      - main
+      - '*'
 
 jobs:
   test:
@@ -24,3 +24,20 @@ jobs:
 
       - name: Run tests
         run: python -m unittest discover -s tests
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: davideganna/NBA_Bet
+
+  build:
+    name: Build Docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t nba-bet:latest .
