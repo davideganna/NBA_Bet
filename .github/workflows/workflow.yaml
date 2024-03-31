@@ -32,6 +32,12 @@ jobs:
           coverage report
           coverage html
 
+      - name: Debug
+        run: |
+          ls -l ./htmlcov  # List contents of the HTML coverage report directory
+          ls -l ./htmlcov/*.html  # List HTML coverage report files
+          cat ./htmlcov/index.html  # Output content of the index.html file
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
