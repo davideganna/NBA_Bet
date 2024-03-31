@@ -32,14 +32,14 @@ trans = DataTransformer.Transformation(folder)
 
 months = [
     "october",
-    #"november",
-    #"december",
-    #"january",
-    #"february",
-    #"march",
-    #"april",
-    #"may",
-    #"june",
+    # "november",
+    # "december",
+    # "january",
+    # "february",
+    # "march",
+    # "april",
+    # "may",
+    # "june",
 ]
 
 # Create current season folder if it doesn't exist
