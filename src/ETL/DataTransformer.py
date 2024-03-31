@@ -37,8 +37,16 @@ class Transformation:
             3) Removing rows containing games not yet played
         """
 
-        df_month = (
-            df_month.rename(
+        df_polished = (
+            df_month.filter(
+                items=[
+                    "Visitor/Neutral",
+                    "Home/Neutral",
+                    "PTS",
+                    "PTS.1"
+                ]
+            )
+            .rename(
                 columns={
                     "Visitor/Neutral": "AwayTeam",
                     "Home/Neutral": "HomeTeam",
@@ -46,13 +54,12 @@ class Transformation:
                     "PTS.1": "HomePoints",
                 }
             )
-            .drop(columns=["Unnamed: 6", "Unnamed: 7", "Attend.", "Arena", "Notes"])
             .dropna(subset=["AwayPoints", "HomePoints"])
         )
 
         csv_path = Path(os.getcwd() + "/" + self.folder + current_month + "_data.csv")
 
-        return df_month, csv_path
+        return df_polished, csv_path
 
     @staticmethod
     def append_stats_per_game(df: DataFrame, team: str):

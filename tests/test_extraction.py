@@ -1,11 +1,4 @@
-"""
-
-Unit tests regarding the Extraction module.
-
-Run the tests rom the root folder using:
-python -m unittest discover -s tests
-
-"""
+"""Unit tests regarding the Extraction module."""
 
 import unittest
 from src.config_reader import config
