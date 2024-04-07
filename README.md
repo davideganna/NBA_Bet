@@ -1,4 +1,6 @@
 [![codecov](https://codecov.io/gh/davideganna/NBA_Bet/graph/badge.svg?token=DHDLX2UXH0)](https://codecov.io/gh/davideganna/NBA_Bet)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 
 # NBA Bet 🏀
 
